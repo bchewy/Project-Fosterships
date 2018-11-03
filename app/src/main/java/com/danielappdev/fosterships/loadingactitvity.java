@@ -15,7 +15,12 @@ public class loadingactitvity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loadingactitvity);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myref = database.getReference("Rooms table").child("room1").child("room1code");
+        myref.setValue("1");
 
+        DatabaseReference my2nd = database.getReference("participants in rooms table").child("1st person pid");
+        my2nd.setValue("000001");
     }
 }
 
