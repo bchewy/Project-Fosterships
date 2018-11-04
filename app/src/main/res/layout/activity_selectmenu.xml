@@ -12,7 +12,7 @@
         android:id="@+id/textView4"
         android:layout_width="263dp"
         android:layout_height="49dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="Enter a game!"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -21,7 +21,7 @@
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
@@ -35,9 +35,9 @@
         android:textColor="@android:color/white"
         android:textColorLink="@android:color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
     <TextView
@@ -47,7 +47,7 @@
         android:layout_marginBottom="8dp"
         android:text="@ProjectFosterships"
         android:textColor="@android:color/white"
-        android:textSize="12sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -55,55 +55,35 @@
 
     <Button
         android:id="@+id/btnJoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="123dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:background="@android:color/holo_blue_dark"
+        android:background="#00a8ff"
         android:radius="0dp"
-        android:text="Join->"
+        android:text="Join Room ->"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <Button
-        android:id="@+id/btnBook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/holo_blue_dark"
-        android:text="Book->"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.74" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="306dp" />
+        app:layout_constraintGuide_percent="0.47" />
 
     <EditText
         android:id="@+id/txtInviteCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="251dp"
+        android:layout_height="38dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight=".75"
 
         android:ems="10"
+        android:hint="#YourGameInviteCode"
         android:inputType="textPersonName"
-        android:text="Enter code"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.38977072" />
+        app:layout_constraintGuide_percent="0.32" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
@@ -123,13 +103,5 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="95dp"
         app:layout_constraintGuide_percent="0.1" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="169dp"
-        app:layout_constraintGuide_percent="0.31" />
 
 </android.support.constraint.ConstraintLayout>

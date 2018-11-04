@@ -22,7 +22,7 @@ public class selectmenu extends AppCompatActivity {
 
         inviteCode = findViewById(R.id.txtInviteCode);
         btnJoin = findViewById(R.id.btnJoin);
-        btnBook = findViewById(R.id.btnBook);
+        //btnBook = findViewById(R.id.btnBook);
 
         textview2 = findViewById(R.id.textView2);
 
