@@ -80,7 +80,7 @@
         android:layout_height="38dp"
         android:layout_marginLeft="10dp"
         android:layout_weight=".75"
-        android:background="@drawable/rounded_edittext"
+
 
         android:ems="10"
         android:hint="#YourGameInviteCode"
