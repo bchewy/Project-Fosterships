@@ -30,12 +30,17 @@ public class loadingactitvity extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         //Instantiate
-        DatabaseReference setEventID = database.getReference("Events").child("eventID");
-        setEventID.setValue("Camp Tamara");
-        DatabaseReference setEventCode = database.getReference("Events").child("eventCode");
-        setEventCode.setValue("#CTamara");
-        DatabaseReference setEventName = database.getReference("Events").child("eventName");
-        setEventName.setValue("Camp Tamara");
+        DatabaseReference setRoomID = database.getReference("Events").child("eventID");
+        setRoomID.setValue("013153");
+        DatabaseReference set2RoomID = database.getReference("Events").child("2ndeventID");
+        set2RoomID.setValue("024724");
+
+        //for participants in rooms id
+        DatabaseReference PIR = database.getReference("PIR").child("PID");
+        PIR.setValue("af94294719411313");
+
+
+        //
 
 
 
