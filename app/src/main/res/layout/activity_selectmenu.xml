@@ -74,14 +74,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.47" />
 
+
     <EditText
         android:id="@+id/txtInviteCode"
         android:layout_width="251dp"
         android:layout_height="38dp"
         android:layout_marginLeft="10dp"
         android:layout_weight=".75"
-
-
         android:ems="10"
         android:hint="#YourGameInviteCode"
         android:inputType="textPersonName"
@@ -104,5 +103,50 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="95dp"
         app:layout_constraintGuide_percent="0.1" />
+
+    <Button
+        android:id="@+id/btnBook"
+        android:layout_width="123dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#00a8ff"
+        android:radius="0dp"
+        android:text="Book Room"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="#33461 "
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline10" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.81" />
+
 
 </android.support.constraint.ConstraintLayout>
