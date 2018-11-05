@@ -51,23 +51,20 @@ public class BookingActivity extends AppCompatActivity {
     }
     private void readData(final String... args){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference();
-        reference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference ref = database.getReference();
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+            public void onDataChange(DataSnapshot snapshot) {
+                Log.e("Count " ,""+snapshot.getChildrenCount());
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
             Event events = postSnapshot.getValue(Event.class);
-                    Log.d("getData", events.eventAdminEmail);
-
+                    Log.e("Get Data", events.getEventDetails());
                 }
-                //ShowDialogRead(events.eventName);
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.e("The read failed: " ,firebaseError.getMessage());
             }
-
         });
     }
 
