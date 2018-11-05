@@ -57,7 +57,7 @@ public class BookingActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
             Event events = postSnapshot.getValue(Event.class);
-                    Log.d("getData", events.eventName);
+                    Log.d("getData", events.eventAdminEmail);
 
                 }
                 //ShowDialogRead(events.eventName);
@@ -74,11 +74,11 @@ public class BookingActivity extends AppCompatActivity {
     private int saveData(Event e) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         int n =generateEventID();
-        DatabaseReference refadmin = database.getReference("Events").child(e.eventName).child("EventAdminEmail");
+        DatabaseReference refadmin = database.getReference("Events").child(e.eventName).child("eventAdminEmail");
         refadmin.setValue(e.eventAdminEmail);
-        DatabaseReference refnoppl = database.getReference("Events").child(e.eventName).child("EventNoOfPpl");
+        DatabaseReference refnoppl = database.getReference("Events").child(e.eventName).child("eventNoOfPpl");
         refnoppl.setValue(e.eventExpectedNoOfPpl);
-        DatabaseReference refEventID = database.getReference("Events").child(e.eventName).child("EventID");
+        DatabaseReference refEventID = database.getReference("Events").child(e.eventName).child("eventID");
         refEventID.setValue(n);
         return n;
 
