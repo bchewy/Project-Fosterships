@@ -23,6 +23,7 @@ public class loadingactitvity extends AppCompatActivity {
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
     private static final String TAG = "LoadingActvity";
+    private DatabaseReference mDatabase;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +38,9 @@ public class loadingactitvity extends AppCompatActivity {
 
         //for participants in rooms id
         DatabaseReference PIR = database.getReference("PIR").child("PID");
-        PIR.setValue("af94294719411313");
+        PIR.setValue("af9429471941133");
+        Log.d(TAG, "working");
 
-
-        //
 
 
 
