@@ -63,20 +63,7 @@ public class BookingActivity extends AppCompatActivity {
 
             }
         });
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                Log.e("Count " ,""+snapshot.getChildrenCount());
-//                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-//            Event events = postSnapshot.getValue(Event.class);
-//                    Log.e("Get Data", events.getEventDetails());
-//                }
-//            }
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//                Log.e("The read failed: " ,firebaseError.getMessage());
-//            }
-//        });
+
     }
 
     private int saveData(Event e) {
