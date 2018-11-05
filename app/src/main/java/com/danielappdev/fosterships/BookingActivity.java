@@ -2,16 +2,21 @@ package com.danielappdev.fosterships;
 
 import java.util.Random;
 
+import android.app.usage.EventStats;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.app.AlertDialog;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class BookingActivity extends AppCompatActivity {
 
@@ -35,15 +40,38 @@ public class BookingActivity extends AppCompatActivity {
                 //TODO
                 // saves data into database and prompts a text
                 Event newEvent = new Event(txtEventName.getText().toString(), txtAdminEmail.getText().toString(), txtNoPpl.getText().toString());
-                saveData(newEvent);
-                ShowDialog();
+                int eventID = saveData(newEvent);
+                ShowDialog(eventID);
+                //reads data
+                readData();
 
             }
         });
 
     }
+    private void readData(final String... args){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference();
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+            Event events = postSnapshot.getValue(Event.class);
+                    Log.d("getData", events.eventName);
 
-    private void saveData(Event e) {
+                }
+                //ShowDialogRead(events.eventName);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    private int saveData(Event e) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         int n =generateEventID();
         DatabaseReference refadmin = database.getReference("Events").child(e.eventName).child("EventAdminEmail");
@@ -52,12 +80,25 @@ public class BookingActivity extends AppCompatActivity {
         refnoppl.setValue(e.eventExpectedNoOfPpl);
         DatabaseReference refEventID = database.getReference("Events").child(e.eventName).child("EventID");
         refEventID.setValue(n);
+        return n;
 
     }
-    private void ShowDialog(){
+    private void ShowDialog(int text){
         AlertDialog alertDialog = new AlertDialog.Builder(BookingActivity.this).create();
         alertDialog.setTitle("Alert");
-        alertDialog.setMessage("Booking has been made!.. We will follow up with an email.");
+        alertDialog.setMessage("Booking has been made!.. We will follow up with an email."+" EventID:"+text);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+    private void ShowDialogRead(String text){
+        AlertDialog alertDialog = new AlertDialog.Builder(BookingActivity.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Event name:"+text);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
