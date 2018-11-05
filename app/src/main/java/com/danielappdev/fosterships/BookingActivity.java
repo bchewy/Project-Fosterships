@@ -45,11 +45,7 @@ public class BookingActivity extends AppCompatActivity {
 
     private void saveData(Event e) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        Random rand = new Random();
-
-        int n = rand.nextInt(10000) + 1;
-
+        int n =generateEventID();
         DatabaseReference refadmin = database.getReference("Events").child(e.eventName).child("EventAdminEmail");
         refadmin.setValue(e.eventAdminEmail);
         DatabaseReference refnoppl = database.getReference("Events").child(e.eventName).child("EventNoOfPpl");
@@ -61,7 +57,7 @@ public class BookingActivity extends AppCompatActivity {
     private void ShowDialog(){
         AlertDialog alertDialog = new AlertDialog.Builder(BookingActivity.this).create();
         alertDialog.setTitle("Alert");
-        alertDialog.setMessage("Booking has been made... mother fucker!");
+        alertDialog.setMessage("Booking has been made!.. We will follow up with an email.");
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -69,5 +65,10 @@ public class BookingActivity extends AppCompatActivity {
                     }
                 });
         alertDialog.show();
+    }
+    private int generateEventID(){
+        Random rand = new Random();
+        int n = rand.nextInt(10000) + 1;
+        return n;
     }
 }
