@@ -28,6 +28,7 @@ public class BookingActivity extends AppCompatActivity {
     Button btnCheckDetails;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +45,7 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Event newEvent = new Event(txtEventName.getText().toString(), txtAdminEmail.getText().toString(), txtNoPpl.getText().toString());
-                saveData(newEvent,database);
+                saveData(newEvent, database);
                 ShowDialog("Booking has been made. We will follow up with an email shortly!");
 
             }
@@ -57,18 +58,21 @@ public class BookingActivity extends AppCompatActivity {
         });
 
     }
-    private void loadData(final DatabaseReference reference){
+
+    private void loadData(final DatabaseReference reference) {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
-                for (DataSnapshot ds : snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String eventName = ds.child("eventName").getValue(String.class);
                     String eventAdminEmail = ds.child("eventAdminEmail").getValue(String.class);
                     String eventNoOfPpl = ds.child("eventNoOfPpl").getValue(String.class);
+                    int eventID = (ds.child("eventID").getValue(Integer.class));
 
-                    Log.d("tag1",eventName);
-                    Log.d("tag1",eventAdminEmail);
-                    Log.d("tag1",eventNoOfPpl);
+                    Log.d("tag1", Integer.toString(eventID));
+                    Log.d("tag1", eventName);
+                    Log.d("tag1", eventAdminEmail);
+                    Log.d("tag1", eventNoOfPpl);
                 }
 
             }
@@ -79,6 +83,7 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
     }
+
     private void saveData(Event e, FirebaseDatabase database) {
         DatabaseReference reference = database.getReference("Events").push();
         String key = reference.getKey();
