@@ -39,7 +39,10 @@ public class BookingActivity extends AppCompatActivity {
     }
     private void saveData(Event e){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("Events");
-        ref.setValue(e);
+        DatabaseReference refadmin = database.getReference("Events").child(e.eventName).child("EventAdminEmail");
+        refadmin.setValue(e.eventAdminEmail);
+        DatabaseReference refnoppl = database.getReference("Events").child(e.eventName).child("EventNoOfPpl");
+        refnoppl.setValue(e.eventExpectedNoOfPpl);
     }
+
 }
