@@ -14,12 +14,27 @@ public class Event {
         this.eventExpectedNoOfPpl=eventExpectedNoOfPpl;
     }
 
-    private void CreateNewEvent(String eventName,String eventAdminEmail,String eventExpectedNoOfPpl){
-        this.eventName=eventName;
-        this.eventAdminEmail=eventAdminEmail;
-        this.eventExpectedNoOfPpl=eventExpectedNoOfPpl;
+    public String getEventName() {
+        return eventName;
     }
-    public String getEventDetails(){
-        return this.eventName;
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getEventAdminEmail() {
+        return eventAdminEmail;
+    }
+
+    public void setEventAdminEmail(String eventAdminEmail) {
+        this.eventAdminEmail = eventAdminEmail;
+    }
+
+    public String getEventExpectedNoOfPpl() {
+        return eventExpectedNoOfPpl;
+    }
+
+    public void setEventExpectedNoOfPpl(String eventExpectedNoOfPpl) {
+        this.eventExpectedNoOfPpl = eventExpectedNoOfPpl;
     }
 }
