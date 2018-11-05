@@ -54,7 +54,7 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot child : dataSnapshot.getChildren()){
-                    child.getClass().toString();
+                    //do something here...
                 }
             }
 
