@@ -29,6 +29,7 @@ public class BookingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
+        //Load up buttons
         btnBookEvent = findViewById(R.id.btnBookEvent);
         txtAdminEmail = findViewById(R.id.txtadminEmail);
         txtEventName = findViewById(R.id.txtEventName);
@@ -37,35 +38,45 @@ public class BookingActivity extends AppCompatActivity {
         btnBookEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
-                // saves data into database and prompts a text
                 Event newEvent = new Event(txtEventName.getText().toString(), txtAdminEmail.getText().toString(), txtNoPpl.getText().toString());
                 int eventID = saveData(newEvent);
                 ShowDialog(eventID);
-                //reads data
                 readData();
 
             }
         });
 
     }
-    private void readData(final String... args){
+    private void readData(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                Log.e("Count " ,""+snapshot.getChildrenCount());
-                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-            Event events = postSnapshot.getValue(Event.class);
-                    Log.e("Get Data", events.getEventDetails());
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    child.getClass().toString();
                 }
             }
+
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                Log.e("The read failed: " ,firebaseError.getMessage());
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                Log.e("Count " ,""+snapshot.getChildrenCount());
+//                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+//            Event events = postSnapshot.getValue(Event.class);
+//                    Log.e("Get Data", events.getEventDetails());
+//                }
+//            }
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//                Log.e("The read failed: " ,firebaseError.getMessage());
+//            }
+//        });
     }
 
     private int saveData(Event e) {
