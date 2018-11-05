@@ -29,7 +29,7 @@ public class BookingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO
                 // saves data into database and prompts a text
-                Event()
+
                 saveData(txtEventName.getText().toString(),txtAdminEmail.getText().toString(),txtNoPpl.getText().toString());
 
 
