@@ -29,24 +29,17 @@ public class BookingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO
                 // saves data into database and prompts a text
-
-                saveData(txtEventName.getText().toString(),txtAdminEmail.getText().toString(),txtNoPpl.getText().toString());
+                Event newEvent = new Event(txtEventName.getText().toString(),txtAdminEmail.getText().toString(),txtNoPpl.getText().toString());
+                saveData(newEvent);
 
 
             }
         });
 
     }
-    private void saveData(String eventName,String txtAdminEmail,String txtNoPpl){
+    private void saveData(Event e){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference setRoomID = database.getReference("Events").child("eventID");
-        setRoomID.setValue("013153"); //is unique id generated
-        DatabaseReference setEventName = database.getReference("Events").child("eventName");
-        setEventName.setValue(eventName);
-        DatabaseReference setAdminEmail = database.getReference("Events").child("adminEmail");
-        setAdminEmail.setValue(txtAdminEmail);
-        DatabaseReference setNoPpl = database.getReference("Events").child("NoPpl");
-        setNoPpl.setValue(txtNoPpl);
-
+        DatabaseReference ref = database.getReference("Events");
+        ref.setValue(e);
     }
 }
