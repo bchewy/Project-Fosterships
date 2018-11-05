@@ -62,11 +62,11 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
                 for (DataSnapshot ds : snapshot.getChildren()){
-                    //String eventName = snapshot.getValue(String.class);
+                    String eventName = ds.child("eventName").getValue(String.class);
                     String eventAdminEmail = ds.child("eventAdminEmail").getValue(String.class);
                     String eventNoOfPpl = ds.child("eventNoOfPpl").getValue(String.class);
 
-                    //Log.d("tag1",eventName);
+                    Log.d("tag1",eventName);
                     Log.d("tag1",eventAdminEmail);
                     Log.d("tag1",eventNoOfPpl);
                 }
@@ -80,11 +80,15 @@ public class BookingActivity extends AppCompatActivity {
         });
     }
     private void saveData(Event e, FirebaseDatabase database) {
-        DatabaseReference refEventID = database.getReference("Events").push().child("eventID");
-        DatabaseReference referenceNoOfPpl = database.getReference("Events").push().child("eventNoOfPpl");
-        DatabaseReference referenceAdminEmail = database.getReference("Events").push().child("eventAdminEmail");
-        DatabaseReference reference = database.getReference("Events").push().child("eventID");
-        refEventID.setValue(e.getEventID());
+        DatabaseReference reference = database.getReference("Events").push();
+        String key = reference.getKey();
+        //setup
+        DatabaseReference referenceName = database.getReference("Events").child(key).child("eventName");
+        DatabaseReference referenceEventID = database.getReference("Events").child(key).child("eventID");
+        DatabaseReference referenceNoOfPpl = database.getReference("Events").child(key).child("eventNoOfPpl");
+        DatabaseReference referenceAdminEmail = database.getReference("Events").child(key).child("eventAdminEmail");
+        referenceName.setValue(e.getEventName());
+        referenceEventID.setValue(e.getEventID());
         referenceNoOfPpl.setValue(e.getEventExpectedNoOfPpl());
         referenceAdminEmail.setValue(e.getEventAdminEmail());
     }
