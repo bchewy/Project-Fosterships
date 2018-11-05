@@ -8,9 +8,9 @@
     tools:context=".BookingActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/txtadminEmail"
         android:layout_width="wrap_content"
-        android:layout_height="29dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:inputType="textEmailAddress"
@@ -21,13 +21,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="74dp"
-        android:layout_height="28dp"
+        android:layout_width="88dp"
+        android:layout_height="24dp"
         android:layout_marginBottom="16dp"
         android:text="Email"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"
-        app:layout_constraintEnd_toStartOf="@+id/editText"
+        app:layout_constraintEnd_toStartOf="@+id/txtadminEmail"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -38,4 +38,77 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="95dp"
         app:layout_constraintGuide_percent="0.2" />
+
+    <EditText
+        android:id="@+id/txtEventName"
+        android:layout_width="235dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="93dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Event Name"
+        app:layout_constraintEnd_toStartOf="@+id/txtEventName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="113dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="No of expected ppl"
+        app:layout_constraintEnd_toStartOf="@+id/txtNoPpl"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+
+    <EditText
+        android:id="@+id/txtNoPpl"
+        android:layout_width="237dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="164dp" />
+
+    <Button
+        android:id="@+id/btnBookEvent"
+        android:layout_width="118dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Set up event room"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline13" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="320dp"
+        app:layout_constraintGuide_percent="0.5" />
 </android.support.constraint.ConstraintLayout>
