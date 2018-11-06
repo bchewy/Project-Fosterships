@@ -42,7 +42,7 @@ public class BookingActivity extends AppCompatActivity {
         txtEventName = findViewById(R.id.txtEventName);
         txtNoPpl = findViewById(R.id.txtNoPpl);
 
-        btnCheckDetails.setVisibility(View.GONE);
+       // btnCheckDetails.setVisibility(View.GONE);
         btnBookEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
