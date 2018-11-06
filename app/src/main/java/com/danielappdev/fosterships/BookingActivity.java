@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.app.AlertDialog;
@@ -53,7 +54,7 @@ public class BookingActivity extends AppCompatActivity {
                 } else {
                     txtNoPpl.setError("Type in something for all fields...");
                     txtAdminEmail.setError("Type in something for all fields...");
-                    txtEventName.setError("Type in something for all fields...");
+                    txtEventName.setError("Is this more than 0?");
                 }
 
             }
@@ -73,7 +74,13 @@ public class BookingActivity extends AppCompatActivity {
         else
             return true;
     }
-
+    public boolean isDigits(String number){
+        if(!TextUtils.isEmpty(number)){
+            return TextUtils.isDigitsOnly(number);
+        }else{
+            return false;
+        }
+    }
     private boolean ValidateData() {
         String eName = txtEventName.getText().toString();
         String ePpl = txtNoPpl.getText().toString();
@@ -83,10 +90,10 @@ public class BookingActivity extends AppCompatActivity {
         if (!IsNullOrEmpty(eName) && !IsNullOrEmpty(ePpl) && !IsNullOrEmpty(eAdminEmail)) {
             validated = true;
         }
-        if (Integer.parseInt(ePpl) >= 1) {
+        if (isDigits(ePpl)&&Integer.valueOf(ePpl)>0) {
             validatedNo = true;
         }
-        return validated && validatedNo;
+        return validated&&validatedNo;
     }
 
     private void loadData(final DatabaseReference reference) {
