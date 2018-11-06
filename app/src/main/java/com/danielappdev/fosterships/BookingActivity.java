@@ -41,12 +41,20 @@ public class BookingActivity extends AppCompatActivity {
         txtEventName = findViewById(R.id.txtEventName);
         txtNoPpl = findViewById(R.id.txtNoPpl);
 
+        btnCheckDetails.setVisibility(View.GONE);
         btnBookEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Event newEvent = new Event(txtEventName.getText().toString(), txtAdminEmail.getText().toString(), txtNoPpl.getText().toString());
                 saveData(newEvent, database);
-                ShowDialog("Booking has been made. We will follow up with an email shortly!");
+                if (ValidateData()) {
+                    ShowDialog("Booking has been made. We will follow up with an email shortly!");
+                    //btnCheckDetails.setVisibility(View.VISIBLE);
+                } else {
+                    txtNoPpl.setError("Type in something for all fields...");
+                    txtAdminEmail.setError("Type in something for all fields...");
+                    txtEventName.setError("Type in something for all fields...");
+                }
 
             }
         });
@@ -57,6 +65,28 @@ public class BookingActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public static boolean IsNullOrEmpty(String value) {
+        if (value != null)
+            return value.length() == 0;
+        else
+            return true;
+    }
+
+    private boolean ValidateData() {
+        String eName = txtEventName.getText().toString();
+        String ePpl = txtNoPpl.getText().toString();
+        String eAdminEmail = txtAdminEmail.getText().toString();
+        boolean validated = false;
+        boolean validatedNo = false;
+        if (!IsNullOrEmpty(eName) && !IsNullOrEmpty(ePpl) && !IsNullOrEmpty(eAdminEmail)) {
+            validated = true;
+        }
+        if (Integer.parseInt(ePpl) >= 1) {
+            validatedNo = true;
+        }
+        return validated && validatedNo;
     }
 
     private void loadData(final DatabaseReference reference) {
