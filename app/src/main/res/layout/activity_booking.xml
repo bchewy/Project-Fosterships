@@ -8,26 +8,26 @@
     tools:context=".BookingActivity">
 
     <EditText
-        android:id="@+id/ETName"
+        android:id="@+id/txtadminEmail"
         android:layout_width="wrap_content"
-        android:layout_height="29dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/TVRoomName" />
+        app:layout_constraintStart_toEndOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/TVRoomName"
-        android:layout_width="74dp"
-        android:layout_height="33dp"
-        android:layout_marginBottom="12dp"
-        android:text="Room Name"
+        android:id="@+id/textView"
+        android:layout_width="88dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="Email"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"
-        app:layout_constraintEnd_toStartOf="@+id/ETName"
+        app:layout_constraintEnd_toStartOf="@+id/txtadminEmail"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -39,18 +39,50 @@
         app:layout_constraintGuide_begin="95dp"
         app:layout_constraintGuide_percent="0.2" />
 
-    <Button
-        android:id="@+id/btnBook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#00a8ff"
-        android:text="Book Room"
-        android:textAllCaps="false"
-        android:textStyle="bold"
+    <EditText
+        android:id="@+id/txtEventName"
+        android:layout_width="235dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="93dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="Event Name"
+        app:layout_constraintEnd_toStartOf="@+id/txtEventName"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="113dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="No of expected ppl"
+        app:layout_constraintEnd_toStartOf="@+id/txtNoPpl"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+
+    <EditText
+        android:id="@+id/txtNoPpl"
+        android:layout_width="237dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
     <android.support.constraint.Guideline
@@ -58,19 +90,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.39" />
+        app:layout_constraintGuide_begin="164dp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="106dp"
-        android:layout_height="37dp"
+    <Button
+        android:id="@+id/btnBookEvent"
+        android:layout_width="118dp"
+        android:layout_height="70dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Your code is "
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:text="Set up event room"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
@@ -79,30 +109,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.53" />
-
-    <TextView
-        android:id="@+id/TVCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="#00a8ff"
-        android:layout_marginEnd="8dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="432dp" />
+        app:layout_constraintGuide_begin="320dp"
+        app:layout_constraintGuide_percent="0.5" />
 </android.support.constraint.ConstraintLayout>
