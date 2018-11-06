@@ -52,9 +52,9 @@ public class BookingActivity extends AppCompatActivity {
                     ShowDialog("Booking has been made. We will follow up with an email shortly!");
                     //btnCheckDetails.setVisibility(View.VISIBLE);
                 } else {
-                    txtNoPpl.setError("Type in something for all fields...");
+                    txtEventName.setError("Type in something for all fields...");
                     txtAdminEmail.setError("Type in something for all fields...");
-                    txtEventName.setError("Is this more than 0?");
+                    txtNoPpl.setError("Is this more than 0?");
                 }
 
             }
