@@ -23,7 +23,8 @@
         <activity
             android:name=".selectmenu"
             android:screenOrientation="portrait" />
-        <activity android:name=".BookingActivity"></activity>
+        <activity android:name=".BookingActivity" />
+        <activity android:name=".normaluserwaitingscreen"></activity>
     </application>
 
 </manifest>
