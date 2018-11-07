@@ -42,8 +42,9 @@ public class selectmenu extends AppCompatActivity {
            public void onClick(View view) {
             String codeinput =inviteCode.getText().toString();
             //need to check database and see if codeinput is inside
-               // if code input is not, print out invalid code.
-
+               // if code input is not, print out invalid code
+                   Intent intent = new Intent(getApplicationContext(), normaluserwaitingscreen.class);
+                   startActivity(intent);
 
 
            }
@@ -55,7 +56,6 @@ public class selectmenu extends AppCompatActivity {
                startActivity(intent);
            }
        });
-
 
     }
 

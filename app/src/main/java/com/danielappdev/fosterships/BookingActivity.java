@@ -20,7 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class BookingActivity extends AppCompatActivity {
+public class
+BookingActivity extends AppCompatActivity {
 
     Button btnBookEvent;
     TextView txtAdminEmail;
@@ -42,7 +43,7 @@ public class BookingActivity extends AppCompatActivity {
         txtEventName = findViewById(R.id.txtEventName);
         txtNoPpl = findViewById(R.id.txtNoPpl);
 
-        btnCheckDetails.setVisibility(View.GONE);
+       // btnCheckDetails.setVisibility(View.GONE);
         btnBookEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
