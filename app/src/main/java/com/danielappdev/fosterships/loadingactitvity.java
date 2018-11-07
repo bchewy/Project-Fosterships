@@ -28,7 +28,7 @@ public class loadingactitvity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loadingactitvity);
-
+/*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         //Instantiate
         DatabaseReference setRoomID = database.getReference("Events").child("eventID");
@@ -38,10 +38,10 @@ public class loadingactitvity extends AppCompatActivity {
 
         //for participants in rooms id
         DatabaseReference PIR = database.getReference("PIR").child("PID");
-        PIR.setValue("af9429471941133");
+        PIR.setValue("cf9429471941133");
         Log.d(TAG, "working");
 
-
+*/
 
 
         ConstraintLayout rlayout = (ConstraintLayout) findViewById(R.id.relativeloading);
