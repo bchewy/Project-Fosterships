@@ -29,7 +29,7 @@ public class BookingActivity extends AppCompatActivity {
     Button btnCheckDetails;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
-
+    String eventName ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +47,10 @@ public class BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Event newEvent = new Event(txtEventName.getText().toString(), txtAdminEmail.getText().toString(), txtNoPpl.getText().toString());
-                saveData(newEvent, database);
                 if (ValidateData()) {
+                    eventName = saveData(newEvent, database);
                     ShowDialog("Booking has been made. We will follow up with an email shortly!");
-                    //btnCheckDetails.setVisibility(View.VISIBLE);
+                    btnCheckDetails.setVisibility(View.VISIBLE);
                 } else {
                     txtEventName.setError("Type in something for all fields...");
                     txtAdminEmail.setError("Type in something for all fields...");
@@ -62,18 +62,19 @@ public class BookingActivity extends AppCompatActivity {
         btnCheckDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData(defReference);
+                loadData(defReference,eventName);
             }
         });
 
     }
-
+    //Check if string null or empty.
     public static boolean IsNullOrEmpty(String value) {
         if (value != null)
             return value.length() == 0;
         else
             return true;
     }
+    //Check if the string is a digit.
     public boolean isDigits(String number){
         if(!TextUtils.isEmpty(number)){
             return TextUtils.isDigitsOnly(number);
@@ -96,20 +97,26 @@ public class BookingActivity extends AppCompatActivity {
         return validated&&validatedNo;
     }
 
-    private void loadData(final DatabaseReference reference) {
+    private void loadData(final DatabaseReference reference, final String eName) {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     String eventName = ds.child("eventName").getValue(String.class);
-                    String eventAdminEmail = ds.child("eventAdminEmail").getValue(String.class);
-                    String eventNoOfPpl = ds.child("eventNoOfPpl").getValue(String.class);
-                    int eventID = (ds.child("eventID").getValue(Integer.class));
+                    if(eventName.equals(eName)){
+                        String eventAdminEmail = ds.child("eventAdminEmail").getValue(String.class);
+                        String eventNoOfPpl = ds.child("eventNoOfPpl").getValue(String.class);
+                        int eventID = (ds.child("eventID").getValue(Integer.class));
 
-                    Log.d("tag1", Integer.toString(eventID));
-                    Log.d("tag1", eventName);
-                    Log.d("tag1", eventAdminEmail);
-                    Log.d("tag1", eventNoOfPpl);
+                        Log.d("tag2", Integer.toString(eventID));
+                        Log.d("tag2", eventName);
+                        Log.d("tag2", eventAdminEmail);
+                        Log.d("tag2", eventNoOfPpl);
+                        break;
+                    }
+                    else{
+                    }
+
                 }
 
             }
@@ -121,7 +128,7 @@ public class BookingActivity extends AppCompatActivity {
         });
     }
 
-    private void saveData(Event e, FirebaseDatabase database) {
+    private String saveData(Event e, FirebaseDatabase database) {
         DatabaseReference reference = database.getReference("Events").push();
         String key = reference.getKey();
         //setup
@@ -133,6 +140,8 @@ public class BookingActivity extends AppCompatActivity {
         referenceEventID.setValue(e.getEventID());
         referenceNoOfPpl.setValue(e.getEventExpectedNoOfPpl());
         referenceAdminEmail.setValue(e.getEventAdminEmail());
+        return e.getEventName();
+
     }
 
     private void ShowDialog(String text) {
