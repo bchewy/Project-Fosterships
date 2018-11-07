@@ -57,14 +57,6 @@ public class selectmenu extends AppCompatActivity {
            }
        });
 
-       btnBook.setOnClickListener(new View.OnClickListener(){
-           @Override
-           public void onClick(View view){
-               Intent intent = new Intent(getApplicationContext(), normaluserwaitingscreen.class);
-               startActivity(intent);
-           }
-
-       });
     }
 
 
