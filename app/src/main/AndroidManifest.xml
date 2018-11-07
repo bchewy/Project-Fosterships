@@ -24,7 +24,8 @@
             android:name=".selectmenu"
             android:screenOrientation="portrait" />
         <activity android:name=".BookingActivity" />
-        <activity android:name=".normaluserwaitingscreen"></activity>
+        <activity android:name=".normaluserwaitingscreen" />
+        <activity android:name=".gamephase"></activity>
     </application>
 
 </manifest>
