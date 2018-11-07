@@ -11,12 +11,15 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="372dp"
+        android:layout_width="wrap_content"
         android:layout_height="238dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bananav2"
-        tools:layout_editor_absoluteX="0dp" />
+        app:srcCompat="@drawable/bananav2" />
 
     <TextView
         android:id="@+id/textView10"
@@ -61,20 +64,23 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:backgroundTint="#686de0"
-        android:layout_height="wrap_content"
+        android:layout_width="255dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#f9ca24"
         android:ems="10"
         android:inputType="numberPassword"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="410dp" />
+        android:textColor="#f9ca24"
+        app:layout_constraintBottom_toTopOf="@+id/guideline20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="522dp" />
+        app:layout_constraintGuide_percent="0.9206349" />
 
     <TextView
         android:id="@+id/textView12"
@@ -93,8 +99,18 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="#f6e58d"
         android:text="Button"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
-        tools:layout_editor_absoluteX="148dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8095238" />
 </android.support.constraint.ConstraintLayout>
