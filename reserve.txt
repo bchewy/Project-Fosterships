@@ -1,0 +1,36 @@
+package com.danielappdev.fosterships;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class FbDb {
+    public boolean writeroom(){
+        //need to input in a room
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //Instantiate
+        DatabaseReference setEventID = database.getReference("Events").child("eventID");
+        setEventID.setValue("Camp Tamara");
+        DatabaseReference setEventCode = database.getReference("Events").child("eventCode");
+        setEventCode.setValue("#CTamara");
+        DatabaseReference setEventName = database.getReference("Events").child("eventName");
+        setEventName.setValue("Camp Tamara");
+
+        // is it easier to ask them to input in the code and the name
+        //if we generate then need to go thru a for loop that iterates the db reference
+        return true;
+    }
+}
+
+
+
+
+//
+  FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //Instantiate
+        DatabaseReference setRoomID = database.getReference("Events").child("eventID");
+        setRoomID.setValue("013153");
+        DatabaseReference set2RoomID = database.getReference("Events").child("2ndeventID");
+        set2RoomID.setValue("024724");
+
+ DatabaseReference PIR = database.getReference("PIR").child("PID");
+        PIR.setValue("af9429471941133");
