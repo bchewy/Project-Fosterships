@@ -31,19 +31,18 @@ BookingActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
     Integer eventID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
-
-        //Look for the different ui stuff
         btnBookEvent = findViewById(R.id.btnBookEvent);
         btnCheckDetails = findViewById(R.id.btnCheckDetails);
         txtAdminEmail = findViewById(R.id.txtadminEmail);
         txtEventName = findViewById(R.id.txtEventName);
         txtNoPpl = findViewById(R.id.txtNoPpl);
 
-       // btnCheckDetails.setVisibility(View.GONE);
+        // btnCheckDetails.setVisibility(View.GONE);
         btnBookEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,11 +62,12 @@ BookingActivity extends AppCompatActivity {
         btnCheckDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData(defReference,eventID);
+                loadData(defReference, eventID);
             }
         });
 
     }
+
     //Check if string null or empty.
     public static boolean IsNullOrEmpty(String value) {
         if (value != null)
@@ -75,14 +75,17 @@ BookingActivity extends AppCompatActivity {
         else
             return true;
     }
+
     //Check if the string is a digit.
-    public boolean isDigits(String number){
-        if(!TextUtils.isEmpty(number)){
+    public boolean isDigits(String number) {
+        if (!TextUtils.isEmpty(number)) {
             return TextUtils.isDigitsOnly(number);
-        }else{
+        } else {
             return false;
         }
     }
+
+    //Validates the data from the txtbox etc!
     private boolean ValidateData() {
         String eName = txtEventName.getText().toString();
         String ePpl = txtNoPpl.getText().toString();
@@ -92,19 +95,19 @@ BookingActivity extends AppCompatActivity {
         if (!IsNullOrEmpty(eName) && !IsNullOrEmpty(ePpl) && !IsNullOrEmpty(eAdminEmail)) {
             validated = true;
         }
-        if (isDigits(ePpl)&&Integer.valueOf(ePpl)>0) {
+        if (isDigits(ePpl) && Integer.valueOf(ePpl) > 0) {
             validatedNo = true;
         }
-        return validated&&validatedNo;
+        return validated && validatedNo;
     }
 
     private void loadData(final DatabaseReference reference, final Integer eventIDCurrent) {
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     int eventID = (ds.child("eventID").getValue(Integer.class));
-                    if(eventID==(eventIDCurrent)){
+                    if (eventID == (eventIDCurrent)) {
                         String eventName = ds.child("eventName").getValue(String.class);
                         String eventAdminEmail = ds.child("eventAdminEmail").getValue(String.class);
                         String eventNoOfPpl = ds.child("eventNoOfPpl").getValue(String.class);
@@ -113,14 +116,13 @@ BookingActivity extends AppCompatActivity {
                         Log.d("tag2", eventName);
                         Log.d("tag2", eventAdminEmail);
                         Log.d("tag2", eventNoOfPpl);
-                        String text = "EventName:"+eventName+"\n"
-                                +"Event Code:"+eventID+"\n"+
-                                "Event Admin email"+eventAdminEmail+"\n"
-                                +"Event Expected Number:"+eventNoOfPpl;
+                        String text = "EventName:" + eventName + "\n"
+                                + "Event Code:" + eventID + "\n" +
+                                "Event Admin email" + eventAdminEmail + "\n"
+                                + "Event Expected Number:" + eventNoOfPpl;
                         ShowDialog(text);
                         break;
-                    }
-                    else{
+                    } else {
                     }
 
                 }
