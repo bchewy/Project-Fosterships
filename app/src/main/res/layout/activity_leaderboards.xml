@@ -67,19 +67,22 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="1"
         android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="@+id/guideline25"
-        tools:layout_editor_absoluteX="26dp" />
+        app:layout_constraintEnd_toStartOf="@+id/textView16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <TextView
         android:id="@+id/textView16"
-        android:layout_width="144dp"
-        android:layout_height="22dp"
+        android:layout_width="223dp"
+        android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:text="Team Banana"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/holo_orange_light"
         app:layout_constraintTop_toTopOf="@+id/guideline25"
         tools:layout_editor_absoluteX="61dp" />
 
@@ -87,37 +90,44 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="80"
         android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="@+id/guideline25"
-        tools:layout_editor_absoluteX="313dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="2"
         android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="26dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView19"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="194dp" />
 
     <TextView
         android:id="@+id/textView19"
-        android:layout_width="148dp"
-        android:layout_height="21dp"
+        android:layout_width="227dp"
+        android:layout_height="19dp"
         android:text="Team Dragonfruit"
         android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteX="59dp"
         tools:layout_editor_absoluteY="192dp" />
 
     <TextView
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:text="70"
         android:textColor="@android:color/black"
-        tools:layout_editor_absoluteX="313dp"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="192dp" />
 
     <android.support.constraint.Guideline
