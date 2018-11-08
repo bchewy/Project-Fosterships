@@ -16,15 +16,12 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".selectmenu"
-            android:screenOrientation="portrait">
-
-
-        </activity>
+        <activity
+            android:name=".selectmenu"
+            android:screenOrientation="portrait" />
         <activity android:name=".BookingActivity" />
         <activity android:name=".normaluserwaitingscreen" />
         <activity android:name=".gamephase" />
