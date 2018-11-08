@@ -29,7 +29,7 @@ public class selectmenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectmenu);
-
+        Log.d("selectmenu", "runs on selectmenu");
         inviteCode = findViewById(R.id.txtInviteCode);
         btnJoin = findViewById(R.id.btnJoin);
         btnBook = findViewById(R.id.btnBook);
