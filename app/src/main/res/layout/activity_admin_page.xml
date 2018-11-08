@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
     <TextView
-        android:id="@+id/eventAdminfield"
+        android:id="@+id/eventAdminField"
         android:layout_width="224dp"
         android:layout_height="18dp"
         android:layout_marginStart="8dp"
@@ -74,10 +74,9 @@
         app:layout_constraintTop_toTopOf="@+id/guideline27" />
 
     <Button
-        android:id="@+id/btnJoin2"
+        android:id="@+id/btnPlayer3"
         android:layout_width="123dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="#00a8ff"
@@ -85,15 +84,14 @@
         android:text="Player 3"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toStartOf="@+id/btnJoin3"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline31"
         app:layout_constraintTop_toTopOf="@+id/guideline29" />
 
     <Button
-        android:id="@+id/btnJoin3"
+        android:id="@+id/btnPlayer2"
         android:layout_width="123dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:background="#00a8ff"
         android:radius="0dp"
@@ -101,22 +99,20 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline29"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/guideline31" />
 
     <Button
-        android:id="@+id/btnJoin4"
+        android:id="@+id/btnPlayer4"
         android:layout_width="123dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:background="#00a8ff"
         android:radius="0dp"
         android:text="Player 4"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnJoin"
+        app:layout_constraintStart_toStartOf="@+id/guideline31"
         app:layout_constraintTop_toTopOf="@+id/guideline29" />
 
     <TextView
@@ -135,10 +131,9 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnJoin"
+        android:id="@+id/btnPlayer1"
         android:layout_width="123dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="#00a8ff"
@@ -147,8 +142,7 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline29"
-        app:layout_constraintEnd_toStartOf="@+id/btnJoin3"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline31" />
 
     <android.support.constraint.Group
         android:id="@+id/group"
@@ -237,4 +231,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="344dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="202dp" />
 </android.support.constraint.ConstraintLayout>

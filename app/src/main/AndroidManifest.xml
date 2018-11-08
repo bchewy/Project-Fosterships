@@ -12,11 +12,6 @@
         <activity
             android:name=".loadingactitvity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".selectmenu"
@@ -25,7 +20,15 @@
         <activity android:name=".normaluserwaitingscreen" />
         <activity android:name=".gamephase" />
         <activity android:name=".authentication" />
-        <activity android:name=".AdminPage"></activity>
+        <activity android:name=".AdminPage">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

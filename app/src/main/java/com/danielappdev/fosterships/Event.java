@@ -1,6 +1,9 @@
 package com.danielappdev.fosterships;
 
+import android.util.Log;
+
 import java.util.Random;
+
 
 public class Event {
     private int eventID;
@@ -57,4 +60,5 @@ public class Event {
         eventID = n;
         return eventID;
     }
+
 }
