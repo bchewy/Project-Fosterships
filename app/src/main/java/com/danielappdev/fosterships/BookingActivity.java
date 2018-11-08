@@ -49,7 +49,7 @@ BookingActivity extends AppCompatActivity {
                 Event newEvent = new Event(txtEventName.getText().toString(), txtAdminEmail.getText().toString(), txtNoPpl.getText().toString());
                 if (ValidateData()) {
                     eventID = saveData(newEvent, database);
-                    ShowDialog("Booking has been made. We will follow up with an email shortly!");
+                    ShowDialog("Booking confirmation","Booking has been made. We will follow up with an email shortly!");
                     btnCheckDetails.setVisibility(View.VISIBLE);
                 } else {
                     txtEventName.setError("Type in something for all fields...");
@@ -120,14 +120,14 @@ BookingActivity extends AppCompatActivity {
                                 + "Event Code:" + eventID + "\n" +
                                 "Event Admin email" + eventAdminEmail + "\n"
                                 + "Event Expected Number:" + eventNoOfPpl;
-                        ShowDialog(text);
+                        ShowDialog("Event Data..!",text);
                         break;
                     } else {
                     }
 
                 }
 
-            }
+             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -151,10 +151,10 @@ BookingActivity extends AppCompatActivity {
         return e.getEventID();
 
     }
-
-    private void ShowDialog(String text) {
+    //Starts a Show Dialog prompt on the screen with title/text!
+    private void ShowDialog(String title,String text) {
         AlertDialog alertDialog = new AlertDialog.Builder(BookingActivity.this).create();
-        alertDialog.setTitle("Alert!!");
+        alertDialog.setTitle(title);
         alertDialog.setMessage(text);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok!",
                 new DialogInterface.OnClickListener() {
