@@ -43,7 +43,7 @@ public class loadingactitvity extends AppCompatActivity {
 
 */
 
-
+        Log.d(TAG, "runs");
         ConstraintLayout rlayout = (ConstraintLayout) findViewById(R.id.relativeloading);
         //getting ANDROID_ID
         String android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -66,8 +66,6 @@ public class loadingactitvity extends AppCompatActivity {
         });
 
     }
-
-
 
 
 }
