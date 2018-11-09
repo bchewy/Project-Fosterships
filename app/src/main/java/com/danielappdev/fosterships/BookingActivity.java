@@ -46,6 +46,7 @@ BookingActivity extends AppCompatActivity {
         txtNoPpl = findViewById(R.id.txtNoPpl);
 
         btnCheckDetails.setVisibility(View.GONE);//Remove check details button by default.
+        btnAdminPage.setVisibility(View.GONE);
         btnBookEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +55,7 @@ BookingActivity extends AppCompatActivity {
                     eventID = saveData(newEvent, database);
                     ShowDialog("Booking confirmation","Booking has been made. We will follow up with an email shortly!");
                     btnCheckDetails.setVisibility(View.VISIBLE);
+                    btnAdminPage.setVisibility(View.VISIBLE);
                 } else {
                     txtEventName.setError("Type in something for all fields...");
                     txtAdminEmail.setError("Type in something for all fields...");
@@ -71,7 +73,7 @@ BookingActivity extends AppCompatActivity {
         btnAdminPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent=new Intent(BookingActivity.this, AdminPage.class).putExtra("<EventID>", eventID);
+                Intent myIntent=new Intent(getApplicationContext(), AdminPage.class).putExtra("<EventID>", eventID);
                 startActivity(myIntent);
             }
         });
