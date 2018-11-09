@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline32"
-        app:srcCompat="@drawable/tigertwo" />
+        app:srcCompat="@drawable/turtleTwoColumnTwo" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline32"
