@@ -13,6 +13,7 @@ public class selectmenu extends AppCompatActivity {
 
     Button btnJoin;
     Button btnBook;
+    Button btnAdminPage;
     EditText inviteCode;
     TextView textview2;
 
@@ -24,7 +25,7 @@ public class selectmenu extends AppCompatActivity {
         inviteCode = findViewById(R.id.txtInviteCode);
         btnJoin = findViewById(R.id.btnPlayer1);
         btnBook = findViewById(R.id.btnBook);
-        //btnBook = findViewById(R.id.btnBook);
+        btnAdminPage = findViewById(R.id.btnAdminPage);
 
         textview2 = findViewById(R.id.textView2);
 
@@ -44,6 +45,13 @@ public class selectmenu extends AppCompatActivity {
            @Override
            public void onClick(View view) {
                Intent intent = new Intent(getApplicationContext(),BookingActivity.class);
+               startActivity(intent);
+           }
+       });
+       btnAdminPage.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(getApplicationContext(),AdminPage.class);
                startActivity(intent);
            }
        });
