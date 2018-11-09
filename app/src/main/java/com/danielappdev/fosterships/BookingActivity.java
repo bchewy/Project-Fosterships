@@ -4,6 +4,7 @@ import java.util.Random;
 
 import android.app.usage.EventStats;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.service.autofill.Dataset;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ BookingActivity extends AppCompatActivity {
     TextView txtEventName;
     TextView txtNoPpl;
     Button btnCheckDetails;
+    Button btnAdminPage;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
     Integer eventID;
@@ -37,12 +39,13 @@ BookingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
         btnBookEvent = findViewById(R.id.btnBookEvent);
+        btnAdminPage = findViewById(R.id.btnAdminPage);
         btnCheckDetails = findViewById(R.id.btnCheckDetails);
         txtAdminEmail = findViewById(R.id.txtadminEmail);
         txtEventName = findViewById(R.id.txtEventName);
         txtNoPpl = findViewById(R.id.txtNoPpl);
 
-        // btnCheckDetails.setVisibility(View.GONE);
+        btnCheckDetails.setVisibility(View.GONE);//Remove check details button by default.
         btnBookEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +66,13 @@ BookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadData(defReference, eventID);
+            }
+        });
+        btnAdminPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent=new Intent(BookingActivity.this, AdminPage.class).putExtra("<EventID>", eventID);
+                startActivity(myIntent);
             }
         });
 
