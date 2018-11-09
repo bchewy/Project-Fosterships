@@ -17,7 +17,11 @@
 
             <!-- Original Intent goes here -->
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <!-- ends -->
         </activity>
         <activity
@@ -30,11 +34,7 @@
         <activity
             android:name=".AdminPage"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".gamephase2" />
         <activity android:name=".gamephase3" />
