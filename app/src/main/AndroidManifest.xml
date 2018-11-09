@@ -14,11 +14,14 @@
         <activity
             android:name=".loadingactitvity"
             android:screenOrientation="portrait">
+
             <!-- Original Intent goes here -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>R
+            </intent-filter>
+            R
         </activity>
         <activity
             android:name=".selectmenu"
@@ -27,9 +30,12 @@
         <activity android:name=".normaluserwaitingscreen" />
         <activity android:name=".gamephase" />
         <activity android:name=".authentication" />
-        <activity android:name=".AdminPage" android:screenOrientation="portrait">
-
-        </activity>
+        <activity
+            android:name=".AdminPage"
+            android:screenOrientation="portrait" />
+        <activity android:name=".gamephase2" />
+        <activity android:name=".gamephase3" />
+        <activity android:name=".gamephase4"></activity>
     </application>
 
 </manifest>
