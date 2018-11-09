@@ -34,19 +34,40 @@ public class AdminPage extends AppCompatActivity {
         setContentView(R.layout.activity_admin_page);
 
         btnPlayer1 = findViewById(R.id.btnPlayer1);
-//        btnPlayer1 = findViewById(R.id.btnPlayer2);
-//        btnPlayer1 = findViewById(R.id.btnPlayer3);
-//        btnPlayer1 = findViewById(R.id.btnPlayer4);
-//        eventIDField = findViewById(R.id.eventIDField);
-//        eventNameField = findViewById(R.id.eventNameField);
-//        eventAdminField = findViewById(R.id.eventAdminField);
-//        eventPplField = findViewById(R.id.eventPplField);
+        btnPlayer2 = findViewById(R.id.btnPlayer2);
+        btnPlayer3 = findViewById(R.id.btnPlayer3);
+        btnPlayer4 = findViewById(R.id.btnPlayer4);
+        eventIDField = findViewById(R.id.eventIDField);
+        eventNameField = findViewById(R.id.eventNameField);
+        eventAdminField = findViewById(R.id.eventAdminField);
+        eventPplField = findViewById(R.id.eventPplField);
 
-        //Button onclick listeners
+
         btnPlayer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),gamephase.class);
+                startActivity(intent);
+            }
+        });
+        btnPlayer2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),gamephase2.class);
+                startActivity(intent);
+            }
+        });
+        btnPlayer3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),gamephase3.class);
+                startActivity(intent);
+            }
+        });
+        btnPlayer4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),gamephase4.class);
                 startActivity(intent);
             }
         });
