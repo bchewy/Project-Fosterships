@@ -60,7 +60,7 @@ public class loadingactitvity extends AppCompatActivity {
         rlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),AdminPage.class);
+                Intent intent = new Intent(getApplicationContext(),selectmenu.class);
                 startActivity(intent);
             }
         });
