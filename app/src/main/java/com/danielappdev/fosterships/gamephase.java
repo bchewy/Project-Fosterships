@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -18,24 +20,18 @@ public class gamephase extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamephase);
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("photo1/").child("row-1-col-1.jpg");
 
 
-        final ImageView image;
-        image = findViewById(R.id.imageView);
+// Reference to an image file in Firebase Storage
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture.png");
 
-        /* Load the image using Glide */
-        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                String imageURL = uri.toString();
-                Glide.with(getApplicationContext()).load(imageURL).into(image);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-            }
-        });
+// ImageView in your Activity
+        ImageView imageView = findViewById(R.id.imageView4);
+
+// Load the image using Glide
+            Glide.with(getApplicationContext())
+                .load(storageReference)
+                .into(imageView);
+
     }
 }
