@@ -45,13 +45,12 @@ public class selectmenu extends AppCompatActivity {
         btnJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String input = inviteCode.getText().toString();
-                if(TextUtils.isEmpty(input)){
-                    Integer codeinput = Integer.parseInt(inviteCode.getText().toString());
-                    CheckFireData(defReference, codeinput);
+                Integer input = Integer.parseInt(inviteCode.getText().toString());
+                if(input > 0){
+                    CheckFireData(defReference, input);
                 }
                 else{
-                    ShowDialog("Empty!","The invite code is empty!");
+                    inviteCode.setError("Check if you have the proper invite code");
                 }
 
             }
