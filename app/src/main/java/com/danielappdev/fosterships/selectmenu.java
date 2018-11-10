@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,7 +46,7 @@ public class selectmenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Integer codeinput = Integer.parseInt(inviteCode.getText().toString());
-                if(!IsNullOrEmpty(inviteCode.getText().toString())){
+                if(TextUtils.isEmpty(inviteCode.getText())){
                     CheckFireData(defReference, codeinput);
                 }
                 else{
@@ -69,12 +70,6 @@ public class selectmenu extends AppCompatActivity {
             }
         });
 
-    }
-    public static boolean IsNullOrEmpty(String value) {
-        if (value != null)
-            return value.length() == 0;
-        else
-            return true;
     }
     private void ShowDialog(String title,String text) {
         AlertDialog alertDialog = new AlertDialog.Builder(selectmenu.this).create();
