@@ -45,8 +45,9 @@ public class selectmenu extends AppCompatActivity {
         btnJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer codeinput = Integer.parseInt(inviteCode.getText().toString());
-                if(TextUtils.isEmpty(inviteCode.getText())){
+                String input = inviteCode.getText().toString();
+                if(TextUtils.isEmpty(input)){
+                    Integer codeinput = Integer.parseInt(inviteCode.getText().toString());
                     CheckFireData(defReference, codeinput);
                 }
                 else{
