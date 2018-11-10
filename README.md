@@ -11,6 +11,7 @@
 
 ## APIs/Technologies used
 1. Java & Android Studio
+2. Glide - https://github.com/bumptech/glide
 
 ## Special Thanks to...
-Mr Wesley!
+Mr Wesley! @westwq - Some help with app development!
