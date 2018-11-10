@@ -45,7 +45,12 @@ public class selectmenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Integer codeinput = Integer.parseInt(inviteCode.getText().toString());
-                CheckFireData(defReference, codeinput);
+                if(!IsNullOrEmpty(inviteCode.getText().toString())){
+                    CheckFireData(defReference, codeinput);
+                }
+                else{
+                    ShowDialog("Empty!","The invite code is empty!");
+                }
 
             }
         });
@@ -64,6 +69,12 @@ public class selectmenu extends AppCompatActivity {
             }
         });
 
+    }
+    public static boolean IsNullOrEmpty(String value) {
+        if (value != null)
+            return value.length() == 0;
+        else
+            return true;
     }
     private void ShowDialog(String title,String text) {
         AlertDialog alertDialog = new AlertDialog.Builder(selectmenu.this).create();
