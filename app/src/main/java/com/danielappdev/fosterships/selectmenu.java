@@ -89,19 +89,24 @@ public class selectmenu extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
-
+                int test = 0;
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     int eventID = (ds.child("eventID").getValue(Integer.class));
                     if (eventID == eventIDCurrent) {
                         Intent intent = new Intent(getApplicationContext(), normaluserwaitingscreen.class);
                         startActivity(intent);
+                        test = 1;
                         break;
-                    } else {
-                        ShowDialog("EventID not found!","EventID was not found... Please try again or look for your event organisers.");
-
                     }
-
+//                    else {
+//
+//                        ShowDialog("EventID not found!","EventID was not found... Please try again or look for your event organisers.");
+//
+//                    }
                 }
+                Log.d("test", "test"+test);
+                if (test==0){
+                    ShowDialog("EventID not found!","EventID was not found... Please try again or look for your event organisers.");}
 
             }
 
