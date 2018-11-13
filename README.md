@@ -17,7 +17,7 @@ Project Fosterships is an idea to help foster worthwhile relationships with grou
 ```
 
 #### The Team!
-> Project Lead - Daniel Dharshan Ravindran
-> Assitant Lead - Brian Chew (@bchewy)
-> Designer/QA/Tester - Malcolm
-> Designer/QA/Tester - Eshwar
+* Project Lead - Daniel Dharshan Ravindran
+* Assitant Lead - Brian Chew (@bchewy)
+* Designer/QA/Tester - Malcolm
+* Designer/QA/Tester - Eshwar
