@@ -25,13 +25,12 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        INSTANCE=this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_leader_authentication);
         authCode = findViewById(R.id.AuthEditCode);
         authCodeString = "#"+getRandomString(5);
         authCode.setText(authCodeString);
-        pushKey = saveData(authCodeString);
+        saveData(authCodeString);
 
         /*
         Try to move the pushkey to gamephase activity so you can check via firebase under same class
@@ -57,18 +56,12 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
             sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
         return sb.toString();
     }
-    private String saveData(String authCodeString) {
+    private void saveData(String authCodeString) {
         DatabaseReference reference = database.getReference("AuthCodes").push();
         String key = reference.getKey();
-        DatabaseReference referenceName = database.getReference("AuthCodes").child(key).child("Code");
-        referenceName.setValue(authCodeString);
-        return key;
-    }
-    public static TeamLeaderAuthentication getActivityInstance(){
-        return INSTANCE;
-    }
-    public String ReturnPushKey(){
-        String pushKeyx=this.pushKey;
-        return pushKeyx;
+        DatabaseReference referenceCode = database.getReference("AuthCodes").child(key).child("Code");
+        DatabaseReference referenceName = database.getReference("AuthCodes").child(key).child("Name");
+        referenceCode.setValue(authCodeString);
+        referenceName.setValue("Team Banana");
     }
 }
