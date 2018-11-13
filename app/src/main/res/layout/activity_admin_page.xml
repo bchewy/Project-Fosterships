@@ -8,7 +8,7 @@
     tools:context=".AdminPage">
 
     <Button
-        android:id="@+id/btnAdmin7"
+        android:id="@+id/btnEndPrep"
         android:layout_width="73dp"
         android:layout_height="27dp"
         android:layout_marginStart="8dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline38" />
 
     <Button
-        android:id="@+id/btnAdmin6"
+        android:id="@+id/btnPrepP4"
         android:layout_width="123dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline37" />
 
     <Button
-        android:id="@+id/btnAdmin4"
+        android:id="@+id/btnPrepP2"
         android:layout_width="123dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -52,7 +52,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline31" />
 
     <Button
-        android:id="@+id/btnAdmin5"
+        android:id="@+id/btnPrepP3"
         android:layout_width="123dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
@@ -66,7 +66,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline37" />
 
     <Button
-        android:id="@+id/btnAdmin3"
+        android:id="@+id/btnPrepP1"
         android:layout_width="123dp"
         android:layout_height="48dp"
         android:layout_marginEnd="8dp"
@@ -108,7 +108,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline31" />
 
     <Button
-        android:id="@+id/btnAdmin2"
+        android:id="@+id/btnEndGame"
         android:layout_width="123dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
