@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -67,7 +68,7 @@ public class AdminPage extends AppCompatActivity {
         //Retrieve event from booking activity.
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);
-        Log.d("eventid","eventid"+eventID);
+        //Log.d("eventid","eventid"+eventID);
         loadData(defReference, eventID);
 
         //Game phase buttons
@@ -175,10 +176,10 @@ public class AdminPage extends AppCompatActivity {
                                 "Event Admin email" + eventAdminEmail + "\n"
                                 + "Event Expected Number:" + eventNoOfPpl;
 
-                    eventIDField.setText(eventID);
-                    eventNameField.setText(eventName);
-                    eventPplField.setText(eventNoOfPpl);
-                    eventAdminField.setText(eventAdminEmail);
+                            eventIDField.setText(Integer.toString(eventID));
+                            eventNameField.setText(eventName);
+                            eventPplField.setText(eventNoOfPpl);
+                            eventAdminField.setText(eventAdminEmail);
                         break;
                     } else {
                     }
