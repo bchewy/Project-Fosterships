@@ -1,17 +1,23 @@
-# ProjectFostershipsv2
-![alt text](https://trello-attachments.s3.amazonaws.com/5bcb2e8ba65f490209be5378/5bce8cc441beee51e0525a6f/d32c57a071035555d726d857cf175395/fostership-logo.png "ProjectFostership Logo")
+# Project Fosterships
+---
+Project Fosterships is an idea to help foster worthwhile relationships with groups of people who attend camp/events by breaking the ice while promoting a sense of belonging amongst themselves
 
-#### Project Fosterships is an idea to help foster worthwhile relationships with groups of people who attend camp/events by breaking the ice while promoting a sense of belonging amongst themselves
-![alt text](https://app.bchewy.me/Screenshot%202018-11-10%20at%2012.57.46%20AM.png "Elevator Pitch")
-## The Developer Team
-1. Lead Developer - Daniel Dharshan Ravindran
-2. Assistant Developer - Brian Chew
-3. QA/Tester - Malcolm
-4. QA/Tester - Eshwar
+[![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
+### Libaries/dependancies
+```
+    //Firebase dependencies
+    implementation 'com.google.firebase:firebase-core:16.0.5'
+    implementation 'com.firebaseui:firebase-ui-storage:4.2.1'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.google.firebase:firebase-storage:16.0.4'
 
-## APIs/Technologies used
-1. Java & Android Studio
-2. Glide - https://github.com/bumptech/glide
+    //Glide & others
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+```
 
-## Special Thanks to...
-Mr Wesley! @westwq - Some help with app development!
+#### The Team!
+* Project Lead - Daniel Dharshan Ravindran
+* Assitant Lead - Brian Chew (@bchewy)
+* Designer/QA/Tester - Malcolm
+* Designer/QA/Tester - Eshwar

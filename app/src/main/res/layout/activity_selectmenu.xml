@@ -189,21 +189,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.85" />
 
-    <Button
-        android:id="@+id/btnLeaderboards"
-        android:layout_width="123"
-        android:layout_height="45"
-        android:layout_marginStart="148dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="9dp"
-        android:background="#00a8ff"
-        android:text="Leaderboards"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline10"
-        app:layout_constraintVertical_bias="0.0"
-        tools:textColor="?attr/colorBackgroundFloating" />
 
 
 </android.support.constraint.ConstraintLayout>
