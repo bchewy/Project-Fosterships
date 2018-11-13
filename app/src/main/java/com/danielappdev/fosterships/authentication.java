@@ -21,6 +21,7 @@ public class authentication extends AppCompatActivity {
     DatabaseReference defReference = database.getReference("AuthCodes");
     EditText authcode;
     Button btnStart;
+    String teamName = "Team Banana";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,20 +38,21 @@ public class authentication extends AppCompatActivity {
                 String authCodeToCheck;
                 String pushKey;
                 authCodeToCheck = authcode.getText().toString();
-                pushKey = TeamLeaderAuthentication.getActivityInstance().ReturnPushKey();
-                CheckAuthKey(defReference,pushKey,authCodeToCheck);
+                //pushKey = TeamLeaderAuthentication.getActivityInstance().ReturnPushKey();
+                CheckAuthKey(defReference,authCodeToCheck,teamName);
             }
         });
 
     }
 
-    private void CheckAuthKey(final DatabaseReference reference, final String pushkey, final String authCodetoCheck) {
+    private void CheckAuthKey(final DatabaseReference reference, final String authCodetoCheck, final String teamName) {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String authCode = (ds.child(pushkey).child("Code").getValue(String.class));
-                    if(authCode.equals(authCodetoCheck)){
+                    String authCode = (ds.child("Code").getValue(String.class));//this checks all childs
+                    String tName = (ds.child("Name").getValue(String.class));
+                    if(authCode.equals(authCodetoCheck) && tName.equals(teamName)){
                         //Authcode is the same..
                         Intent intent = new Intent(getApplicationContext(), gamephase2.class);
                         startActivity(intent);
