@@ -20,18 +20,16 @@ public class gamephase extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamephase);
+        LoadImageFromFirebase();
 
 
-// Reference to an image file in Firebase Storage
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture.png");
+    }
 
-// ImageView in your Activity
+    public void LoadImageFromFirebase() {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture.png");//hardcoded "picture.png"
         ImageView imageView = findViewById(R.id.imageView4);
-
-// Load the image using Glide
-            Glide.with(getApplicationContext())
+        Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
-
     }
 }
