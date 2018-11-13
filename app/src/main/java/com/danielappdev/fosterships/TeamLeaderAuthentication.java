@@ -1,5 +1,8 @@
 package com.danielappdev.fosterships;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -12,6 +15,7 @@ import java.util.Random;
 
 public class TeamLeaderAuthentication extends AppCompatActivity {
 
+    static TeamLeaderAuthentication INSTANCE;
     TextView authCode;
     String authCodeString;
     String pushKey;
@@ -20,12 +24,27 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        INSTANCE=this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_leader_authentication);
         authCode = findViewById(R.id.AuthEditCode);
-        authCodeString = "Auth Code: #"+getRandomString(5);
+        authCodeString = "#"+getRandomString(5);
         authCode.setText(authCodeString);
         pushKey = saveData(authCodeString);
+
+        /*
+        Try to move the pushkey to gamephase activity so you can check via firebase under same class
+        Shared preferneces
+        Context context = getActivity();
+        SharedPreferences sharedPref = context.getSharedPreferences(
+        getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.saved_high_score_key), newHighScore);
+        editor.commit();
+        */
+
     }
 
     private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
@@ -42,7 +61,14 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         DatabaseReference reference = database.getReference("AuthCodes").push();
         String key = reference.getKey();
         DatabaseReference referenceName = database.getReference("AuthCodes").child(key).child("Code");
-        referenceName.setValue(authCodeString.toString());
+        referenceName.setValue(authCodeString);
         return key;
+    }
+    public static TeamLeaderAuthentication getActivityInstance(){
+        return INSTANCE;
+    }
+    public String ReturnPushKey(){
+        String pushKeyx=this.pushKey;
+        return pushKeyx;
     }
 }
