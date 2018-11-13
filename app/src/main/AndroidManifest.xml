@@ -40,6 +40,9 @@
         <activity android:name=".gamephaseAdmin" />
         <activity android:name=".Fromauthwaitingscreen" />
         <activity android:name=".TeamLeaderAuthentication"></activity>
+        <activity
+            android:name=".Leaderboards"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

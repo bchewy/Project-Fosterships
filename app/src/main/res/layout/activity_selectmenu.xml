@@ -10,11 +10,11 @@
     <Button
         android:id="@+id/btnAdminPage"
         android:layout_width="123dp"
-        android:layout_height="48dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="12dp"
         android:background="#00a8ff"
         android:radius="0dp"
         android:text="Admin Page"
@@ -165,6 +165,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.86" />
+
+    <Button
+        android:id="@+id/btnLeaderboard"
+        android:layout_width="123dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="129dp"
+        android:layout_marginBottom="12dp"
+        android:background="#00a8ff"
+        android:text="Leaderboards"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline10"
+        app:layout_constraintVertical_bias="0.875" />
 
 
 </android.support.constraint.ConstraintLayout>
