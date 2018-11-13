@@ -5,7 +5,7 @@ Master branch [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.
 
 ## The Developer Team
 1. Lead Developer - Daniel Dharshan Ravindran
-2. Assistant Developer - Brian Chew
+2. Assistant Developer - Brian Chew @bchewy
 3. QA/Tester - Malcolm
 4. QA/Tester - Eshwar
 
