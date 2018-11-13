@@ -1,0 +1,5 @@
+sudo: required
+language: android
+jdk: oraclej
+script:
+  - ./gradlew check

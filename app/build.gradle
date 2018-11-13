@@ -34,10 +34,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+
+    //Firebase dependencies
+    implementation 'com.google.firebase:firebase-core:16.0.5'
+    implementation 'com.firebaseui:firebase-ui-storage:4.2.1'
     implementation 'com.google.firebase:firebase-database:16.0.4'
     implementation 'com.google.firebase:firebase-storage:16.0.4'
+
+    //Glide & others
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-    implementation 'com.firebaseui:firebase-ui-storage:4.2.1'
+
 
 }
