@@ -73,7 +73,8 @@ BookingActivity extends AppCompatActivity {
         btnAdminPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent=new Intent(getApplicationContext(), AdminPage.class).putExtra("<EventID>", eventID);
+                Intent myIntent=new Intent(getApplicationContext(), AdminPage.class);
+                myIntent.putExtra("EventID",eventID);
                 startActivity(myIntent);
             }
         });
