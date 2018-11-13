@@ -1,4 +1,3 @@
-# ProjectFostershipsv2
 <p align="center">
 <img src="https://trello-attachments.s3.amazonaws.com/5bcb2e8ba65f490209be5378/5bce8cc441beee51e0525a6f/d32c57a071035555d726d857cf175395/fostership-logo.png"/>
 </p>
