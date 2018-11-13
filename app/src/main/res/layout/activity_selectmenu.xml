@@ -8,6 +8,44 @@
     tools:context=".selectmenu">
 
     <Button
+        android:id="@+id/btnAdminPage3"
+        android:layout_width="123dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        android:background="#00a8ff"
+        android:radius="0dp"
+        android:text="Admin Page"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/btnAdminPage2"
+        android:layout_width="123dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        android:background="#00a8ff"
+        android:radius="0dp"
+        android:text="Admin Page"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
         android:id="@+id/btnAdminPage"
         android:layout_width="123dp"
         android:layout_height="45dp"
@@ -144,45 +182,28 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="#33461 "
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="491dp" />
-
     <android.support.constraint.Guideline
         android:id="@+id/guideline10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.86" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <Button
-        android:id="@+id/btnLeaderboard"
-        android:layout_width="123dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="51dp"
-        android:layout_marginEnd="129dp"
-        android:layout_marginBottom="12dp"
+        android:id="@+id/btnLeaderboards"
+        android:layout_width="123"
+        android:layout_height="45"
+        android:layout_marginStart="148dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginBottom="9dp"
         android:background="#00a8ff"
         android:text="Leaderboards"
-        android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline10"
-        app:layout_constraintVertical_bias="0.875" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:textColor="?attr/colorBackgroundFloating" />
 
 
 </android.support.constraint.ConstraintLayout>

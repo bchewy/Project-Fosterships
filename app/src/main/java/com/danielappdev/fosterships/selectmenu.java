@@ -24,6 +24,7 @@ public class selectmenu extends AppCompatActivity {
     Button btnJoin;
     Button btnBook;
     Button btnAdminPage;
+    Button btnLeaderboards;
     EditText inviteCode;
     TextView textview2;
     Integer eventID;
@@ -73,6 +74,13 @@ public class selectmenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AdminPage.class);
+                startActivity(intent);
+            }
+        });
+        btnLeaderboards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Leaderboards.class);
                 startActivity(intent);
             }
         });
