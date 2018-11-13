@@ -91,13 +91,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnStart"
         android:layout_width="130dp"
         android:layout_height="67dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="#f6e58d"
-        android:text="Button"
+        android:text="Start"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -111,7 +111,7 @@
         app:layout_constraintGuide_percent="0.7" />
 
     <EditText
-        android:id="@+id/et_auth"
+        android:id="@+id/etAuthCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
