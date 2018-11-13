@@ -1,15 +1,7 @@
-
-## APIs/Technologies used
-1. Java & Android Studio
-2. Glide - https://github.com/bumptech/glide
-
-## Special Thanks to...
-Mr Wesley! @westwq - Some help with app development!
-
-
 # Project Fosterships
 ---
 Project Fosterships is an idea to help foster worthwhile relationships with groups of people who attend camp/events by breaking the ice while promoting a sense of belonging amongst themselves
+
 [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
 ### Libaries/dependancies
 ```
