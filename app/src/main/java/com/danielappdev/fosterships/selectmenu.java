@@ -36,7 +36,7 @@ public class selectmenu extends AppCompatActivity {
         setContentView(R.layout.activity_selectmenu);
         //Log.d("selectmenu", "runs on selectmenu");
         inviteCode = findViewById(R.id.txtInviteCode);
-        btnJoin = findViewById(R.id.btnPlayer1);
+        btnJoin = findViewById(R.id.btnJoinSelect);
         btnBook = findViewById(R.id.btnBook);
         btnAdminPage = findViewById(R.id.btnAdminPage);
 
