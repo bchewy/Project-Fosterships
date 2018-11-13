@@ -1,4 +1,8 @@
-# Project Fosterships is an idea to help foster worthwhile relationships with groups of people who attend camp/events by breaking the ice while promoting a sense of belonging amongst themselves
+#Project Fosterships <3
+#### Project Fosterships is an idea to help foster worthwhile relationships with groups of people who attend camp/events by breaking the ice while promoting a sense of belonging amongst themselves
+
+Master branch [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
+
 ## The Developer Team
 1. Lead Developer - Daniel Dharshan Ravindran
 2. Assistant Developer - Brian Chew
