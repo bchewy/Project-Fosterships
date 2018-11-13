@@ -25,7 +25,15 @@ public class AdminPage extends AppCompatActivity {
     Button btnPlayer2;
     Button btnPlayer3;
     Button btnPlayer4;
+
+    Button btnPrepP1;
+    Button btnPrepP2;
+    Button btnPrepP3;
+    Button btnPrepP4;
+
     Button btnAdmin;
+    Button btnEndPrep;
+    Button btnEndGame;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
     Integer eventID;
@@ -35,52 +43,113 @@ public class AdminPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_page);
 
+        //Main buttons
         btnPlayer1 = findViewById(R.id.btnPlayer1);
         btnPlayer2 = findViewById(R.id.btnPlayer2);
         btnPlayer3 = findViewById(R.id.btnPlayer3);
         btnPlayer4 = findViewById(R.id.btnPlayer4);
+        //Prep buttons
+        btnPrepP1 = findViewById(R.id.btnPrepP1);
+        btnPrepP2 = findViewById(R.id.btnPrepP2);
+        btnPrepP3 = findViewById(R.id.btnPrepP3);
+        btnPrepP4 = findViewById(R.id.btnPrepP4);
+        //Admin/misc buttons
         btnAdmin = findViewById(R.id.btnAdmin);
+        btnEndPrep = findViewById(R.id.btnEndPrep);
+        btnEndGame = findViewById(R.id.btnEndGame);
+
+        //Event fields
         eventIDField = findViewById(R.id.eventIDField);
         eventNameField = findViewById(R.id.eventNameField);
         eventAdminField = findViewById(R.id.eventAdminField);
         eventPplField = findViewById(R.id.eventPplField);
-        //eventID=Integer.valueOf(getIntent().getStringExtra("EventID"));
-        eventID=getIntent().getIntExtra("<EventID>",0);
-        //Log.d("eventid","eventid"+eventID);
-        loadData(defReference,eventID);
+
+        //Retrieve event from booking activity.
+        Intent mIntent = getIntent();
+        eventID = mIntent.getIntExtra("EventID", 0);
+        Log.d("eventid","eventid"+eventID);
+        loadData(defReference, eventID);
+
+        //Game phase buttons
         btnPlayer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),gamephase.class);
+                Intent intent = new Intent(getApplicationContext(), gamephase.class);
                 startActivity(intent);
             }
         });
         btnPlayer2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),gamephase2.class);
+                Intent intent = new Intent(getApplicationContext(), gamephase2.class);
                 startActivity(intent);
             }
         });
         btnPlayer3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),gamephase3.class);
+                Intent intent = new Intent(getApplicationContext(), gamephase3.class);
                 startActivity(intent);
             }
         });
         btnPlayer4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),gamephase4.class);
+                Intent intent = new Intent(getApplicationContext(), gamephase4.class);
                 startActivity(intent);
             }
         });
+
+
+        //Prep buttons
+        btnPrepP1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TeamLeaderAuthentication.class);
+                startActivity(intent);
+            }
+        });
+        btnPrepP2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), authentication.class);
+                startActivity(intent);
+            }
+        });
+        btnPrepP3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), authentication.class);
+                startActivity(intent);
+            }
+        });
+        btnPrepP4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), authentication.class);
+                startActivity(intent);
+            }
+        });
+
+
+        //Misc buttons
         btnAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),gamephaseAdmin.class);
+                Intent intent = new Intent(getApplicationContext(), gamephaseAdmin.class);
                 startActivity(intent);
+            }
+        });
+        btnEndGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnEndPrep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -97,19 +166,19 @@ public class AdminPage extends AppCompatActivity {
                         String eventNoOfPpl = ds.child("eventNoOfPpl").getValue(String.class);
 
 
-Log.d("tag2", Integer.toString(eventID));
-Log.d("tag2", eventName);
-Log.d("tag2", eventAdminEmail);
-Log.d("tag2", eventNoOfPpl);
-String text = "EventName:" + eventName + "\n"
-+ "Event Code:" + eventID + "\n" +
-"Event Admin email" + eventAdminEmail + "\n"
-+ "Event Expected Number:" + eventNoOfPpl;
+                        Log.d("tag2", Integer.toString(eventID));
+                        Log.d("tag2", eventName);
+                        Log.d("tag2", eventAdminEmail);
+                        Log.d("tag2", eventNoOfPpl);
+                        String text = "EventName:" + eventName + "\n"
+                                + "Event Code:" + eventID + "\n" +
+                                "Event Admin email" + eventAdminEmail + "\n"
+                                + "Event Expected Number:" + eventNoOfPpl;
 
-//                    eventIDField.setText(eventID);
-//                    eventNameField.setText(eventName);
-//                    eventPplField.setText(eventNoOfPpl);
-//                    eventAdminField.setText(eventAdminEmail);
+                    eventIDField.setText(eventID);
+                    eventNameField.setText(eventName);
+                    eventPplField.setText(eventNoOfPpl);
+                    eventAdminField.setText(eventAdminEmail);
                         break;
                     } else {
                     }

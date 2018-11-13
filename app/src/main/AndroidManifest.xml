@@ -33,12 +33,13 @@
         <activity android:name=".authentication" />
         <activity
             android:name=".AdminPage"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity android:name=".gamephase2" />
         <activity android:name=".gamephase3" />
         <activity android:name=".gamephase4" />
         <activity android:name=".gamephaseAdmin" />
-        <activity android:name=".Fromauthwaitingscreen"></activity>
+        <activity android:name=".Fromauthwaitingscreen" />
+        <activity android:name=".TeamLeaderAuthentication"></activity>
     </application>
 
 </manifest>
