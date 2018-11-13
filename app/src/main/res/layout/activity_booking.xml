@@ -7,6 +7,22 @@
     android:background="@drawable/goldengate"
     tools:context=".BookingActivity">
 
+    <Button
+        android:id="@+id/btnAdminPage"
+        android:layout_width="116dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#00a8ff"
+        android:text="Admin Page"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnCheckDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/txtadminEmail"
         android:layout_width="wrap_content"
@@ -122,7 +138,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="20dp"
         android:background="#00a8ff"
         android:text="Check Details"
         android:textAllCaps="false"
@@ -137,5 +153,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85537916" />
+        app:layout_constraintGuide_percent="0.9" />
+
 </android.support.constraint.ConstraintLayout>
