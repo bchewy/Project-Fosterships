@@ -1,5 +1,5 @@
 sudo: required
 language: android
-jdk: oraclej
+jdk: oraclejdk8
 script:
   - ./gradlew check
