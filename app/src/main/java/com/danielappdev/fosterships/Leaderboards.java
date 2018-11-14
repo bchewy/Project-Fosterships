@@ -5,6 +5,8 @@ import android.app.usage.EventStats;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.service.autofill.Dataset;
+import android.service.notification.NotificationListenerService;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,12 +36,12 @@ public class Leaderboards extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboards);
-        LoadData();
+        LoadData(reference);
     }
 
 
 
-    private void LoadData() {
+    private void SendData() {
         DatabaseReference reference = database.getReference("Leaderboards").push();
         String key = reference.getKey();
         //setup
@@ -52,7 +54,30 @@ public class Leaderboards extends AppCompatActivity {
 
     }
 
+    private void LoadData(final DatabaseReference reference){
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    String GroupName = ds.child("GroupName").getValue(String.class);
 
+                        String ranking = ds.child("Ranking").getValue(String.class);
+                        String groupName = ds.child("GroupName").getValue(String.class);
+                        String score = ds.child("Score").getValue(String.class);
+                        Log.d("1", ranking);
+                        Log.d("1", groupName);
+                        Log.d("1", score);
+
+
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
 
 }
