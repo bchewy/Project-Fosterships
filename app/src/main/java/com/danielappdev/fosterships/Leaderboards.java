@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 
-public abstract class Leaderboards extends AppCompatActivity {
+public class Leaderboards extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
