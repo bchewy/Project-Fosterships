@@ -37,6 +37,7 @@
         <activity android:name=".gamephaseAdmin" />
         <activity android:name=".Fromauthwaitingscreen" />
         <activity android:name=".TeamLeaderAuthentication"/>
+        <activity android:name=".Leaderboards"/>
 
 
     </application>

@@ -108,14 +108,14 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline31" />
 
     <Button
-        android:id="@+id/btnEndGame"
+        android:id="@+id/btnLeaderboards"
         android:layout_width="123dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="4dp"
         android:background="#eb2f06"
         android:radius="0dp"
-        android:text="End Game"
+        android:text="Leaderboards"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"

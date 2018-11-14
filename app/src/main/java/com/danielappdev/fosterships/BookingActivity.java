@@ -124,7 +124,6 @@ BookingActivity extends AppCompatActivity {
                         String eventName = ds.child("eventName").getValue(String.class);
                         String eventAdminEmail = ds.child("eventAdminEmail").getValue(String.class);
                         String eventNoOfPpl = ds.child("eventNoOfPpl").getValue(String.class);
-
                         Log.d("tag2", Integer.toString(eventID));
                         Log.d("tag2", eventName);
                         Log.d("tag2", eventAdminEmail);
@@ -133,7 +132,8 @@ BookingActivity extends AppCompatActivity {
                                 + "Event Code:" + eventID + "\n" +
                                 "Event Admin email" + eventAdminEmail + "\n"
                                 + "Event Expected Number:" + eventNoOfPpl;
-                        ShowDialog("Event Data..!",text);
+
+                        //ShowDialog("Event Data..!",text);
                         break;
                     } else {
                     }
