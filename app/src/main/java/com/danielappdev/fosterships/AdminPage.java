@@ -76,6 +76,7 @@ public class AdminPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), gamephase.class);
+                intent.putExtra("EventID", eventID);
                 startActivity(intent);
             }
         });
@@ -106,8 +107,8 @@ public class AdminPage extends AppCompatActivity {
         btnPrepP1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent=new Intent(getApplicationContext(), TeamLeaderAuthentication.class);
-                myIntent.putExtra("EventID",eventID);
+                Intent myIntent = new Intent(getApplicationContext(), TeamLeaderAuthentication.class);
+                myIntent.putExtra("EventID", eventID);
                 startActivity(myIntent);
             }
         });
@@ -178,10 +179,10 @@ public class AdminPage extends AppCompatActivity {
                                 "Event Admin email" + eventAdminEmail + "\n"
                                 + "Event Expected Number:" + eventNoOfPpl;
 
-                            eventIDField.setText(Integer.toString(eventID));
-                            eventNameField.setText(eventName);
-                            eventPplField.setText(eventNoOfPpl);
-                            eventAdminField.setText(eventAdminEmail);
+                        eventIDField.setText(Integer.toString(eventID));
+                        eventNameField.setText(eventName);
+                        eventPplField.setText(eventNoOfPpl);
+                        eventAdminField.setText(eventAdminEmail);
                         break;
                     } else {
                     }

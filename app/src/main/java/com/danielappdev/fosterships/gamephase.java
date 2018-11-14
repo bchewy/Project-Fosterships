@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -27,17 +29,24 @@ public class gamephase extends AppCompatActivity {
     DatabaseReference defReferenceTeams = database.getReference("Teams");
     EditText answerBox;
     Integer eventID;
+    Button btnTryGuess;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamephase);
 
         answerBox = findViewById(R.id.answerBox);
+        btnTryGuess = findViewById(R.id.btnGuess);
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);
 
         LoadImageFromFirebase();
-        //CheckAnswer(defReferenceTeams,answerBox.getText().toString());
+        btnTryGuess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckAnswer(defReferenceTeams,answerBox.getText().toString(),eventID);
+            }
+        });
 
 
     }
@@ -57,7 +66,7 @@ public class gamephase extends AppCompatActivity {
                     int eventID = (ds.child("eventID").getValue(Integer.class));
                     //String answer = ds.child("")
                     if (eventID == (eventIDCurrent)) {
-
+                        Log.d("tag4",String.valueOf(eventID));
                         break;
                     } else {
                     }
