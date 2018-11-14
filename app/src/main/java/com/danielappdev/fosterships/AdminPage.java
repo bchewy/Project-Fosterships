@@ -34,7 +34,7 @@ public class AdminPage extends AppCompatActivity {
 
     Button btnAdmin;
     Button btnEndPrep;
-    Button btnEndGame;
+    Button btnLeaderboards;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
     Integer eventID;
@@ -57,7 +57,7 @@ public class AdminPage extends AppCompatActivity {
         //Admin/misc buttons
         btnAdmin = findViewById(R.id.btnAdmin);
         btnEndPrep = findViewById(R.id.btnEndPrep);
-        btnEndGame = findViewById(R.id.btnEndGame);
+        btnLeaderboards = findViewById(R.id.btnLeaderboards);
 
         //Event fields
         eventIDField = findViewById(R.id.eventIDField);
@@ -141,10 +141,11 @@ public class AdminPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnEndGame.setOnClickListener(new View.OnClickListener() {
+        btnLeaderboards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), Leaderboards.class);
+                startActivity(intent);
             }
         });
         btnEndPrep.setOnClickListener(new View.OnClickListener() {
