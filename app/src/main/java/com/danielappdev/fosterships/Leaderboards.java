@@ -23,6 +23,12 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Leaderboards extends AppCompatActivity {
+    TextView textView15;
+    TextView textView16;
+    TextView textView17;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference reference = database.getReference("LeaderBoards"); //Initial root reference
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,5 +36,22 @@ public class Leaderboards extends AppCompatActivity {
         setContentView(R.layout.activity_leaderboards);
     }
 
+    private Integer Leaderboard (Leaderboard l, FirebaseDatabase database) {
+        DatabaseReference reference = database.getReference("Leaderboards").push();
+        String key = reference.getKey();
+        //setup
+        DatabaseReference referenceRanking = database.getReference("Leaderboards").child(key).child("Ranking");
+        DatabaseReference referenceGroupName = database.getReference("Leaderboards").child(key).child("GroupName");
+        DatabaseReference referenceScore = database.getReference("Leaderboards").child(key).child("Score");
+        referenceRanking.setValue(l.getRanking());
+        referenceGroupName.setValue(l.getGroupName());
+        referenceScore.setValue(l.getScore());
+        return l.Leaderboard();
+    }
+
 
 }
+
+
+
+
