@@ -1,0 +1,15 @@
+language: android
+jdk: oraclejdk8
+android:
+  components:
+  - tools
+  - platform-tools
+  - build-tools-28.0.3
+  - android-28
+  - sys-img-x86-android-26
+before_script: 
+  - chmod +x gradlew
+script:
+  - ./gradlew build check
+
+

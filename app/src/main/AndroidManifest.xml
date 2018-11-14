@@ -16,7 +16,6 @@
             android:screenOrientation="portrait">
 
             <!-- Original Intent goes here -->
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,15 +30,15 @@
         <activity android:name=".normaluserwaitingscreen" />
         <activity android:name=".gamephase" />
         <activity android:name=".authentication" />
-        <activity
-            android:name=".AdminPage"
-            android:screenOrientation="portrait" />
+        <activity android:name=".AdminPage" android:screenOrientation="portrait" />
         <activity android:name=".gamephase2" />
         <activity android:name=".gamephase3" />
         <activity android:name=".gamephase4" />
         <activity android:name=".gamephaseAdmin" />
         <activity android:name=".Fromauthwaitingscreen" />
-        <activity android:name=".TeamLeaderAuthentication"></activity>
+        <activity android:name=".TeamLeaderAuthentication"/>
+
+
     </application>
 
 </manifest>
