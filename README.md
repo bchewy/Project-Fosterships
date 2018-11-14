@@ -1,6 +1,8 @@
 # Project Fosterships
 Project Fosterships is an idea to help foster worthwhile relationships with groups of people who attend camp/events by breaking the ice while promoting a sense of belonging amongst themselves.
 
+[Read more here!](http://trello.bchewy.me)
+
 ## Build Status
 1. Master - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
 2. Production (Test) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=production)](https://travis-ci.org/bchewy/Project-Fosterships)
@@ -8,7 +10,7 @@ Project Fosterships is an idea to help foster worthwhile relationships with grou
 Gradle Version : 4.6\
 Android Plugin Version : 3.2.1\
 Android API : 27-28\
-(Gradle Module: app)\
+(Gradle Module: app)
 ```java
     //Firebase dependencies
     implementation 'com.google.firebase:firebase-core:16.0.5'
