@@ -26,10 +26,11 @@ public class gamephase extends AppCompatActivity {
     }
 
     public void LoadImageFromFirebase() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture.png");//hardcoded "picture.png"
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("mushroom/").child("rowONEcolONE.jpg");//hardcoded "picture.png"
         ImageView imageView = findViewById(R.id.imageView4);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
     }
+
 }
