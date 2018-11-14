@@ -59,19 +59,19 @@ public class gamephase extends AppCompatActivity {
         btnTryGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckAnswer(defReferenceTeams,answerBox.getText().toString(),eventID);
+                CheckAnswer(defReferenceTeams, answerBox.getText().toString(), eventID);
             }
         });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 //                fullScreen();
-                if(isImageFitToScreen) {
-                    isImageFitToScreen=false;
+                if (isImageFitToScreen) {
+                    isImageFitToScreen = false;
                     imageView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT));
                     imageView.setAdjustViewBounds(true);
-                }else{
-                    isImageFitToScreen=true;
+                } else {
+                    isImageFitToScreen = true;
                     imageView.setLayoutParams(new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT));
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 }
@@ -89,21 +89,24 @@ public class gamephase extends AppCompatActivity {
                 .load(storageReference)
                 .into(imageView);
     }
-    public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent){
+
+    public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent) {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                Boolean correct = false;
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     int eventID = (ds.child("eventID").getValue(Integer.class));
                     String answerFire = ds.child("phase1Answer").getValue(String.class);
-                    if (eventID == (eventIDCurrent)&&answerFire.equals(answer)) {
-                        //Log.d("tag4",String.valueOf(eventID));
-                        ShowDialog("Correct!","Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
+                    if (eventID == (eventIDCurrent) && answerFire.equals(answer)) {
+                        correct = true;
                         break;
-                    } else {
-                        ShowDialog("Wrong answer.. try again!","Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
                     }
-
+                }
+                if (!correct) {
+                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
+                } else {
+                    ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
                 }
             }
 
@@ -113,8 +116,9 @@ public class gamephase extends AppCompatActivity {
             }
         });
     }
+
     //Starts a Show Dialog prompt on the screen with title/text!
-    private void ShowDialog(String title,String text) {
+    private void ShowDialog(String title, String text) {
         AlertDialog alertDialog = new AlertDialog.Builder(gamephase.this).create();
         alertDialog.setTitle(title);
         alertDialog.setMessage(text);
@@ -126,6 +130,7 @@ public class gamephase extends AppCompatActivity {
                 });
         alertDialog.show();
     }
+
     public void fullScreen() {
 
         // BEGIN_INCLUDE (get_current_ui_flags)
