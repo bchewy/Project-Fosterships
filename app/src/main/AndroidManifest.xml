@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -37,8 +36,6 @@
         <activity android:name=".gamephaseAdmin" />
         <activity android:name=".Fromauthwaitingscreen" />
         <activity android:name=".TeamLeaderAuthentication"/>
-        <activity android:name=".Leaderboards"/>
-
 
     </application>
 
