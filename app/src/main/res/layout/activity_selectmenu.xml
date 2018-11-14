@@ -8,42 +8,22 @@
     tools:context=".selectmenu">
 
     <Button
-        android:id="@+id/btnLeaderboards"
-        android:layout_width="123dp"
-        android:layout_height="45dp"
+        android:id="@+id/btnAdminPage"
+        android:layout_width="128dp"
+        android:layout_height="74dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="7dp"
         android:layout_marginEnd="8dp"
-        android:background="#00a8ff"
-        android:radius="0dp"
-        android:text="Leaderboards"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/guideline10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAdminPage3" />
-
-    <Button
-        android:id="@+id/btnAdminPage3"
-        android:layout_width="123dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
-        android:background="#00a8ff"
+        android:layout_marginBottom="8dp"
+        android:background="#ff6b6b"
         android:radius="0dp"
         android:text="Admin Page"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline44"
+        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintStart_toEndOf="@+id/guideline43"
+        app:layout_constraintStart_toStartOf="@+id/guideline43" />
 
     <TextView
         android:id="@+id/textView4"
@@ -81,26 +61,27 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="@ProjectFosterships"
         android:textColor="@android:color/white"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnPlayer1"
-        android:layout_width="123dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:background="#00a8ff"
+        android:id="@+id/btnJoinSelect"
+        android:layout_width="120dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="#48dbfb"
         android:radius="0dp"
         android:text="Join Room ->"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline41"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
@@ -109,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.47" />
+        app:layout_constraintGuide_percent="0.5" />
 
 
     <EditText
@@ -143,32 +124,74 @@
 
     <Button
         android:id="@+id/btnBook"
-        android:layout_width="123dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="120dp"
+        android:layout_height="72dp"
         android:layout_marginStart="8dp"
-        android:background="#00a8ff"
+        android:layout_marginEnd="40dp"
+        android:background="#48dbfb"
         android:radius="0dp"
         android:text="Book Room"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintHorizontal_bias="0.576"
+        app:layout_constraintStart_toStartOf="@+id/guideline42"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.66" />
+        app:layout_constraintGuide_percent="0.68" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.93" />
+        app:layout_constraintGuide_percent="0.87" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.38" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="238dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.38" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <TextView
+        android:id="@+id/tv_sneakpeak"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="SneakPeak"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnAdminPage"
+        app:layout_constraintEnd_toStartOf="@+id/guideline42"
+        app:layout_constraintStart_toStartOf="@+id/guideline43" />
 
 
 </android.support.constraint.ConstraintLayout>
