@@ -32,5 +32,8 @@ public class gamephase extends AppCompatActivity {
                 .load(storageReference)
                 .into(imageView);
     }
+    public void CheckAnswer(){
+
+    }
 
 }

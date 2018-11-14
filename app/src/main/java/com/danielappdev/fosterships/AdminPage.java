@@ -106,8 +106,9 @@ public class AdminPage extends AppCompatActivity {
         btnPrepP1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TeamLeaderAuthentication.class);
-                startActivity(intent);
+                Intent myIntent=new Intent(getApplicationContext(), TeamLeaderAuthentication.class);
+                myIntent.putExtra("EventID",eventID);
+                startActivity(myIntent);
             }
         });
         btnPrepP2.setOnClickListener(new View.OnClickListener() {

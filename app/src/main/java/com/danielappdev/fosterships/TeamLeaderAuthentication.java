@@ -19,7 +19,10 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
     TextView authCode;
     String authCodeString;
     String pushKey;
+    Integer eventID;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference defReferenceTeams = database.getReference("Teams");
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
 
     @Override
@@ -30,7 +33,11 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         authCode = findViewById(R.id.AuthEditCode);
         authCodeString = "#"+getRandomString(5);
         authCode.setText(authCodeString);
-        saveData(authCodeString);
+        saveData(defReference,authCodeString);
+        Intent mIntent = getIntent();
+        eventID = mIntent.getIntExtra("EventID", 0);
+        CreateTeams(defReferenceTeams,eventID); //take eventid from admin page --> team leader authentication.
+
 
         /*
         Try to move the pushkey to gamephase activity so you can check via firebase under same class
@@ -56,12 +63,20 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
             sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
         return sb.toString();
     }
-    private void saveData(String authCodeString) {
-        DatabaseReference reference = database.getReference("AuthCodes").push();
+    private void saveData(DatabaseReference reference,String authCodeString) {
+        reference.push();
         String key = reference.getKey();
         DatabaseReference referenceCode = database.getReference("AuthCodes").child(key).child("Code");
         DatabaseReference referenceName = database.getReference("AuthCodes").child(key).child("Name");
         referenceCode.setValue(authCodeString);
+        referenceName.setValue("Team Banana");
+    }
+    private void CreateTeams(DatabaseReference reference,Integer eventID){
+        reference.push();//repeated code
+        String key = reference.getKey();
+        DatabaseReference referenceName = database.getReference(key).child("Name");
+        DatabaseReference referenceEventName = database.getReference(key).child("eventName");
+        referenceEventName.setValue(eventID);
         referenceName.setValue("Team Banana");
     }
 }
