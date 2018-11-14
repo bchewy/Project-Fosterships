@@ -10,10 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".loadingactitvity"
-            android:screenOrientation="portrait">
 
+        <!--Activities-->
+        <activity android:name=".loadingactitvity" android:screenOrientation="portrait">
             <!-- Original Intent goes here -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,20 +21,19 @@
             </intent-filter>
             <!-- ends -->
         </activity>
-        <activity
-            android:name=".selectmenu"
-            android:screenOrientation="portrait" />
-        <activity android:name=".BookingActivity" />
-        <activity android:name=".normaluserwaitingscreen" />
-        <activity android:name=".gamephase" />
-        <activity android:name=".authentication" />
+        <!--End of main activity-->
+        <activity android:name=".selectmenu" android:screenOrientation="portrait" />
+        <activity android:name=".BookingActivity" android:screenOrientation="portrait" />
+        <activity android:name=".normaluserwaitingscreen" android:screenOrientation="portrait" />
+        <activity android:name=".gamephase" android:screenOrientation="portrait" />
+        <activity android:name=".authentication" android:screenOrientation="portrait" />
         <activity android:name=".AdminPage" android:screenOrientation="portrait" />
-        <activity android:name=".gamephase2" />
-        <activity android:name=".gamephase3" />
-        <activity android:name=".gamephase4" />
-        <activity android:name=".gamephaseAdmin" />
-        <activity android:name=".Fromauthwaitingscreen" />
-        <activity android:name=".TeamLeaderAuthentication"/>
+        <activity android:name=".gamephase2" android:screenOrientation="portrait" />
+        <activity android:name=".gamephase3" android:screenOrientation="portrait" />
+        <activity android:name=".gamephase4" android:screenOrientation="portrait" />
+        <activity android:name=".gamephaseAdmin" android:screenOrientation="portrait" />
+        <activity android:name=".Fromauthwaitingscreen" android:screenOrientation="portrait" />
+        <activity android:name=".TeamLeaderAuthentication" android:screenOrientation="portrait"/>
 
     </application>
 
