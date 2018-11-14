@@ -1,5 +1,7 @@
 package com.danielappdev.fosterships;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -64,11 +66,13 @@ public class gamephase extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     int eventID = (ds.child("eventID").getValue(Integer.class));
-                    //String answer = ds.child("")
-                    if (eventID == (eventIDCurrent)) {
-                        Log.d("tag4",String.valueOf(eventID));
+                    String answerFire = ds.child("phase1Answer").getValue(String.class);
+                    if (eventID == (eventIDCurrent)&&answerFire.equals(answer)) {
+                        //Log.d("tag4",String.valueOf(eventID));
+                        ShowDialog("Correct!","Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
                         break;
                     } else {
+                        ShowDialog("Wrong answer.. try again!","Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
                     }
 
                 }
@@ -79,6 +83,19 @@ public class gamephase extends AppCompatActivity {
 
             }
         });
+    }
+    //Starts a Show Dialog prompt on the screen with title/text!
+    private void ShowDialog(String title,String text) {
+        AlertDialog alertDialog = new AlertDialog.Builder(gamephase.this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(text);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok!",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
 }
