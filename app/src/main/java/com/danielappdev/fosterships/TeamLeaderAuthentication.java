@@ -3,6 +3,7 @@ package com.danielappdev.fosterships;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -37,20 +38,6 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);
         CreateTeams(defReferenceTeams,eventID); //take eventid from admin page --> team leader authentication.
-
-
-        /*
-        Try to move the pushkey to gamephase activity so you can check via firebase under same class
-        Shared preferneces
-        Context context = getActivity();
-        SharedPreferences sharedPref = context.getSharedPreferences(
-        getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(getString(R.string.saved_high_score_key), newHighScore);
-        editor.commit();
-        */
-
     }
 
     private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
@@ -75,8 +62,10 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         reference.push();//repeated code
         String key = reference.getKey();
         DatabaseReference referenceName = database.getReference(key).child("Name");
-        DatabaseReference referenceEventName = database.getReference(key).child("eventName");
+        DatabaseReference referenceEventName = database.getReference(key).child("eventID");
+        DatabaseReference referenceAnswerP1 = database.getReference(key).child("Phase1Answer");
         referenceEventName.setValue(eventID);
         referenceName.setValue("Team Banana");
+        referenceAnswerP1.setValue("Two Red Mushroom");
     }
 }

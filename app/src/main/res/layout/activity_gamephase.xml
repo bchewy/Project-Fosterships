@@ -51,7 +51,7 @@
         app:layout_constraintGuide_percent="0.75" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/answerBox"
         android:layout_width="218dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
