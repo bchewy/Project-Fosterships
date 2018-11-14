@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline34" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageViewgm2"
         android:layout_width="423dp"
         android:layout_height="366dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewgm2" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline34"
