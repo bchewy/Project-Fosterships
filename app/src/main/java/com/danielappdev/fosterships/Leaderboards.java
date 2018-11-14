@@ -23,31 +23,36 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Leaderboards extends AppCompatActivity {
-    TextView textView15;
-    TextView textView16;
-    TextView textView17;
+   // TextView textView15;
+   // TextView textView16;
+   // TextView textView17;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference reference = database.getReference("LeaderBoards"); //Initial root reference
+    DatabaseReference reference = database.getReference("Leaderboards"); //Initial root reference
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboards);
+        LoadData();
     }
 
-    private Integer Leaderboard (Leaderboard l, FirebaseDatabase database) {
+
+
+    private void LoadData() {
         DatabaseReference reference = database.getReference("Leaderboards").push();
         String key = reference.getKey();
         //setup
         DatabaseReference referenceRanking = database.getReference("Leaderboards").child(key).child("Ranking");
         DatabaseReference referenceGroupName = database.getReference("Leaderboards").child(key).child("GroupName");
         DatabaseReference referenceScore = database.getReference("Leaderboards").child(key).child("Score");
-        referenceRanking.setValue(l.getRanking());
-        referenceGroupName.setValue(l.getGroupName());
-        referenceScore.setValue(l.getScore());
-        return l.Leaderboard();
+        referenceRanking.setValue("1");
+        referenceGroupName.setValue("Team banana");
+        referenceScore.setValue("400");
+
     }
+
+
 
 
 }
