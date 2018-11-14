@@ -80,17 +80,19 @@ public class gamephase4 extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                Boolean correct = false;
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     int eventID = (ds.child("eventID").getValue(Integer.class));
                     String answerFire = ds.child("phase1Answer").getValue(String.class);
                     if (eventID == (eventIDCurrent) && answerFire.equals(answer)) {
-                        //Log.d("tag4",String.valueOf(eventID));
-                        ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
+                        correct = true;
                         break;
-                    } else {
-                        ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
                     }
-
+                }
+                if (!correct) {
+                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
+                } else {
+                    ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
                 }
             }
 
