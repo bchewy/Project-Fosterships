@@ -6,8 +6,8 @@ Project Fosterships is an idea to help foster worthwhile relationships with grou
 2nd Runner Up for ICT Byte Hackathon Organised by Portfolio II & Overflow.
 
 ## Build Status
-1. Master Branch (Stable - See status) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
-2. [Development Branch](https://github.com/bchewy/Project-Fosterships/tree/development) (Unstable/Unusable - See status -->) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=production)](https://travis-ci.org/bchewy/Project-Fosterships)
+1. Master Branch (Stable) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
+2. [Development Branch](https://github.com/bchewy/Project-Fosterships/tree/development) (Unstable/Unusable) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=production)](https://travis-ci.org/bchewy/Project-Fosterships)
 
 #### The Team!
 * Project Lead - Daniel Dharshan Ravindran (@danieldharshanschool/danieldharshanravindran)
