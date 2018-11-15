@@ -11,7 +11,7 @@ Project Fosterships is an idea to help foster worthwhile relationships with grou
 Download/clone and build in Android studio with the proper dependencies & versions below!
 
 ### Ruby on Rails Web Application
-Download/clone from : https://github.com/bchewy/Project-Fosterships-Rails
+Download/clone from : https://github.com/bchewy/Project-Fosterships-Rails \
 Run in rails with ``` $ rails server ``` or ```$ bin/rails server```.
 
 ## Build Status
