@@ -38,7 +38,7 @@ public class gamephase extends AppCompatActivity {
     Button btnTryGuess;
     ImageView imageView;
     boolean isImageFitToScreen;
-
+    Integer runOnce = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,14 @@ public class gamephase extends AppCompatActivity {
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);
 
+        while(runOnce<1){//Only ever runs once because variable is 0 on creation
+            if(runOnce<0){
+                break;
+            }
+            else{
+                runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
+            }
+        }
 
 
         btnTryGuess.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +68,7 @@ public class gamephase extends AppCompatActivity {
             public void onClick(View v) {
                 CheckAnswer(defReferenceTeams, answerBox.getText().toString(), eventID);
                 //Load with Glide
-                LoadImageFromFirebase();
+                LoadImageFromFirebase(); //Secretly only for testing right now!
             }
         });
 
@@ -89,6 +97,15 @@ public class gamephase extends AppCompatActivity {
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
+    }
+    public Integer LoadImageFromFirebase(Integer runOnce) {
+        runOnce+=1;
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("mushroom/").child("rowONEcolONE.jpg");//hardcoded "picture.png"
+        ImageView imageView = findViewById(R.id.imageView4);
+        Glide.with(getApplicationContext())
+                .load(storageReference)
+                .into(imageView);
+     return runOnce;
     }
 
     public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent) {
