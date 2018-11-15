@@ -3,6 +3,8 @@ Project Fosterships is an idea to help foster worthwhile relationships with grou
 
 [Read more here!](http://trello.bchewy.me)
 
+2nd Runner Up for ICT Byte Hackathon Organised by Portfolio II & Overflow.
+
 ## Build Status
 1. Master - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
 2. Production (Test) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=production)](https://travis-ci.org/bchewy/Project-Fosterships)
