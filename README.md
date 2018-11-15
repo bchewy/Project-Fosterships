@@ -3,9 +3,21 @@ Project Fosterships is an idea to help foster worthwhile relationships with grou
 
 [Read more here!](http://trello.bchewy.me)
 
+2nd Runner Up for ICT Byte Hackathon Organised by Portfolio II & Overflow.
+
+## Getting started
+BE Careful! - The development branch is unstable. Check the build status below before attempting to run a gradle build.
+
+### Android App 
+Download/clone and build in Android studio with the proper dependencies & versions below!
+
+### Ruby on Rails Web Application
+Download/clone from : https://github.com/bchewy/Project-Fosterships-Rails \
+Run in rails with ``` $ rails server ``` or ```$ bin/rails server```.
+
 ## Build Status
-1. Production (Test) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=production)](https://travis-ci.org/bchewy/Project-Fosterships)
-2. Master (Check in master-branch)
+1. Master (Stable - See status) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
+2. Development (Unstable/Unusable - See status -->) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=development)](https://travis-ci.org/bchewy/Project-Fosterships)
 ### Libaries/dependancies
 Gradle Version : 4.6\
 Android Plugin Version : 3.2.1\
