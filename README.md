@@ -15,8 +15,8 @@ Download/clone from : https://github.com/bchewy/Project-Fosterships-Rails \
 Run in rails with ``` $ rails server ``` or ```$ bin/rails server```.
 
 ## Build Status
-1. Master - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
-2. Production (Test) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=production)](https://travis-ci.org/bchewy/Project-Fosterships)
+1. Master (Stable - See status) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
+2. Development (Unstable/Unusable - See status -->) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=production)](https://travis-ci.org/bchewy/Project-Fosterships)
 ### Libaries/dependancies
 Gradle Version : 4.6\
 Android Plugin Version : 3.2.1\
