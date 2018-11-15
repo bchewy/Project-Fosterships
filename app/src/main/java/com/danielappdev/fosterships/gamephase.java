@@ -53,13 +53,14 @@ public class gamephase extends AppCompatActivity {
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);
 
-        //Load with Glide
-        LoadImageFromFirebase();
+
 
         btnTryGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CheckAnswer(defReferenceTeams, answerBox.getText().toString(), eventID);
+                //Load with Glide
+                LoadImageFromFirebase();
             }
         });
 
