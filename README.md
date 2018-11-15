@@ -6,6 +6,7 @@ Project Fosterships is an idea to help foster worthwhile relationships with grou
 2nd Runner Up for ICT Byte Hackathon Organised by Portfolio II & Overflow.
 
 ## Getting started
+BE Careful! - The development branch is unstable. Check the build status below before attempting to run a gradle build.
 
 ### Android App 
 Download/clone and build in Android studio with the proper dependencies & versions below!
