@@ -47,6 +47,7 @@ public class gamephase extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView4);
         answerBox = findViewById(R.id.answerBox);
+        //Prep merge
         btnTryGuess = findViewById(R.id.btnGuess);
 
         //Get EventID
