@@ -15,7 +15,7 @@
         app:barrierDirection="top" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/txtnumber"
         android:layout_width="13dp"
         android:layout_height="18dp"
         android:layout_marginStart="26dp"
@@ -24,13 +24,12 @@
         android:text="#"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textStyle="bold|italic"
-        app:layout_constraintEnd_toStartOf="@+id/textView13"
+        app:layout_constraintEnd_toStartOf="@+id/txtGroupname"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline21" />
 
     <TextView
-        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -38,11 +37,11 @@
         android:text="Group Name"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textStyle="bold|italic"
-        app:layout_constraintEnd_toStartOf="@+id/textView14"
+        app:layout_constraintEnd_toStartOf="@+id/txtScore"
         app:layout_constraintTop_toTopOf="@+id/guideline21" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/txtScore"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -153,15 +152,16 @@
         app:layout_constraintGuide_begin="297dp" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imgview"
         android:layout_width="279dp"
         android:layout_height="193dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/leaderboard2"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/leaderboard2" />
 </android.support.constraint.ConstraintLayout>
 
 
