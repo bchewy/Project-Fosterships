@@ -34,7 +34,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline32"
-        app:srcCompat="@drawable/turtletwocolumnone" />
+        android:adjustViewBounds="true"
+        app:srcCompat="@drawable/turtleonecolumntwo" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline32"
@@ -51,7 +52,7 @@
         app:layout_constraintGuide_percent="0.75" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/answerBox"
         android:layout_width="218dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

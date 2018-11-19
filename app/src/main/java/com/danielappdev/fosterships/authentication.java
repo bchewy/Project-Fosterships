@@ -19,6 +19,7 @@ public class authentication extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("AuthCodes");
+    DatabaseReference defReferenceTeams = database.getReference("Teams");
     EditText authcode;
     Button btnStart;
     String teamName = "Team Banana";

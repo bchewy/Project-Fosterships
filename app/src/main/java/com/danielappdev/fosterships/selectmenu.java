@@ -24,7 +24,6 @@ public class selectmenu extends AppCompatActivity {
     Button btnJoin;
     Button btnBook;
     Button btnAdminPage;
-    Button btnLeaderboards;
     EditText inviteCode;
     TextView textview2;
     Integer eventID;
