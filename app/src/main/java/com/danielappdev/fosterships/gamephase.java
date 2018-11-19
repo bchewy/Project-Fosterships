@@ -44,12 +44,10 @@ public class gamephase extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamephase);
-
         imageView = findViewById(R.id.imageView4);
         answerBox = findViewById(R.id.answerBox);
         //Prep merge
         btnTryGuess = findViewById(R.id.btnGuess);
-
         //Get EventID
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);
