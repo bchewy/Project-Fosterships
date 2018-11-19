@@ -44,7 +44,7 @@ public class gamephase extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamephase);
-        imageView = findViewById(R.id.imageView4);
+        imageView = findViewById(R.id.imageViewgm2);
         answerBox = findViewById(R.id.answerBox);
         //Prep merge
         btnTryGuess = findViewById(R.id.btnGuess);
@@ -92,7 +92,7 @@ public class gamephase extends AppCompatActivity {
 
     public void LoadImageFromFirebase() {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("mushroom/").child("rowONEcolONE.jpg");//hardcoded "picture.png"
-        ImageView imageView = findViewById(R.id.imageView4);
+        ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
@@ -100,7 +100,7 @@ public class gamephase extends AppCompatActivity {
     public Integer LoadImageFromFirebase(Integer runOnce) {
         runOnce+=1;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("mushroom/").child("rowONEcolONE.jpg");//hardcoded "picture.png"
-        ImageView imageView = findViewById(R.id.imageView4);
+        ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);

@@ -36,7 +36,7 @@ public class gamephase2 extends AppCompatActivity {
         setContentView(R.layout.activity_gamephase2);
         LoadImageFromFirebase();
 
-        imageView = findViewById(R.id.imageView4);
+        imageView = findViewById(R.id.imageViewgm2);
         answerBox = findViewById(R.id.answerBox);
         btnTryGuess = findViewById(R.id.btnGuess);
         Intent mIntent = getIntent();
@@ -69,7 +69,7 @@ public class gamephase2 extends AppCompatActivity {
     }
     public void LoadImageFromFirebase() {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("mushroom/").child("rowONEcolTWO.jpg");//hardcoded "picture.png"
-        ImageView imageView = findViewById(R.id.imageView4);
+        ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
