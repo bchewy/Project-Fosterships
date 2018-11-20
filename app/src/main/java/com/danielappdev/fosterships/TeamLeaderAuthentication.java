@@ -36,7 +36,7 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         authCode.setText(authCodeString);
         saveData(authCodeString,eventID);
         Intent mIntent = getIntent();
-        eventID = mIntent.getIntExtra("EventID", 0);
+        eventID = mIntent.getIntExtra("EventID", 0);//Zero means eventID is not parsed in from booking page!
         CreateTeams(eventID); //take eventid from admin page --> team leader authentication.
     }
 
@@ -68,6 +68,11 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         DatabaseReference rAnswer = database.getReference("Teams").child(key).child("phase1Answer");
         rID.setValue(eventID);
         rName.setValue("Team Banana");
-        rAnswer.setValue("Two Red Mushrooms");
+        rAnswer.setValue("Three Red Mushrooms");
+        initUserCount(key);
+    }
+    private void initUserCount(String key){
+        DatabaseReference rInit = database.getReference("Teams").child(key).child("NoOfAuths");//Initates the number of authenticated team members as 0.
+        rInit.setValue(0);
     }
 }

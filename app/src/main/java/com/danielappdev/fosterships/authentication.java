@@ -23,10 +23,14 @@ public class authentication extends AppCompatActivity {
     EditText authcode;
     Button btnStart;
     String teamName = "Team Banana";
+    boolean UpdatedUserCount = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
+
+
         //ConstraintLayout CS_Auth = findViewById(R.id.CS_Auth);
         authcode = findViewById(R.id.etAuthCode);
 
@@ -54,9 +58,14 @@ public class authentication extends AppCompatActivity {
                     String authCode = (ds.child("TeamAuthCode").getValue(String.class));//this checks all childs
                     String tName = (ds.child("Name").getValue(String.class));
                     if(authCode.equals(authCodetoCheck) && tName.equals(teamName)){
-                        //Authcode is the same..
-                        Intent intent = new Intent(getApplicationContext(), gamephase2.class);
-                        startActivity(intent);
+                        //Update user count here!
+                        //WHen the users press the "Start/Authenticate" button, it runs the check and Updates the
+
+                        UpdatedUserCount=true;
+
+                        //Original Code
+//                        Intent intent = new Intent(getApplicationContext(), gamephase2.class);
+//                        startActivity(intent);
                         break;
 
                     }
@@ -72,5 +81,9 @@ public class authentication extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void UpdateUserCounts(String teamName,final boolean UpdatedUserCount){
+
     }
 }
