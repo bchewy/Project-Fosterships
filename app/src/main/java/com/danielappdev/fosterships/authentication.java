@@ -15,7 +15,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class authentication extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+  public class authentication extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("AuthCodes");
@@ -59,7 +62,7 @@ public class authentication extends AppCompatActivity {
                     String tName = (ds.child("Name").getValue(String.class));
                     if(authCode.equals(authCodetoCheck) && tName.equals(teamName)){
                         //Update user count here!
-                        //WHen the users press the "Start/Authenticate" button, it runs the check and Updates the
+                        //WHen the users press the "Start/Authenticate" button, check NoOfAuths in teams >3
 
                         UpdatedUserCount=true;
 
@@ -85,11 +88,57 @@ public class authentication extends AppCompatActivity {
 
     private void UpdateUserCounts(String teamName,final boolean UpdatedUserCount){
         if(UpdatedUserCount){
+            //Check if no of auths here
+            //TODO move on to next phase
             return;
         }
         else{
-            //Updates the user count in Teams referneces (NoOfAuths) --> Need the key!!
+            //Updates the user count in Teams referneces (NoOfAuths)
+            findUserTeam(defReferenceTeams,"Team Banana");//TODO Harcoded team name
+
 
         }
     }
+    //Load data loads the NoOfAuths and checks if it is 4,
+    private void findUserTeam(final DatabaseReference reference, final String teamName) {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+            public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    String teamNameLoaded = ds.child("NoOfAuths").getValue(String.class);
+                    if (teamNameLoaded.equals(teamName)) {
+                        //If same team name....
+                        int noOfAuths = (ds.child("NoOfAuths").getValue(Integer.class));
+                        updateCount(defReferenceTeams,teamName,noOfAuths);
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void updateCount(DatabaseReference ref,String teamName,int noOfAuths){
+//        Map<String, Object> noAuthUpdates = new HashMap<>();
+//        noAuthUpdates.put(teamName+"/"+noAuthUpdates)
+//        ref.child(teamName).updateChildren()
+        //Set to updated value (+1)
+        int newval = noOfAuths+1;
+        Team teamupdate = new Team(newval);
+
+        Map<String,Object> updateValues = teamupdate.toMap();
+
+        //Update
+        Map<String, Object> teamupdates = new HashMap<>();
+        //teamupdates.put("/Teams/"+updateValues); //TODO fix this
+
+        ref.updateChildren(teamupdates);    }
+
+
+
 }

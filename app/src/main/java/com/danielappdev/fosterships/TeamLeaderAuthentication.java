@@ -21,7 +21,7 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
     String authCodeString;
     String pushKey;
     Integer eventID;
-
+    String teamName = "Team Banana";
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReferenceTeams = database.getReference("Teams"); //root for teams
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
@@ -37,20 +37,20 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         authCode.setText(authCodeString);
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);//Zero means eventID is not parsed in from booking page!
-        CreateTeams(authCodeString,eventID); //take eventid from admin page --> team leader authentication. and create team with authcode
+        CreateTeams(teamName,authCodeString,eventID); //take eventid from admin page --> team leader authentication. and create team with authcode
     }
 
 
 
-    private void CreateTeams(String authCodeString,Integer eventID){
-        DatabaseReference reference = database.getReference("Teams").push();
-        final String key = reference.getKey();
+    private void CreateTeams(String teamName,String authCodeString,Integer eventID){
+        DatabaseReference reference = database.getReference("Teams").child(teamName);//.push() was here
+        //final String key = reference.getKey();
 
         //Database references
-        DatabaseReference referenceCode = database.getReference("Teams").child(key).child("TeamAuthCode");
-        DatabaseReference rName = database.getReference("Teams").child(key).child("TeamName");
-        DatabaseReference rID = database.getReference("Teams").child(key).child("eventID");
-        DatabaseReference rAnswer = database.getReference("Teams").child(key).child("phase1Answer");
+        DatabaseReference referenceCode = database.getReference("Teams").child(teamName).child("TeamAuthCode");
+        DatabaseReference rName = database.getReference("Teams").child(teamName).child("TeamName");
+        DatabaseReference rID = database.getReference("Teams").child(teamName).child("eventID");
+        DatabaseReference rAnswer = database.getReference("Teams").child(teamName).child("phase1Answer");
         referenceCode.setValue(authCodeString); //Creates the authentication code for the team
 
         //Set values here...
@@ -59,7 +59,7 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         rAnswer.setValue("Three Red Mushrooms");
 
         //Xtra creation methods
-        initUserCount(key);
+        initUserCount(teamName);
     }
     private void initUserCount(String key){
         DatabaseReference rInit = database.getReference("Teams").child(key).child("NoOfAuths");//Initates the number of authenticated team members as 0.
