@@ -37,9 +37,9 @@ public class authentication extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String authCodeToCheck;
-                String pushKey;
-                authCodeToCheck = authcode.getText().toString();
+                //String pushKey;
                 //pushKey = TeamLeaderAuthentication.getActivityInstance().ReturnPushKey();
+                authCodeToCheck = authcode.getText().toString();
                 CheckAuthKey(defReference,authCodeToCheck,teamName);
             }
         });
@@ -51,7 +51,7 @@ public class authentication extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String authCode = (ds.child("Code").getValue(String.class));//this checks all childs
+                    String authCode = (ds.child("TeamAuthCode").getValue(String.class));//this checks all childs
                     String tName = (ds.child("Name").getValue(String.class));
                     if(authCode.equals(authCodetoCheck) && tName.equals(teamName)){
                         //Authcode is the same..

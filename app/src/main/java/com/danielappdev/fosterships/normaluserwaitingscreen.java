@@ -25,6 +25,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),authentication.class);
                 startActivity(intent);
+                //Moves to authentication page
             }
         });
 
