@@ -34,6 +34,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
         nexttip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO Write and change nextfact into an array from firebase
                 String tvnextfact =" A ball of glass will bounce higher than a ball of rubber.";
                 TextView tvnextfact1 = findViewById(R.id.tvfact);
                 tvnextfact1.setText(tvnextfact.toString());
