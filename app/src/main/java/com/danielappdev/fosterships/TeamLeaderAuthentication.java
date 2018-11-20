@@ -32,14 +32,42 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_leader_authentication);
         authCode = findViewById(R.id.AuthEditCode);
-        authCodeString = "#"+getRandomString(5);
+
+        authCodeString = "#"+getRandomString(5); //Generates the authentication code
         authCode.setText(authCodeString);
-        saveData(authCodeString,eventID);
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);//Zero means eventID is not parsed in from booking page!
-        CreateTeams(eventID); //take eventid from admin page --> team leader authentication.
+        CreateTeams(authCodeString,eventID); //take eventid from admin page --> team leader authentication. and create team with authcode
     }
 
+
+
+    private void CreateTeams(String authCodeString,Integer eventID){
+        DatabaseReference reference = database.getReference("Teams").push();
+        final String key = reference.getKey();
+
+        //Database references
+        DatabaseReference referenceCode = database.getReference("Teams").child(key).child("TeamAuthCode");
+        DatabaseReference rName = database.getReference("Teams").child(key).child("TeamName");
+        DatabaseReference rID = database.getReference("Teams").child(key).child("eventID");
+        DatabaseReference rAnswer = database.getReference("Teams").child(key).child("phase1Answer");
+        referenceCode.setValue(authCodeString); //Creates the authentication code for the team
+
+        //Set values here...
+        rID.setValue(eventID);
+        rName.setValue("Team Banana");
+        rAnswer.setValue("Three Red Mushrooms");
+
+        //Xtra creation methods
+        initUserCount(key);
+    }
+    private void initUserCount(String key){
+        DatabaseReference rInit = database.getReference("Teams").child(key).child("NoOfAuths");//Initates the number of authenticated team members as 0.
+        rInit.setValue(0);
+    }
+
+
+    //Other methods
     private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
 
     private static String getRandomString(final int sizeOfRandomString)
@@ -49,30 +77,5 @@ public class TeamLeaderAuthentication extends AppCompatActivity {
         for(int i=0;i<sizeOfRandomString;++i)
             sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
         return sb.toString();
-    }
-    private void saveData(String authCodeString, Integer eventID) {
-        DatabaseReference reference = database.getReference("Events").push();
-        final String key = reference.getKey();
-        DatabaseReference referenceCode = database.getReference("AuthCodes").child(key).child("TeamAuthCode");
-        DatabaseReference referenceName = database.getReference("AuthCodes").child(key).child("Name");
-//        DatabaseReference rID = database.getReference("AuthCodes").child(key).child("eventID");
-//        rID.setValue(eventID);
-        referenceCode.setValue(authCodeString);
-        referenceName.setValue("Team Banana");
-    }
-    private void CreateTeams(Integer eventID){
-        DatabaseReference reference = database.getReference("Teams").push();
-        final String key = reference.getKey();
-        DatabaseReference rName = database.getReference("Teams").child(key).child("TeamName");
-        DatabaseReference rID = database.getReference("Teams").child(key).child("eventID");
-        DatabaseReference rAnswer = database.getReference("Teams").child(key).child("phase1Answer");
-        rID.setValue(eventID);
-        rName.setValue("Team Banana");
-        rAnswer.setValue("Three Red Mushrooms");
-        initUserCount(key);
-    }
-    private void initUserCount(String key){
-        DatabaseReference rInit = database.getReference("Teams").child(key).child("NoOfAuths");//Initates the number of authenticated team members as 0.
-        rInit.setValue(0);
     }
 }
