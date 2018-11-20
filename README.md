@@ -18,6 +18,8 @@ Run in rails with ``` $ rails server ``` or ```$ bin/rails server```.
 ## Build Status
 1. Master (Stable - See status) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=master)](https://travis-ci.org/bchewy/Project-Fosterships)
 2. Development (Unstable/Unusable - See status -->) - [![Build Status](https://travis-ci.org/bchewy/Project-Fosterships.svg?branch=development)](https://travis-ci.org/bchewy/Project-Fosterships)
+
+Tested on Pixel 2 XL (API 28, Android 9.0 x86)
 ### Libaries/dependancies
 Gradle Version : 4.6\
 Android Plugin Version : 3.2.1\
