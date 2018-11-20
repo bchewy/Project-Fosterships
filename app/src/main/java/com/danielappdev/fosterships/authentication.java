@@ -84,6 +84,11 @@ public class authentication extends AppCompatActivity {
     }
 
     private void UpdateUserCounts(String teamName,final boolean UpdatedUserCount){
-
+        if(UpdatedUserCount){
+            return;
+        }
+        else{
+            //Updates the user count in Teams referneces (NoOfAuths) --> Need the key!!
+        }
     }
 }
