@@ -1,7 +1,7 @@
 # Project Fosterships
 Project Fosterships is an idea to help foster worthwhile relationships with groups of people who attend camp/events by breaking the ice while promoting a sense of belonging amongst themselves.
 
-[Read more here!](http://trello.bchewy.me)
+[Read more on official site!](http://projectfosterships.ml)
 
 2nd Runner Up for ICT Byte Hackathon Organised by Portfolio II & Overflow.
 
