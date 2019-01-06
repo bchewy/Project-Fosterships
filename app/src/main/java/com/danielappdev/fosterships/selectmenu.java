@@ -3,6 +3,8 @@ package com.danielappdev.fosterships;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,6 +29,8 @@ public class selectmenu extends AppCompatActivity {
     EditText inviteCode;
     TextView textview2;
     Integer eventID;
+    SharedPreferences mPref;
+    SharedPreferences.Editor mEditor;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("Events");
 
@@ -105,8 +109,18 @@ public class selectmenu extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     int eventID = (ds.child("eventID").getValue(Integer.class));
                     if (eventID == eventIDCurrent) {
+                        Event NewEvent = new Event(eventID);
+                        mEditor = mPref.edit();
+                        mEditor.putInt("EventID",eventID);
+                        String android_id = Settings.Secure.getString(getContentResolver(),
+                                Settings.Secure.ANDROID_ID);
+                        mEditor.putString("AndroidID",android_id);
+                        mEditor.commit();
+                        Log.d("myTag", "This is my message");
                         Intent intent = new Intent(getApplicationContext(), normaluserwaitingscreen.class);
+
                         startActivity(intent);
+
                         test = 1;
                         break;
                     }
