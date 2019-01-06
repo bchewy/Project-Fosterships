@@ -93,6 +93,8 @@ public class selectmenu extends AppCompatActivity {
                 });
         alertDialog.show();
     }
+
+    //Database Reference is mandatory to specify the path to read in this method 
     private void CheckFireData(final DatabaseReference reference, final Integer eventIDCurrent) {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
 
