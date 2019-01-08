@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class selectmenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectmenu);
         //Log.d("selectmenu", "runs on selectmenu");
+        mPref = PreferenceManager.getDefaultSharedPreferences(this);
         inviteCode = findViewById(R.id.txtInviteCode);
         btnJoin = findViewById(R.id.btnJoinSelect);
         btnBook = findViewById(R.id.btnBook);
@@ -111,7 +113,7 @@ public class selectmenu extends AppCompatActivity {
                     if (eventID == eventIDCurrent) {
                         Event NewEvent = new Event(eventID);
                         mEditor = mPref.edit();
-                        mEditor.putInt("EventID",eventID);
+                        mEditor.putInt("EventID",eventIDCurrent);
                         String android_id = Settings.Secure.getString(getContentResolver(),
                                 Settings.Secure.ANDROID_ID);
                         mEditor.putString("AndroidID",android_id);

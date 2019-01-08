@@ -37,7 +37,7 @@ BookingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_booking);
+        /*setContentView(R.layout.activity_booking);
         btnBookEvent = findViewById(R.id.btnBookEvent);
         btnAdminPage = findViewById(R.id.btnAdminPage);
         btnCheckDetails = findViewById(R.id.btnCheckDetails);
@@ -63,7 +63,7 @@ BookingActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
         btnCheckDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,8 +159,8 @@ BookingActivity extends AppCompatActivity {
         DatabaseReference referenceAdminEmail = database.getReference("Events").child(key).child("eventAdminEmail");
         referenceName.setValue(e.getEventName());
         referenceEventID.setValue(e.getEventID());
-        referenceNoOfPpl.setValue(e.getEventExpectedNoOfPpl());
-        referenceAdminEmail.setValue(e.getEventAdminEmail());
+       // referenceNoOfPpl.setValue(e.getEventExpectedNoOfPpl());
+        //referenceAdminEmail.setValue(e.getEventAdminEmail());
         return e.getEventID();
 
     }
