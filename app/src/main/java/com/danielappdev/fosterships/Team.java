@@ -39,6 +39,8 @@ public class Team {
     private String Player4ID;
     private String AuthCode;
     private String Teamname;
+    String score, TeamName;
+
 
     public Team(/*String Name, String AuthCodes*/){
         /*TeamID = String.valueOf(eventID) + "-" + String.valueOf(numofTeams+1);
@@ -83,5 +85,21 @@ public class Team {
 
     public String getAuthCode() {
         return AuthCode;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+    public String getTeamName() {
+        return TeamName;
+    }
+
+    public void setTeamName(String teamName) {
+        TeamName = teamName;
     }
 }

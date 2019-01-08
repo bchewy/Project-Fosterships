@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "234196149764-388n1rhqpco57b4n5tuugkp8jmk7o5rh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.danielappdev.fosterships",
+            "certificate_hash": "941ac260804bf40e6824aa310635ad348fc9b9c8"
+          }
+        },
+        {
           "client_id": "234196149764-10apirs0qopglaitp2sh2630aub1gbg5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -40,7 +48,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "234196149764-mfd99rgeejjnvr0lvmua6k5g36nfvqkn.apps.googleusercontent.com",
+              "client_id": "234196149764-grrf9193jgahass9nnrua61ibu7c0imh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
