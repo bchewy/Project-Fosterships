@@ -48,6 +48,23 @@ public class normaluserwaitingscreen extends AppCompatActivity {
             }
 
             public void onFinish() {
+                 /*String[] Roles = {"Player"};
+                Random r = new Random();
+                String playerrole = Roles[r.nextInt(Roles.length)];
+
+                if (playerrole == "Player"){
+                    mEditor = mPref.edit();
+
+
+                    String android_id = Settings.Secure.getString(getContentResolver(),
+                            Settings.Secure.ANDROID_ID);
+                    mEditor.putString("AndroidID",android_id);
+                    mEditor.commit();
+                    eventID = mPref.getInt("EventID",0);
+                    HashMap<String, Object> Member = new HashMap<>();
+                    Member.put("Player1",android_id);
+                    defReference.child(String.valueOf(eventID)).child("Teams").child("Team Banana").child("Members").updateChildren(Member);
+                }*/
                 Intent intent = new Intent(getApplicationContext(),authentication.class);
                 startActivity(intent);
             }

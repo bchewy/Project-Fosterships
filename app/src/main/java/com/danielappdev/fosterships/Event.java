@@ -1,24 +1,22 @@
 package com.danielappdev.fosterships;
 
+import android.app.Application;
 import android.util.Log;
 
 import java.util.Random;
 
 
-public class Event {
-    private int eventID;
+public class Event extends Application {
+    private static int eventID;
     private String eventName;
-    private String eventAdminEmail;
-    private String eventExpectedNoOfPpl;
+
 
     public Event(){
         //instantiate
     }
-    public Event(String eventName,String eventAdminEmail,String eventExpectedNoOfPpl){
-        this.eventID=generateEventID();
-        this.eventName=eventName;
-        this.eventAdminEmail=eventAdminEmail;
-        this.eventExpectedNoOfPpl=eventExpectedNoOfPpl;
+    public Event(int ID){
+        this.eventID = ID;
+
     }
 
     public String getEventName() {
@@ -28,38 +26,10 @@ public class Event {
         return eventID;
     }
 
-    public void setEventID(int eventID) {
-        this.eventID = eventID;
-    }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
 
-    }
 
-    public String getEventAdminEmail() {
-        return eventAdminEmail;
-    }
 
-    public void setEventAdminEmail(String eventAdminEmail) {
-        this.eventAdminEmail = eventAdminEmail;
-    }
-
-    public String getEventExpectedNoOfPpl() {
-        return eventExpectedNoOfPpl;
-    }
-
-    public void setEventExpectedNoOfPpl(String eventExpectedNoOfPpl) {
-        this.eventExpectedNoOfPpl = eventExpectedNoOfPpl;
-    }
-
-    //Actual methods
-    private int generateEventID() {
-        Random rand = new Random();
-        int n = rand.nextInt(10000) + 1;
-        eventID = n;
-        return eventID;
-    }
 }
 
 
