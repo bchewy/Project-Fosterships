@@ -6,8 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+<<<<<<< HEAD
+import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
+=======
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +24,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -41,7 +47,12 @@ public class gamephase extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReferenceTeams = database.getReference("Teams");
     DatabaseReference defReference = database.getReference("Events");
+<<<<<<< HEAD
+    SharedPreferences mPref;
+    SharedPreferences.Editor mEditor;
+=======
     String Android_ID;
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
     EditText answerBox;
     Integer EventID;
     Button btnTryGuess;
@@ -57,11 +68,43 @@ public class gamephase extends AppCompatActivity {
         answerBox = findViewById(R.id.answerBox);
         mPref = PreferenceManager.getDefaultSharedPreferences(this);
         //Prep merge
+<<<<<<< HEAD
+        mPref = PreferenceManager.getDefaultSharedPreferences(this);
+=======
         int eventID;
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
         btnTryGuess = findViewById(R.id.btnGuess);
         //Get EventID
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);
+<<<<<<< HEAD
+        LoadImageFromFirebase();
+        new CountDownTimer(2, 1) {
+            public void onTick(long millisUntilFinished) { }
+            public void onFinish() {
+                final String TeamName = mPref.getString("TeamName","default");
+                defReference.child(String.valueOf(eventID)).child("Teams").child(TeamName).addListenerForSingleValueEvent(new ValueEventListener(){
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if(snapshot.child("").getValue(Integer.class).equals(snapshot.child("").getValue(Integer.class))){
+                            defReference.child(String.valueOf(eventID)).child("Teams").child(TeamName).child("Round").setValue(snapshot.getValue(Integer.class)+1);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }
+        }.start();
+     /*  while(runOnce<1){//Only ever runs once because variable is 0 on creation
+           if(runOnce<0){
+               break;
+           }
+           else{
+               runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
+           }
+       }*/
+=======
         //LoadImageFromFirebase();
         getRole();
 
@@ -73,6 +116,7 @@ public class gamephase extends AppCompatActivity {
                 runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
             }
         }*/
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
 
 
         btnTryGuess.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +149,13 @@ public class gamephase extends AppCompatActivity {
     }
 
 
+<<<<<<< HEAD
+
+
+    // DatabaseReference defReferenceTeams = database.getReference("Teams");
+    public void LoadImageFromFirebase() {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
+=======
     //need to see where your ID is in
     //how do i pull role where id in firebase is actual androidID
     //if role is 1 pull 1. If role is 2 pull 2
@@ -153,19 +204,28 @@ public class gamephase extends AppCompatActivity {
     public void LoadImageFromFirebase(Integer role) {
         String temprole = role.toString();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child(temprole);//hardcoded "picture.png"
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
     }
 
+<<<<<<< HEAD
+
+    public Integer LoadImageFromFirebase(Integer runOnce) {
+=======
    /* public Integer LoadImageFromFirebase(Integer runOnce) {
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
         runOnce+=1;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
+<<<<<<< HEAD
+        return runOnce;
+=======
      return runOnce;
     }*/
 
@@ -174,8 +234,46 @@ public class gamephase extends AppCompatActivity {
     //public void CheckAnswer(final DatabaseReference defReference,final String answer,int score)
     {
 
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
+    }
+    //public void CheckAnswer(final DatabaseReference defReference,final String answer,int score)
+    {
+
     }
 
+    //  DatabaseReference defReferenceTeams = database.getReference("Teams");
+    //public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent)
+ /*  public void CheckAnswer(final DatabaseReference defReference,final String answer,int score) {
+       defReference.addListenerForSingleValueEvent(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot snapshot) {
+               Boolean correct = false;
+               for (DataSnapshot ds : snapshot.getChildren()) {
+                   //int eventID = (ds.child("eventID").getValue(Integer.class));
+                   String answerFire = ds.child("phase1Answer").getValue(String.class);
+                   if (eventID == (eventIDCurrent) && answerFire.equals(answer)) {
+                       correct = true;
+                       break;
+                   }
+               }
+               if (!correct) {
+                   ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
+               } else {
+                   ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
+               }
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+           }
+       });
+   }*/
+
+
+
+<<<<<<< HEAD
+=======
     //  DatabaseReference defReferenceTeams = database.getReference("Teams");
     //public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent)
   /*  public void CheckAnswer(final DatabaseReference defReference,final String answer,int score) {
@@ -197,10 +295,11 @@ public class gamephase extends AppCompatActivity {
                     ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
                 }
             }
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
+<<<<<<< HEAD
+=======
             }
         });
     }*/
@@ -209,6 +308,7 @@ public class gamephase extends AppCompatActivity {
 
 
 
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
 
     //Starts a Show Dialog prompt on the screen with title/text!
     private void ShowDialog(String title, String text) {
@@ -223,6 +323,7 @@ public class gamephase extends AppCompatActivity {
                 });
         alertDialog.show();
     }
+
 
 
 }
