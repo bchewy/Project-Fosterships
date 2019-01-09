@@ -40,7 +40,7 @@ public class Leaderboards extends AppCompatActivity {
 
     RecyclerView mLeaderboard;
     FirebaseDatabase mFirebase;
-    Query mRef;
+    DatabaseReference mRef;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference reference = database.getReference("Leaderboards"); //Initial root reference
@@ -70,16 +70,15 @@ public class Leaderboards extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-
-        FirebaseRecyclerOptions<Teams> options =
+        FirebaseRecyclerOptions<Teams> options=
                 new FirebaseRecyclerOptions.Builder<Teams>()
-                .setQuery(mRef, Teams.class);
-                .build();
+                    .setQuery(mRef, Teams.class)
+                    .build();
 
-        FirebaseRecyclerAdapter<Team, LeaderboardViewHolder> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<Team, LeaderboardViewHolder>(options) {
+        FirebaseRecyclerAdapter<Teams, LeaderboardViewHolder> firebaseRecyclerAdapter =
+                new FirebaseRecyclerAdapter<Teams, LeaderboardViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position, @NonNull Team model) {
+                    protected void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position, @NonNull Teams model) {
                         holder.setDetails(getApplicationContext(), model.getTeamName(), model.getScore());
                     }
 
@@ -91,6 +90,8 @@ public class Leaderboards extends AppCompatActivity {
                         return viewHolder;
                     }
                 };
+
+        mLeaderboard.setAdapter(firebaseRecyclerAdapter);
     }
 
     /*private void SendData() {
