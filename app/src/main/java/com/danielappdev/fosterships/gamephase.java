@@ -3,8 +3,11 @@ package com.danielappdev.fosterships;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -33,6 +37,9 @@ public class gamephase extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReferenceTeams = database.getReference("Teams");
+    DatabaseReference defReference = database.getReference("Events");
+    SharedPreferences mPref;
+    SharedPreferences.Editor mEditor;
     EditText answerBox;
     Integer eventID;
     Button btnTryGuess;
@@ -47,29 +54,48 @@ public class gamephase extends AppCompatActivity {
         imageView = findViewById(R.id.imageViewgm2);
         answerBox = findViewById(R.id.answerBox);
         //Prep merge
+        mPref = PreferenceManager.getDefaultSharedPreferences(this);
         btnTryGuess = findViewById(R.id.btnGuess);
         //Get EventID
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);
-
-        while(runOnce<1){//Only ever runs once because variable is 0 on creation
-            if(runOnce<0){
-                break;
+        LoadImageFromFirebase();
+        new CountDownTimer(2, 1) {
+            public void onTick(long millisUntilFinished) { }
+            public void onFinish() {
+                final String TeamName = mPref.getString("TeamName","default");
+                defReference.child(String.valueOf(eventID)).child("Teams").child(TeamName).addListenerForSingleValueEvent(new ValueEventListener(){
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if(snapshot.child("").getValue(Integer.class).equals(snapshot.child("").getValue(Integer.class))){
+                            defReference.child(String.valueOf(eventID)).child("Teams").child(TeamName).child("Round").setValue(snapshot.getValue(Integer.class)+1);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
             }
-            else{
-                runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
-            }
-        }
+        }.start();
+     /*  while(runOnce<1){//Only ever runs once because variable is 0 on creation
+           if(runOnce<0){
+               break;
+           }
+           else{
+               runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
+           }
+       }*/
 
 
         btnTryGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckAnswer(defReferenceTeams, answerBox.getText().toString(), eventID);
+                //CheckAnswer(defReferenceTeams, answerBox.getText().toString(), eventID);
                 //Load with Glide
                 LoadImageFromFirebase(); //Secretly only for testing right now!
             }
         });
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -90,49 +116,66 @@ public class gamephase extends AppCompatActivity {
 
     }
 
+
+
+
+    // DatabaseReference defReferenceTeams = database.getReference("Teams");
     public void LoadImageFromFirebase() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("mushroom/").child("rowONEcolONE.jpg");//hardcoded "picture.png"
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
     }
+
+
     public Integer LoadImageFromFirebase(Integer runOnce) {
         runOnce+=1;
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("mushroom/").child("rowONEcolONE.jpg");//hardcoded "picture.png"
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
-     return runOnce;
+        return runOnce;
+    }
+    //public void CheckAnswer(final DatabaseReference defReference,final String answer,int score)
+    {
+
     }
 
-    public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent) {
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                Boolean correct = false;
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    int eventID = (ds.child("eventID").getValue(Integer.class));
-                    String answerFire = ds.child("phase1Answer").getValue(String.class);
-                    if (eventID == (eventIDCurrent) && answerFire.equals(answer)) {
-                        correct = true;
-                        break;
-                    }
-                }
-                if (!correct) {
-                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
-                } else {
-                    ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
-                }
-            }
+    //  DatabaseReference defReferenceTeams = database.getReference("Teams");
+    //public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent)
+ /*  public void CheckAnswer(final DatabaseReference defReference,final String answer,int score) {
+       defReference.addListenerForSingleValueEvent(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot snapshot) {
+               Boolean correct = false;
+               for (DataSnapshot ds : snapshot.getChildren()) {
+                   //int eventID = (ds.child("eventID").getValue(Integer.class));
+                   String answerFire = ds.child("phase1Answer").getValue(String.class);
+                   if (eventID == (eventIDCurrent) && answerFire.equals(answer)) {
+                       correct = true;
+                       break;
+                   }
+               }
+               if (!correct) {
+                   ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
+               } else {
+                   ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
+               }
+           }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-    }
+           }
+       });
+   }*/
+
+
+
+
+
 
     //Starts a Show Dialog prompt on the screen with title/text!
     private void ShowDialog(String title, String text) {
@@ -147,6 +190,7 @@ public class gamephase extends AppCompatActivity {
                 });
         alertDialog.show();
     }
+
 
 
 }

@@ -70,11 +70,15 @@ public class authentication extends AppCompatActivity {
                 authCodeToCheck = authcode.getText().toString();
                 //pushKey = TeamLeaderAuthentication.getActivityInstance().ReturnPushKey();
                 CheckAuthKey(EventRef,authCodeToCheck);
+
             }
         });
-        new CountDownTimer(20000, 10000) {
-            public void onTick(long millisUntilFinished) {
 
+        new CountDownTimer(2, 1) {
+            int count =0;
+            public void onTick(long millisUntilFinished) {
+                count++;
+                test.setText(count);
             }
 
             public void onFinish() {
@@ -85,11 +89,15 @@ public class authentication extends AppCompatActivity {
 
     private void CheckAuthKey(final DatabaseReference reference, final String authCodetoCheck) {
         final String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
+        Log.d("name", Tname);
+        mEditor = mPref.edit();
+        mEditor.putString("TeamName",Tname);
         reference.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.child("TeamAuthCode").exists()){
                     if(String.valueOf(snapshot.child("TeamAuthCode").getValue()).equals(authCodetoCheck)){
+
                         int NumOfAuth =  snapshot.child("NoOfAuths").getValue(Integer.class);
                         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("NoOfAuths").setValue(NumOfAuth+1);
                         CheckTeamAuthNO();
