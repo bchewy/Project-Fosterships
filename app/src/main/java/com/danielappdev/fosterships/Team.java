@@ -39,19 +39,17 @@ public class Team {
     private String Player4ID;
     private String AuthCode;
     private String Teamname;
+    int size;
 
-    public Team(/*String Name, String AuthCodes*/){
-        /*TeamID = String.valueOf(eventID) + "-" + String.valueOf(numofTeams+1);
-        LeaderID = leader;
-        AuthCode = AuthCodes;
-        Teamname = Name;*/
+    public Team(){
+        size =0;
     }
 
     public String GenerateCode(){
         char[] chars1 = "ABCDEF012GHIJKL345MNOPQR678STUVWXYZ9".toCharArray();
         StringBuilder sb1 = new StringBuilder();
         Random random1 = new Random();
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 5; i++)
         {
             char c1 = chars1[random1.nextInt(chars1.length)];
             sb1.append(c1);
@@ -76,12 +74,35 @@ public class Team {
         if (teamname != null){
             Teamname = teamname;
         }}
-
     public String getTeamname() {
         return Teamname;
     }
 
     public String getAuthCode() {
         return AuthCode;
+    }
+
+    public void setLeaderID(String leaderID) {
+        LeaderID = leaderID;
+    }
+
+    public void setPlayer2ID(String player2ID) {
+        Player2ID = player2ID;
+    }
+
+    public void setPlayer3ID(String player3ID) {
+        Player3ID = player3ID;
+    }
+
+    public void setPlayer4ID(String player4ID) {
+        Player4ID = player4ID;
+    }
+
+    public void AddSize() {
+        this.size++;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
