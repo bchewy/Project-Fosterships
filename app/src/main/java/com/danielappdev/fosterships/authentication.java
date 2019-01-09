@@ -67,6 +67,9 @@ public class authentication extends AppCompatActivity {
             public void onClick(View v) {
                 String authCodeToCheck;
                 String pushKey;
+                String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
+                mEditor = mPref.edit();
+                mEditor.putString("TeamName",Tname);
                 authCodeToCheck = authcode.getText().toString();
                 //pushKey = TeamLeaderAuthentication.getActivityInstance().ReturnPushKey();
                 CheckAuthKey(EventRef,authCodeToCheck);
@@ -89,7 +92,10 @@ public class authentication extends AppCompatActivity {
 
     private void CheckAuthKey(final DatabaseReference reference, final String authCodetoCheck) {
         final String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
+<<<<<<< HEAD
         Log.d("name", Tname);
+=======
+>>>>>>> b925817596f25f1155d164504cad48e732ed747e
         mEditor = mPref.edit();
         mEditor.putString("TeamName",Tname);
         reference.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
