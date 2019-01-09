@@ -1,9 +1,16 @@
 package com.danielappdev.fosterships;
 
 public class Teams {
-    String score, TeamName;
+    String score, teamname;
 
-    public Teams () {}
+    public Teams() {
+    }
+
+    public Teams(String score, String teamname)
+    {
+        this.score = score;
+        this.teamname = teamname;
+    }
 
     public String getScore() {
         return score;
@@ -13,11 +20,11 @@ public class Teams {
         this.score = score;
     }
 
-    public String getTeamName() {
-        return TeamName;
+    public String getTeamname() {
+        return teamname;
     }
 
-    public void setTeamName(String teamName) {
-        TeamName = teamName;
+    public void setTeamname(String teamname) {
+        this.teamname = teamname;
     }
 }

@@ -143,13 +143,13 @@ public class AdminPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        btnLeaderboards.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), Leaderboards.class);
-//                startActivity(intent);
-//            }
-//        });
+        btnLeaderboards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Leaderboard.class);
+                v.getContext().startActivity(intent);
+            }
+        });
         btnEndPrep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

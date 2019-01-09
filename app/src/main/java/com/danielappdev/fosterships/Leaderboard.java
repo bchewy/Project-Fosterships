@@ -1,6 +1,7 @@
 package com.danielappdev.fosterships;
 
-
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.app.usage.EventStats;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,27 +34,24 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
 
 
-public class Leaderboards extends AppCompatActivity {
-   // TextView textView15;
-   // TextView textView16;
-   // TextView textView17;
+public class Leaderboard extends AppCompatActivity {
+    // TextView textView15;
+    // TextView textView16;
+    // TextView textView17;
 
     RecyclerView mLeaderboard;
     FirebaseDatabase mFirebase;
     DatabaseReference mRef;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference reference = database.getReference("Leaderboards"); //Initial root reference
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leaderboards);
+        setContentView(R.layout.activity_leaderboard);
 
         //Actionbar
-        ActionBar actionBar = getSupportActionBar();
+        //ActionBar actionBar = getSupportActionBar();
         //setTitle
-        actionBar.setTitle("Leaderboards");
+        //actionBar.setTitle("Leaderboards");
 
         //RecycleView
         mLeaderboard = findViewById(R.id.recyclerView);
@@ -63,23 +61,26 @@ public class Leaderboards extends AppCompatActivity {
         mLeaderboard.setLayoutManager(new LinearLayoutManager(this));
 
         mFirebase = FirebaseDatabase.getInstance();
-        mRef = FirebaseDatabase.getInstance().getReference().child("Teams");
+        mRef = FirebaseDatabase.getInstance().getReference("Teams");
     }
 
     //load data into recycler view when app starts
     @Override
     protected void onStart(){
         super.onStart();
+
         FirebaseRecyclerOptions<Teams> options=
                 new FirebaseRecyclerOptions.Builder<Teams>()
-                    .setQuery(mRef, Teams.class)
-                    .build();
+                        .setQuery(mRef, Teams.class)
+                        .build();
 
         FirebaseRecyclerAdapter<Teams, LeaderboardViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<Teams, LeaderboardViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position, @NonNull Teams model) {
-                        holder.setDetails(getApplicationContext(), model.getTeamName(), model.getScore());
+                        //holder.setDetails(getApplicationContext(), model.getTeamName(), model.getScore());
+                        holder.score.setText(model.getScore());
+                        holder.teamname.setText(model.getTeamname());
                     }
 
                     @NonNull
@@ -91,48 +92,34 @@ public class Leaderboards extends AppCompatActivity {
                     }
                 };
 
+        firebaseRecyclerAdapter.startListening();
         mLeaderboard.setAdapter(firebaseRecyclerAdapter);
-    }
-
-    /*private void SendData() {
-        DatabaseReference reference = database.getReference("Leaderboards").push();
-        String key = reference.getKey();
-        //setup
-        DatabaseReference referenceRanking = database.getReference("Leaderboards").child(key).child("Ranking");
-        DatabaseReference referenceGroupName = database.getReference("Leaderboards").child(key).child("GroupName");
-        DatabaseReference referenceScore = database.getReference("Leaderboards").child(key).child("Score");
-        referenceRanking.setValue("1");
-        referenceGroupName.setValue("Team banana");
-        referenceScore.setValue("400");
 
     }
 
-    private void LoadData(final DatabaseReference reference){
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    String GroupName = ds.child("GroupName").getValue(String.class);
+    public static class LeaderboardViewHolder extends RecyclerView.ViewHolder{
 
-                        String ranking = ds.child("Ranking").getValue(String.class);
-                        String groupName = ds.child("GroupName").getValue(String.class);
-                        String score = ds.child("Score").getValue(String.class);
-                        Log.d("1", ranking);
-                        Log.d("1", groupName);
-                        Log.d("1", score);
+        //View mView;
 
+        TextView teamname, score;
 
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        public LeaderboardViewHolder(View itemView) {
+            super(itemView);
 
-            }
-        });
+            teamname = itemView.findViewById(R.id.teamname);
+            score = itemView.findViewById(R.id.score);
 
-    }*/
+            //mView = itemView;
+        }
+
+        //set details to recycler view
+       /*public void setDetails(Context ctx, String teamname, String score) {
+            //Views
+            TextView teamname = mView.findViewById(R.id.teamName);
+            TextView mScore = mView.findViewById(R.id.score);
+            // set data to views
+            mTeamName.setText(teamname);
+            mScore.setText(score);
+        }*/
+    }
 }
-
-
-
-
