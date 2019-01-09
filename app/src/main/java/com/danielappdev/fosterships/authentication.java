@@ -3,6 +3,7 @@ package com.danielappdev.fosterships;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.constraint.ConstraintLayout;
@@ -57,8 +58,9 @@ public class authentication extends AppCompatActivity {
         mPref = PreferenceManager.getDefaultSharedPreferences(this);
         Android_ID = mPref.getString("AndroidID","default");
         EventID = mPref.getInt("EventID",0);
+        test = findViewById(R.id.textView5);
         texts = (TextView)findViewById(R.id.textView10);
-        //getteamDetails();
+
         PrepPage();
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,69 +72,41 @@ public class authentication extends AppCompatActivity {
                 CheckAuthKey(EventRef,authCodeToCheck);
             }
         });
+        new CountDownTimer(20000, 10000) {
+            public void onTick(long millisUntilFinished) {
 
+            }
+
+            public void onFinish() {
+                CheckTeamAuthNO();
+            }
+        }.start();
     }
 
     private void CheckAuthKey(final DatabaseReference reference, final String authCodetoCheck) {
-        final String Tname = String.valueOf(texts.getText()).replace("You are in","");
+        final String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
         reference.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
-            public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    if(ds.child("TeamAuthCode").equals(authCodetoCheck)){
-                        //Authcode is the same..
-                        int NumOfAuth = ds.child("NumOfAuth").getValue(Integer.class);
-                        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("NumOfAuth").setValue(NumOfAuth+1);
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.child("TeamAuthCode").exists()){
+                    if(String.valueOf(snapshot.child("TeamAuthCode").getValue()).equals(authCodetoCheck)){
+                        int NumOfAuth =  snapshot.child("NoOfAuths").getValue(Integer.class);
+                        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("NoOfAuths").setValue(NumOfAuth+1);
+                        CheckTeamAuthNO();
+                        authcode.setVisibility(View.INVISIBLE);
                         btnStart.setVisibility(View.INVISIBLE);
+                        AuthText.setVisibility(View.VISIBLE);
                         AuthText.setText("Not everyone has logged in");
-                        /*Intent intent = new Intent(getApplicationContext(), gamephase2.class);
-                        startActivity(intent);*/
-                        break;
-
-                    }
-                    else{
-
                     }
                 }
 
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
 
-    public void getteamDetails(){
-
-        EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot s1 : dataSnapshot.getChildren()) {
-
-                    if (s1.child("Members").child(Android_ID).exists()) {
-                        final String Teams = String.valueOf(s1.child("TeamName").getValue());
-                        CurTeam.setTeamname(Teams);
-                        //texts.setText("okokoko");
-
-                        break;
-
-                        //String role = String.valueOf(snapshot.child("Members").child(Android_ID).child("role").getValue());
-
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
 
     public void PrepPage(){
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
@@ -144,6 +118,7 @@ public class authentication extends AppCompatActivity {
                     if (s1.child("Members").child(Android_ID).exists()) {
                         String fruit = String.valueOf(s1.child("TeamName").getValue()).replace("Team ","");
                         int drawableId = getResources().getIdentifier(fruit, "drawable", getPackageName());
+                        texts.setText("You are in Team " + fruit);
                         img.setImageResource(drawableId);
                         //test.setText(String.valueOf(s1.child("Members").child(Android_ID).child("role").getValue()));
                         //texts.setText("okokoko");
@@ -152,22 +127,45 @@ public class authentication extends AppCompatActivity {
                             btnStart.setVisibility(View.INVISIBLE);
                             AuthText.setVisibility(View.VISIBLE);
                             AuthText.setText(String.valueOf(s1.child("TeamAuthCode").getValue()));
-                            texts.setText("You are in Team " + fruit);
                             Instructions.setText("Leader, Find the rest of your Teammates!");
 
+                        }
+                        else{
+                            authcode.setVisibility(View.VISIBLE);
+                            btnStart.setVisibility(View.VISIBLE);
+                            AuthText.setVisibility(View.INVISIBLE);
+                            Instructions.setText("Key in your team leaders authentication code");
                         }
                         break;
 
                         //String role = String.valueOf(snapshot.child("Members").child(Android_ID).child("role").getValue());
 
                     }
-
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
+    }
+    public void CheckTeamAuthNO(){
+        final String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.child("NoOfAuths").exists()){
+                    if(snapshot.child("NoOfAuths").getValue(Integer.class).equals(3)){
+                        test.setText("works");
+                        Intent intent = new Intent(getApplicationContext(), gamephase.class);
+                        startActivity(intent);
+                    }
+
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
 

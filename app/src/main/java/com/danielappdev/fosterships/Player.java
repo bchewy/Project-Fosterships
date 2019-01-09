@@ -3,18 +3,15 @@ package com.danielappdev.fosterships;
 import android.util.Log;
 
 public class Player {
-    private int PlayerID;
-    private Event currentEvent;
+    private String PlayerID;
 
-    public Player(){
-        //instantiate
+    public Player(String ID){
+        PlayerID = ID;
     }
 
-
-    /*public void GenerateTeam(){
-        if (currentEvent.getnumberofTeams() < currentEvent.getMaxnumberofTeams()){
-            Team Teamx = new Team(currentEvent.getEventID(),this,currentEvent.getnumberofTeams());
-            Event NewEvent = selectmenu.
-        }
-    }*/
+    public String getPlayerID() {
+        return PlayerID;
+    }
 }
+
+
