@@ -3,8 +3,10 @@ package com.danielappdev.fosterships;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -33,29 +35,35 @@ import com.google.firebase.storage.StorageReference;
 
 public class gamephase extends AppCompatActivity {
 
+    SharedPreferences mPref;
+    SharedPreferences.Editor mEditor;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReferenceTeams = database.getReference("Teams");
     DatabaseReference defReference = database.getReference("Events");
-
+    String Android_ID;
     EditText answerBox;
-    Integer eventID;
+    Integer EventID;
     Button btnTryGuess;
     ImageView imageView;
     boolean isImageFitToScreen;
     Integer runOnce = 0;
-
+    Integer role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamephase);
         imageView = findViewById(R.id.imageViewgm2);
         answerBox = findViewById(R.id.answerBox);
+        mPref = PreferenceManager.getDefaultSharedPreferences(this);
         //Prep merge
+        int eventID;
         btnTryGuess = findViewById(R.id.btnGuess);
         //Get EventID
         Intent mIntent = getIntent();
         eventID = mIntent.getIntExtra("EventID", 0);
-        LoadImageFromFirebase();
+        //LoadImageFromFirebase();
+        getRole();
 
       /*  while(runOnce<1){//Only ever runs once because variable is 0 on creation
             if(runOnce<0){
@@ -72,7 +80,7 @@ public class gamephase extends AppCompatActivity {
             public void onClick(View v) {
                 //CheckAnswer(defReferenceTeams, answerBox.getText().toString(), eventID);
                 //Load with Glide
-                LoadImageFromFirebase(); //Secretly only for testing right now!
+                LoadImageFromFirebase(runOnce); //Secretly only for testing right now!
             }
         });
 
@@ -97,19 +105,61 @@ public class gamephase extends AppCompatActivity {
     }
 
 
+    //need to see where your ID is in
+    //how do i pull role where id in firebase is actual androidID
+    //if role is 1 pull 1. If role is 2 pull 2
+    //get event id from the user, using shared preferences
+    //need to get role from firebase. Input in role into LoadImageFromFirebase(role)
+    //convert role to string
+    //use  for (DataSnapshot s1 : dataSnapshot.getChildren()) to obtain role where android ID = _
+    //then LoadImageFromFirebase(role)
 
 
+
+
+    //added custom path to pull rhino pic
     // DatabaseReference defReferenceTeams = database.getReference("Teams");
-    public void LoadImageFromFirebase() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
+
+
+    //problem, tname is default
+
+    public int getRole() {
+        Android_ID = mPref.getString("AndroidID","default");
+        EventID = mPref.getInt("EventID",0);
+        String Tname = mPref.getString("TeamName","Default");
+        Log.d("name", Tname);
+        DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).addListenerForSingleValueEvent(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    Log.d("exist", "exist ");
+
+                }
+                //int makeshiftrole = dataSnapshot.child("role").getValue(Integer.class);
+                mEditor = mPref.edit();
+                //mEditor.putInt("Role",makeshiftrole);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        Log.d("role", (role = mPref.getInt("Role",0)).toString());
+       return role = mPref.getInt("Role",0);
+
+    }
+
+
+    public void LoadImageFromFirebase(Integer role) {
+        String temprole = role.toString();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child(temprole);//hardcoded "picture.png"
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
     }
 
-
-    public Integer LoadImageFromFirebase(Integer runOnce) {
+   /* public Integer LoadImageFromFirebase(Integer runOnce) {
         runOnce+=1;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
         ImageView imageView = findViewById(R.id.imageViewgm2);
@@ -117,7 +167,7 @@ public class gamephase extends AppCompatActivity {
                 .load(storageReference)
                 .into(imageView);
      return runOnce;
-    }
+    }*/
 
 
 
