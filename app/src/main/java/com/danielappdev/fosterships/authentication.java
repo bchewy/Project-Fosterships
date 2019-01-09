@@ -133,6 +133,7 @@ public class authentication extends AppCompatActivity {
 
 
     }
+
     public void PrepPage(){
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
         EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {
