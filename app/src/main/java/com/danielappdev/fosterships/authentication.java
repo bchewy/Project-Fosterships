@@ -67,42 +67,37 @@ public class authentication extends AppCompatActivity {
             public void onClick(View v) {
                 String authCodeToCheck;
                 String pushKey;
-                String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
-                mEditor = mPref.edit();
-                mEditor.putString("TeamName",Tname);
                 authCodeToCheck = authcode.getText().toString();
                 //pushKey = TeamLeaderAuthentication.getActivityInstance().ReturnPushKey();
                 CheckAuthKey(EventRef,authCodeToCheck);
-
             }
         });
-
+        String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
+        test.setText(Tname);
         new CountDownTimer(2, 1) {
-            int count =0;
             public void onTick(long millisUntilFinished) {
-                count++;
-                test.setText(count);
+
             }
 
             public void onFinish() {
+                Log.d("name", "???");
                 CheckTeamAuthNO();
+                Log.d("name", "!!!");
+                //start();
             }
         }.start();
-    }
+
+        }
+
 
     private void CheckAuthKey(final DatabaseReference reference, final String authCodetoCheck) {
         final String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
-
         Log.d("name", Tname);
-
-        mEditor = mPref.edit();
-        mEditor.putString("TeamName",Tname);
         reference.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.child("TeamAuthCode").exists()){
                     if(String.valueOf(snapshot.child("TeamAuthCode").getValue()).equals(authCodetoCheck)){
-
                         int NumOfAuth =  snapshot.child("NoOfAuths").getValue(Integer.class);
                         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("NoOfAuths").setValue(NumOfAuth+1);
                         CheckTeamAuthNO();
@@ -160,17 +155,20 @@ public class authentication extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
+        String Tname = String.valueOf(texts.getText());//(String.valueOf(texts.getText()).replace("You are in ",""));
+        test.setText(Tname);
     }
     public void CheckTeamAuthNO(){
         final String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
+        test.setText(Tname);
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.child("NoOfAuths").exists()){
+                    test.setText("works");
                     if(snapshot.child("NoOfAuths").getValue(Integer.class).equals(3)){
-                        test.setText("works");
-                        Intent intent = new Intent(getApplicationContext(), gamephase.class);
+
+                        Intent intent = new Intent(getApplicationContext(), gamephase2.class);
                         startActivity(intent);
                     }
 
