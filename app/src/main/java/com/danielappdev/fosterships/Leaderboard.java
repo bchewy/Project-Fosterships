@@ -62,7 +62,7 @@ public class Leaderboard extends AppCompatActivity {
 
         mFirebase = FirebaseDatabase.getInstance();
         mRef = FirebaseDatabase.getInstance().getReference("Teams");
-        sort =mRef.orderByChild("order");
+        sort = mRef.orderByChild("order");
     }
 
     //load data into recycler view when app starts
