@@ -63,6 +63,7 @@ public class gamephase extends AppCompatActivity {
         //Get EventID
         Intent mIntent = getIntent();
         EventID = 3518;
+        Round1();
         new CountDownTimer(5, 1) {
             public void onTick(long millisUntilFinished) {
 
@@ -207,6 +208,8 @@ public class gamephase extends AppCompatActivity {
         alertDialog.show();
     }
 
+
+
     public void fullScreen() {
 
         // BEGIN_INCLUDE (get_current_ui_flags)
@@ -288,6 +291,23 @@ public class gamephase extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    public void Round1(){
+        Android_ID = mPref.getString("AndroidID","default");
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(1);
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+
+            public void onDataChange(DataSnapshot snapshot) {
+                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 
 }
