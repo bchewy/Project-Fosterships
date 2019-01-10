@@ -1,22 +1,23 @@
 package com.danielappdev.fosterships;
 
 public class Teams {
-    String score, teamname;
+    String teamname;
+    Long score;
 
     public Teams() {
     }
 
-    public Teams(String score, String teamname)
+    public Teams(Long score, String teamname)
     {
         this.score = score;
         this.teamname = teamname;
     }
 
-    public String getScore() {
+    public Long getScore() {
         return score;
     }
 
-    public void setScore(String score) {
+    public void setScore(Long score) {
         this.score = score;
     }
 

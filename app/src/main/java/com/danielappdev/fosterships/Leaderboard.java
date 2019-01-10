@@ -42,7 +42,7 @@ public class Leaderboard extends AppCompatActivity {
     RecyclerView mLeaderboard;
     FirebaseDatabase mFirebase;
     DatabaseReference mRef;
-
+    Query sort;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +62,7 @@ public class Leaderboard extends AppCompatActivity {
 
         mFirebase = FirebaseDatabase.getInstance();
         mRef = FirebaseDatabase.getInstance().getReference("Teams");
+        sort =mRef.orderByChild("order");
     }
 
     //load data into recycler view when app starts
@@ -71,7 +72,7 @@ public class Leaderboard extends AppCompatActivity {
 
         FirebaseRecyclerOptions<Teams> options=
                 new FirebaseRecyclerOptions.Builder<Teams>()
-                        .setQuery(mRef, Teams.class)
+                        .setQuery(sort, Teams.class)
                         .build();
 
         FirebaseRecyclerAdapter<Teams, LeaderboardViewHolder> firebaseRecyclerAdapter =
@@ -79,7 +80,7 @@ public class Leaderboard extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position, @NonNull Teams model) {
                         //holder.setDetails(getApplicationContext(), model.getTeamName(), model.getScore());
-                        holder.score.setText(model.getScore());
+                        holder.score.setText(String.valueOf(model.getScore()));
                         holder.teamname.setText(model.getTeamname());
                     }
 
