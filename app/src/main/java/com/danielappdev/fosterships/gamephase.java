@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -42,29 +44,48 @@ public class gamephase extends AppCompatActivity {
     Integer role;
     Button btnTryGuess;
     ImageView imageView;
+    DatabaseReference EventRef;
+    String Tname;
     boolean isImageFitToScreen;
     Integer runOnce = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mPref = PreferenceManager.getDefaultSharedPreferences(this);
+        EventRef = database.getReference(String.valueOf("Events"));
         setContentView(R.layout.activity_gamephase);
+        Tname = "Team banana";
         imageView = findViewById(R.id.imageViewgm2);
         answerBox = findViewById(R.id.answerBox);
         //Prep merge
         btnTryGuess = findViewById(R.id.btnGuess);
         //Get EventID
         Intent mIntent = getIntent();
-        EventID = mIntent.getIntExtra("EventID", 0);
+        EventID = 3518;
+        new CountDownTimer(5, 1) {
+            public void onTick(long millisUntilFinished) {
 
-        while(runOnce<1){//Only ever runs once because variable is 0 on creation
+            }
+
+            public void onFinish() {
+                CheckStatus();
+
+                start();
+            }
+        }.start();
+
+
+        /*while(runOnce<1){//Only ever runs once because variable is 0 on creation
             if(runOnce<0){
                 break;
             }
             else{
                 //runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
             }
-        }
+
+
+        }*/
 
 
         btnTryGuess.setOnClickListener(new View.OnClickListener() {
@@ -100,8 +121,6 @@ public class gamephase extends AppCompatActivity {
     public int getRole() {
         Android_ID = mPref.getString("AndroidID","default");
         EventID = mPref.getInt("EventID",0);
-        String Tname = mPref.getString("TeamName","Default");
-        Log.d("name", Tname);
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,22 +144,25 @@ public class gamephase extends AppCompatActivity {
 
 
     public void LoadImageFromFirebase() {
+        Log.d("old", "?");
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
-                .load(storageReference)
+            .load(storageReference)
                 .into(imageView);
-    }
+}
 
 
-    public void LoadImageFromFirebase(Integer role) {
+    public void LoadImageFromFirebase(Integer role, Integer round) {
         String temprole = role.toString();
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child(temprole);//hardcoded "picture.png"
+        Log.d("pic", String.valueOf(round));
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child((String.valueOf(((round-1)*4)+role)+".jpg").replace("0",""));//hardcoded "picture.png"
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
                 .into(imageView);
     }
+
 
 
 
@@ -227,5 +249,24 @@ public class gamephase extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(newUiOptions);
         //END_INCLUDE (set_ui_flags)
     }
+
+    public void CheckStatus(){
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Score").getValue(Integer.class))){
+                    EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
+                    //LoadImageFromFirebase();
+                    Android_ID = mPref.getString("AndroidID","default");
+                    LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
 
 }

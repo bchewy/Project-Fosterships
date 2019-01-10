@@ -80,10 +80,9 @@ public class authentication extends AppCompatActivity {
             }
 
             public void onFinish() {
-                Log.d("name", "???");
                 CheckTeamAuthNO();
-                Log.d("name", "!!!");
-                //start();
+
+                start();
             }
         }.start();
 

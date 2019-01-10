@@ -76,7 +76,7 @@ public class AdminPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), gamephase.class);
-                intent.putExtra("EventID", eventID);
+                //intent.putExtra("EventID", eventID);
                 startActivity(intent);
             }
         });
