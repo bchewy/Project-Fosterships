@@ -70,7 +70,7 @@ public class gamephase extends AppCompatActivity {
 
             public void onFinish() {
                 CheckStatus();
-
+                CheckRound();
                 start();
             }
         }.start();
@@ -251,13 +251,15 @@ public class gamephase extends AppCompatActivity {
     }
 
     public void CheckStatus(){
+        Android_ID = mPref.getString("AndroidID","default");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Score").getValue(Integer.class))){
                     EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
+                    EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
                     //LoadImageFromFirebase();
-                    Android_ID = mPref.getString("AndroidID","default");
+
                     LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
                 }
 
@@ -268,5 +270,24 @@ public class gamephase extends AppCompatActivity {
         });
     }
 
+    public void CheckRound(){
+        Android_ID = mPref.getString("AndroidID","default");
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.child("Round").getValue(Integer.class) > (snapshot.child("Members").child(Android_ID).child("Round").getValue(Integer.class))){
+                    EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).child("Round").setValue(snapshot.child("Round").getValue(Integer.class));
+                    //LoadImageFromFirebase();
+
+                    LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
 
 }
