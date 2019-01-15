@@ -30,11 +30,12 @@
         android:id="@+id/imageViewgm2"
         android:layout_width="423dp"
         android:layout_height="366dp"
+        android:layout_marginTop="12dp"
+        android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline32"
-        android:adjustViewBounds="true"
         app:srcCompat="@drawable/turtleonecolumnone" />
 
     <android.support.constraint.Guideline
