@@ -6,13 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
-
-import android.os.CountDownTimer;
-import android.preference.PreferenceManager;
-
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
-
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -24,11 +17,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.common.data.DataBufferSafeParcelable;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -43,89 +34,47 @@ public class gamephase extends AppCompatActivity {
 
     SharedPreferences mPref;
     SharedPreferences.Editor mEditor;
-
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReferenceTeams = database.getReference("Teams");
-    DatabaseReference defReference = database.getReference("Events");
-
-
-    String Android_ID;
-
     EditText answerBox;
     Integer EventID;
+    String Android_ID;
+    Integer role;
     Button btnTryGuess;
     ImageView imageView;
     boolean isImageFitToScreen;
     Integer runOnce = 0;
-    Integer role;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamephase);
         imageView = findViewById(R.id.imageViewgm2);
         answerBox = findViewById(R.id.answerBox);
-        mPref = PreferenceManager.getDefaultSharedPreferences(this);
         //Prep merge
-
-        mPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-        int eventID;
-
         btnTryGuess = findViewById(R.id.btnGuess);
         //Get EventID
         Intent mIntent = getIntent();
-        eventID = mIntent.getIntExtra("EventID", 0);
+        EventID = mIntent.getIntExtra("EventID", 0);
 
-        LoadImageFromFirebase();
-        new CountDownTimer(2, 1) {
-            public void onTick(long millisUntilFinished) { }
-            public void onFinish() {
-                final String TeamName = mPref.getString("TeamName","default");
-                defReference.child(String.valueOf(eventID)).child("Teams").child(TeamName).addListenerForSingleValueEvent(new ValueEventListener(){
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        if(snapshot.child("").getValue(Integer.class).equals(snapshot.child("").getValue(Integer.class))){
-                            defReference.child(String.valueOf(eventID)).child("Teams").child(TeamName).child("Round").setValue(snapshot.getValue(Integer.class)+1);
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-            }
-        }.start();
-     /*  while(runOnce<1){//Only ever runs once because variable is 0 on creation
-           if(runOnce<0){
-               break;
-           }
-           else{
-               runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
-           }
-       }*/
-
-        //LoadImageFromFirebase();
-
-
-      /*  while(runOnce<1){//Only ever runs once because variable is 0 on creation
+        while(runOnce<1){//Only ever runs once because variable is 0 on creation
             if(runOnce<0){
                 break;
             }
             else{
-                runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
+                //runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
             }
-        }*/
-
+        }
 
 
         btnTryGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //CheckAnswer(defReferenceTeams, answerBox.getText().toString(), eventID);
+                CheckAnswer(defReferenceTeams, answerBox.getText().toString(), EventID);
                 //Load with Glide
-                LoadImageFromFirebase(runOnce); //Secretly only for testing right now!
+                LoadImageFromFirebase(); //Secretly only for testing right now!
             }
         });
-
 
         imageView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -147,30 +96,6 @@ public class gamephase extends AppCompatActivity {
     }
 
 
-
-
-
-    // DatabaseReference defReferenceTeams = database.getReference("Teams");
-    public void LoadImageFromFirebase() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
-
-    //need to see where your ID is in
-    //how do i pull role where id in firebase is actual androidID
-    //if role is 1 pull 1. If role is 2 pull 2
-    //get event id from the user, using shared preferences
-    //need to get role from firebase. Input in role into LoadImageFromFirebase(role)
-    //convert role to string
-    //use  for (DataSnapshot s1 : dataSnapshot.getChildren()) to obtain role where android ID = _
-    //then LoadImageFromFirebase(role)
-
-
-
-
-    //added custom path to pull rhino pic
-    // DatabaseReference defReferenceTeams = database.getReference("Teams");
-
-
-    //problem, tname is default
 
     public int getRole() {
         Android_ID = mPref.getString("AndroidID","default");
@@ -194,15 +119,23 @@ public class gamephase extends AppCompatActivity {
             }
         });
         Log.d("role", (role = mPref.getInt("Role",0)).toString());
-       return role = mPref.getInt("Role",0);
+        return role = mPref.getInt("Role",0);
 
+    }
+
+
+    public void LoadImageFromFirebase() {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
+        ImageView imageView = findViewById(R.id.imageViewgm2);
+        Glide.with(getApplicationContext())
+                .load(storageReference)
+                .into(imageView);
     }
 
 
     public void LoadImageFromFirebase(Integer role) {
         String temprole = role.toString();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child(temprole);//hardcoded "picture.png"
-
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
@@ -210,75 +143,14 @@ public class gamephase extends AppCompatActivity {
     }
 
 
-    public Integer LoadImageFromFirebase(Integer runOnce) {}
 
-   /* public Integer LoadImageFromFirebase(Integer runOnce) {
->>>>>>> b925817596f25f1155d164504cad48e732ed747e
-        runOnce+=1;
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
-        ImageView imageView = findViewById(R.id.imageViewgm2);
-        Glide.with(getApplicationContext())
-                .load(storageReference)
-                .into(imageView);
-<<<<<<< HEAD
-        return runOnce;
-=======
-     return runOnce;
-    }*/
-
-
-
-    //public void CheckAnswer(final DatabaseReference defReference,final String answer,int score)
-    {
-
-
-    }
-    //public void CheckAnswer(final DatabaseReference defReference,final String answer,int score)
-    {
-
-    }
-
-    //  DatabaseReference defReferenceTeams = database.getReference("Teams");
-    //public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent)
- /*  public void CheckAnswer(final DatabaseReference defReference,final String answer,int score) {
-       defReference.addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(DataSnapshot snapshot) {
-               Boolean correct = false;
-               for (DataSnapshot ds : snapshot.getChildren()) {
-                   //int eventID = (ds.child("eventID").getValue(Integer.class));
-                   String answerFire = ds.child("phase1Answer").getValue(String.class);
-                   if (eventID == (eventIDCurrent) && answerFire.equals(answer)) {
-                       correct = true;
-                       break;
-                   }
-               }
-               if (!correct) {
-                   ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
-               } else {
-                   ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
-               }
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
-
-           }
-       });
-   }*/
-
-
-
-
-    //  DatabaseReference defReferenceTeams = database.getReference("Teams");
-    //public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent)
-  /*  public void CheckAnswer(final DatabaseReference defReference,final String answer,int score) {
-        defReference.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent) {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Boolean correct = false;
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    //int eventID = (ds.child("eventID").getValue(Integer.class));
+                    int eventID = (ds.child("eventID").getValue(Integer.class));
                     String answerFire = ds.child("phase1Answer").getValue(String.class);
                     if (eventID == (eventIDCurrent) && answerFire.equals(answer)) {
                         correct = true;
@@ -292,17 +164,12 @@ public class gamephase extends AppCompatActivity {
                 }
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-    }*/
-
-
-
-
-
-
-/*
+    }
 
     //Starts a Show Dialog prompt on the screen with title/text!
     private void ShowDialog(String title, String text) {
@@ -317,8 +184,48 @@ public class gamephase extends AppCompatActivity {
                 });
         alertDialog.show();
     }
-*/
 
+    public void fullScreen() {
 
+        // BEGIN_INCLUDE (get_current_ui_flags)
+        // The UI options currently enabled are represented by a bitfield.
+        // getSystemUiVisibility() gives us that bitfield.
+        int uiOptions = getWindow().getDecorView().getSystemUiVisibility();
+        int newUiOptions = uiOptions;
+        // END_INCLUDE (get_current_ui_flags)
+        // BEGIN_INCLUDE (toggle_ui_flags)
+        boolean isImmersiveModeEnabled =
+                ((uiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) == uiOptions);
+        if (isImmersiveModeEnabled) {
+            Log.i("tagimg", "Turning immersive mode mode off. ");
+        } else {
+            Log.i("tagimg", "Turning immersive mode mode on.");
+        }
+
+        // Navigation bar hiding:  Backwards compatible to ICS.
+        if (Build.VERSION.SDK_INT >= 14) {
+            newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        }
+
+        // Status bar hiding: Backwards compatible to Jellybean
+        if (Build.VERSION.SDK_INT >= 16) {
+            newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        }
+
+        // Immersive mode: Backward compatible to KitKat.
+        // Note that this flag doesn't do anything by itself, it only augments the behavior
+        // of HIDE_NAVIGATION and FLAG_FULLSCREEN.  For the purposes of this sample
+        // all three flags are being toggled together.
+        // Note that there are two immersive mode UI flags, one of which is referred to as "sticky".
+        // Sticky immersive mode differs in that it makes the navigation and status bars
+        // semi-transparent, and the UI flag does not get cleared when the user interacts with
+        // the screen.
+        if (Build.VERSION.SDK_INT >= 18) {
+            newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        }
+
+        getWindow().getDecorView().setSystemUiVisibility(newUiOptions);
+        //END_INCLUDE (set_ui_flags)
+    }
 
 }
