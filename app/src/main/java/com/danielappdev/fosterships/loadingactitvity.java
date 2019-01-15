@@ -43,15 +43,18 @@ public class loadingactitvity extends AppCompatActivity {
 
 */
 
-        Log.d(TAG, "runs");
+        Log.d("androidid", "runs");
         ConstraintLayout rlayout = (ConstraintLayout) findViewById(R.id.relativeloading);
         //getting ANDROID_ID
         String android_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.d("androidid", android_id);
         //final String myfinal =android_id;
         //storing android_id in shared preferences
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mEditor = mPreferences.edit();
+        String T = "Team banana";
         mEditor.putString("AndroidID",android_id);
+        mEditor.putString("TeamName",T);
         mEditor.commit();
         String getAndroidID = mPreferences.getString("AndroidID","default");
         Log.d(TAG, getAndroidID);
