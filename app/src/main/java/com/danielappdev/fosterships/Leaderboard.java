@@ -44,6 +44,8 @@ public class Leaderboard extends AppCompatActivity {
     FirebaseDatabase mFirebase;
     DatabaseReference mRef;
     Query sort;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
