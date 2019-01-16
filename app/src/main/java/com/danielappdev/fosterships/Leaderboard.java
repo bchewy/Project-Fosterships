@@ -1,5 +1,7 @@
 package com.danielappdev.fosterships;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.usage.EventStats;
@@ -39,18 +41,21 @@ public class Leaderboard extends AppCompatActivity {
     // TextView textView16;
     // TextView textView17;
 
+    SharedPreferences mPref;
+
     LinearLayoutManager mLayoutManager;
     RecyclerView mLeaderboard;
     FirebaseDatabase mFirebase;
     DatabaseReference mRef;
     Query sort;
-
+    String EventID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
-
+        mPref = PreferenceManager.getDefaultSharedPreferences(this);
+        EventID = mPref.getString("EventID","Default");
         //Actionbar
         //ActionBar actionBar = getSupportActionBar();
         //setTitle
@@ -63,9 +68,9 @@ public class Leaderboard extends AppCompatActivity {
         //set layout as LinearLayout
         mLeaderboard.setLayoutManager(new LinearLayoutManager(this));
 
-        mFirebase = FirebaseDatabase.getInstance();
-        mRef = FirebaseDatabase.getInstance().getReference("Teams");
-        sort = mRef.orderByChild("score");
+        mFirebase = FirebaseDatabase.getInstance().getReference("Events");
+        mRef = FirebaseDatabase.getInstance().getReference("Events").C;
+        sort = mRef.orderByChild("");
 
         //reverse order
         mLayoutManager = new LinearLayoutManager(this);
