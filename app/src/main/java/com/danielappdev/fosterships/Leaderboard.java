@@ -68,9 +68,9 @@ public class Leaderboard extends AppCompatActivity {
         //set layout as LinearLayout
         mLeaderboard.setLayoutManager(new LinearLayoutManager(this));
 
-        mFirebase = FirebaseDatabase.getInstance().getReference("Events");
-        mRef = FirebaseDatabase.getInstance().getReference("Events").C;
-        sort = mRef.orderByChild("");
+        mFirebase = FirebaseDatabase.getInstance();
+        mRef = FirebaseDatabase.getInstance().getReference("Events").child("3518").child("Teams");
+        sort = mRef.orderByChild("Score");
 
         //reverse order
         mLayoutManager = new LinearLayoutManager(this);
@@ -93,8 +93,8 @@ public class Leaderboard extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull LeaderboardViewHolder holder, int position, @NonNull Teams model) {
                         //holder.setDetails(getApplicationContext(), model.getTeamName(), model.getScore());
-                        holder.score.setText(String.valueOf(model.getScore()));
-                        holder.teamname.setText(model.getTeamname());
+                        holder.Score.setText(String.valueOf(model.getScore()));
+                        holder.TeamName.setText(model.getTeamName());
                     }
 
                     @NonNull
@@ -115,13 +115,13 @@ public class Leaderboard extends AppCompatActivity {
 
         //View mView;
 
-        TextView teamname, score;
+        TextView TeamName, Score;
 
         public LeaderboardViewHolder(View itemView) {
             super(itemView);
 
-            teamname = itemView.findViewById(R.id.teamname);
-            score = itemView.findViewById(R.id.score);
+            TeamName = itemView.findViewById(R.id.TeamName);
+            Score = itemView.findViewById(R.id.Score);
 
             //mView = itemView;
         }

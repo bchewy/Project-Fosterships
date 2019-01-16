@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/teamname"
+            android:id="@+id/TeamName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/darker_gray"
@@ -23,7 +23,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="22sp"></TextView>
         <TextView
-            android:id="@+id/score"
+            android:id="@+id/Score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/darker_gray"
