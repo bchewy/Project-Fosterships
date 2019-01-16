@@ -71,11 +71,6 @@ public class Leaderboard extends AppCompatActivity {
         mFirebase = FirebaseDatabase.getInstance();
         mRef = FirebaseDatabase.getInstance().getReference("Events").child(EventID).child("Teams");
         sort = mRef.orderByChild("Score");
-
-        //reverse order
-        mLayoutManager = new LinearLayoutManager(this);
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);
     }
 
     //load data into recycler view when app starts
@@ -108,6 +103,13 @@ public class Leaderboard extends AppCompatActivity {
 
         firebaseRecyclerAdapter.startListening();
         mLeaderboard.setAdapter(firebaseRecyclerAdapter);
+
+        //reverse order
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        mLeaderboard.setLayoutManager(mLayoutManager);
 
     }
 
