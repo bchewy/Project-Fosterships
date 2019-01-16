@@ -1,8 +1,8 @@
 package com.danielappdev.fosterships;
 
 public class Teams {
-    String TeamName;
-    Long Score;
+    private String TeamName;
+    private Long Score;
 
     public Teams() {
     }

@@ -69,7 +69,7 @@ public class Leaderboard extends AppCompatActivity {
         mLeaderboard.setLayoutManager(new LinearLayoutManager(this));
 
         mFirebase = FirebaseDatabase.getInstance();
-        mRef = FirebaseDatabase.getInstance().getReference("Events").child("3518").child("Teams");
+        mRef = FirebaseDatabase.getInstance().getReference("Events").child(EventID).child("Teams");
         sort = mRef.orderByChild("Score");
 
         //reverse order
@@ -125,15 +125,5 @@ public class Leaderboard extends AppCompatActivity {
 
             //mView = itemView;
         }
-
-        //set details to recycler view
-       /*public void setDetails(Context ctx, String teamname, String score) {
-            //Views
-            TextView teamname = mView.findViewById(R.id.teamName);
-            TextView mScore = mView.findViewById(R.id.score);
-            // set data to views
-            mTeamName.setText(teamname);
-            mScore.setText(score);
-        }*/
     }
 }
