@@ -39,6 +39,7 @@ public class Leaderboard extends AppCompatActivity {
     // TextView textView16;
     // TextView textView17;
 
+    LinearLayoutManager mLayoutManager;
     RecyclerView mLeaderboard;
     FirebaseDatabase mFirebase;
     DatabaseReference mRef;
@@ -62,7 +63,12 @@ public class Leaderboard extends AppCompatActivity {
 
         mFirebase = FirebaseDatabase.getInstance();
         mRef = FirebaseDatabase.getInstance().getReference("Teams");
-        sort = mRef.orderByChild("order");
+        sort = mRef.orderByChild("score");
+
+        //reverse order
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
     }
 
     //load data into recycler view when app starts
