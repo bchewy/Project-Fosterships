@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +41,7 @@ public class gamephase extends AppCompatActivity {
     DatabaseReference defReferenceTeams = database.getReference("Teams");
     EditText answerBox;
     Integer EventID;
-    String Android_ID;
+    String Android_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
     Integer role;
     Button btnTryGuess;
     ImageView imageView;
@@ -48,6 +49,7 @@ public class gamephase extends AppCompatActivity {
     String Tname;
     boolean isImageFitToScreen;
     Integer runOnce = 0;
+    Integer makeshiftRound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,8 @@ public class gamephase extends AppCompatActivity {
         Intent mIntent = getIntent();
         EventID = 3518;
         Round1();
+        getRole();
+        // checks frquently
         new CountDownTimer(5, 1) {
             public void onTick(long millisUntilFinished) {
 
@@ -82,7 +86,7 @@ public class gamephase extends AppCompatActivity {
                 break;
             }
             else{
-                //runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
+                runOnce = LoadImageFromFirebase(runOnce);//Variable +=1 in loadImagefromFirebase method
             }
 
 
@@ -92,9 +96,9 @@ public class gamephase extends AppCompatActivity {
         btnTryGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckAnswer(defReferenceTeams, answerBox.getText().toString(), EventID);
+                    //CheckAnswer(answerBox.getText().toString(), getRound());
                 //Load with Glide
-                LoadImageFromFirebase(); //Secretly only for testing right now!
+                //LoadImageFromFirebase(); //Secretly only for testing right now!
             }
         });
 
@@ -113,9 +117,50 @@ public class gamephase extends AppCompatActivity {
 
             }
         });
+    }
+    //displays image based on round.
+    //to make sure the other 3 members load the actualy current round image
+    public void RefreshPage(){
+        Android_ID = mPref.getString("AndroidID","default");
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
 
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    //method to load first image from firebase based on android IDs role and round
+    //
+    public void Round1(){
+        Android_ID = mPref.getString("AndroidID","default");
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(1);
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+
+            public void onDataChange(DataSnapshot snapshot) {
+                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
     }
+
+  /*  mEditor = mPreferences.edit();
+    String T = "Team banana";
+        mEditor.putString("AndroidID",android_id);
+        mEditor.putString("TeamName",T);
+        mEditor.commit();*/
+
+
 
 
 
@@ -124,6 +169,34 @@ public class gamephase extends AppCompatActivity {
         EventID = mPref.getInt("EventID",0);
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).addListenerForSingleValueEvent(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    Log.d("exist", "exist ");
+
+                    Integer role2 = dataSnapshot.child("Role").getValue(Integer.class);
+                    Log.d("role", role2.toString());
+                }
+                //int makeshiftrole = dataSnapshot.child("role").getValue(Integer.class);
+                mEditor = mPref.edit();
+                //mEditor.putInt("Role",makeshiftrole);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        Log.d("role", (role = mPref.getInt("Role",0)).toString());
+        return role = mPref.getInt("Role",0);
+
+    }
+
+
+
+    public int getRound() {
+        Android_ID = mPref.getString("AndroidID","default");
+        EventID = mPref.getInt("EventID",0);
+        DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     Log.d("exist", "exist ");
@@ -157,7 +230,7 @@ public class gamephase extends AppCompatActivity {
     public void LoadImageFromFirebase(Integer role, Integer round) {
         String temprole = role.toString();
         Log.d("pic", String.valueOf(round));
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child((String.valueOf(((round-1)*4)+role)+".jpg").replace("0",""));//hardcoded "picture.png"
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child((String.valueOf(((round-1)*4)+role)+".jpg").replace("0",""));
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
@@ -165,17 +238,22 @@ public class gamephase extends AppCompatActivity {
     }
 
 
+   // EventRef = database.getReference(String.valueOf("Events"));
+//method to check if answer is equal to gamephase1 and round is
+    public void CheckAnswer(final String answer) {
 
-
-    public void CheckAnswer(final DatabaseReference reference, final String answer, final Integer eventIDCurrent) {
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Boolean correct = false;
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    int eventID = (ds.child("eventID").getValue(Integer.class));
-                    String answerFire = ds.child("phase1Answer").getValue(String.class);
-                    if (eventID == (eventIDCurrent) && answerFire.equals(answer)) {
+                   // int eventID = (ds.child("eventID").getValue(Integer.class));
+                    //string round
+                    String FirebaseAnswer = ds.child("phase1Answer").getValue(String.class);
+                    if  (FirebaseAnswer.equals(answer)) {
+                        //increment score.
+                       EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Score").setValue(snapshot.child("Score").getValue(Integer.class)+1);
+
                         correct = true;
                         break;
                     }
@@ -253,6 +331,8 @@ public class gamephase extends AppCompatActivity {
         //END_INCLUDE (set_ui_flags)
     }
 
+
+    // if score is same as round then plus round by 1 and load next image based on the users android id
     public void CheckStatus(){
         Android_ID = mPref.getString("AndroidID","default");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
@@ -260,7 +340,7 @@ public class gamephase extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Score").getValue(Integer.class))){
                     EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
-                    EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
+                    //ventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
                     //LoadImageFromFirebase();
 
                     LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
@@ -273,36 +353,8 @@ public class gamephase extends AppCompatActivity {
         });
     }
 
-    public void RefreshPage(){
-        Android_ID = mPref.getString("AndroidID","default");
-        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                    LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
 
 
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
 
-    public void Round1(){
-        Android_ID = mPref.getString("AndroidID","default");
-        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(1);
-        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
-            @Override
-
-            public void onDataChange(DataSnapshot snapshot) {
-                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-    }
 
 }
