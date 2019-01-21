@@ -71,7 +71,7 @@ public class gamephase extends AppCompatActivity {
 
             public void onFinish() {
                 CheckStatus();
-                CheckRound();
+                RefreshPage();
                 start();
             }
         }.start();
@@ -273,18 +273,13 @@ public class gamephase extends AppCompatActivity {
         });
     }
 
-    public void CheckRound(){
+    public void RefreshPage(){
         Android_ID = mPref.getString("AndroidID","default");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
-
             public void onDataChange(DataSnapshot snapshot) {
-                if(snapshot.child("Round").getValue(Integer.class) > (snapshot.child("Members").child(Android_ID).child("Round").getValue(Integer.class))){
-                    EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).child("Round").setValue(snapshot.child("Round").getValue(Integer.class));
-                    //LoadImageFromFirebase();
-
                     LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
-                }
+
 
             }
             @Override
