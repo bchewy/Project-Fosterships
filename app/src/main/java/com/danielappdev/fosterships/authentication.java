@@ -65,6 +65,9 @@ public class authentication extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String Tname = (mPref.getString("TeamName","Default"));
+                if(Tname == ""){texts.setText("??");}
+                else{texts.setText(Tname);}
                 String authCodeToCheck;
                 String pushKey;
                 authCodeToCheck = authcode.getText().toString();
@@ -125,11 +128,14 @@ public class authentication extends AppCompatActivity {
                     if (s1.child("Members").child(Android_ID).exists()) {
                         String fruit = String.valueOf(s1.child("TeamName").getValue()).replace("Team ","");
                         int drawableId = getResources().getIdentifier(fruit, "drawable", getPackageName());
-                        texts.setText("You are in Team " + fruit);
+                        //texts.setText("You are in Team " + fruit);
                         img.setImageResource(drawableId);
-                        //test.setText(String.valueOf(s1.child("Members").child(Android_ID).child("role").getValue()));
-                        //texts.setText("okokoko");
-                        if(s1.child("Members").child(Android_ID).child("role").getValue(Integer.class) == 1){
+                        texts.setText(fruit);
+
+
+                        //test.setText(String.valueOf(s1.child("Members").child(Android_ID).child("Role").getValue()));
+
+                        if(s1.child("Members").child(Android_ID).child("Role").getValue(Integer.class) == 1){
                             authcode.setVisibility(View.INVISIBLE);
                             btnStart.setVisibility(View.INVISIBLE);
                             AuthText.setVisibility(View.VISIBLE);
@@ -145,7 +151,7 @@ public class authentication extends AppCompatActivity {
                         }
                         break;
 
-                        //String role = String.valueOf(snapshot.child("Members").child(Android_ID).child("role").getValue());
+                        //String role = String.valueOf(snapshot.child("Members").child(Android_ID).child("Role").getValue());
 
                     }
                 }
@@ -156,15 +162,19 @@ public class authentication extends AppCompatActivity {
         });
         String Tname = String.valueOf(texts.getText());//(String.valueOf(texts.getText()).replace("You are in ",""));
         test.setText(Tname);
+        mEditor = mPref.edit();
+        mEditor.putString("TeamName", "Team Banana");
+        mEditor.commit();
+        //test.setText(mPref.getString("TeamName","Default"));
     }
     public void CheckTeamAuthNO(){
-        final String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
-        test.setText(Tname);
+        final String Tname = (mPref.getString("TeamName","Default"));
+
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.child("NoOfAuths").exists()){
-                    test.setText("works");
+                    //test.setText("works");
                     if(snapshot.child("NoOfAuths").getValue(Integer.class).equals(3)){
 
                         Intent intent = new Intent(getApplicationContext(), gamephase2.class);

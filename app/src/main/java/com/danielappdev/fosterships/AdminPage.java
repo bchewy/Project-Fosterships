@@ -163,7 +163,8 @@ public class AdminPage extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    int eventID = (ds.child("eventID").getValue(Integer.class));
+                    int eventID;
+                    eventID = ds.child("eventID").getValue(Integer.class);
                     if (eventID == (eventIDCurrent)) {
                         String eventName = ds.child("eventName").getValue(String.class);
                         String eventAdminEmail = ds.child("eventAdminEmail").getValue(String.class);

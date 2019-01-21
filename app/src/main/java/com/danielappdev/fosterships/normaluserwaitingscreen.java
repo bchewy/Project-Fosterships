@@ -77,7 +77,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         TextView tvnextfact1 = findViewById(R.id.tvfact);
-                        if(String.valueOf(snapshot.child("GameStatus").getValue()).equals("Ready")){
+                        if(String.valueOf(snapshot.child("Status").getValue()).equals("Ready")){
                             Intent intent = new Intent(getApplicationContext(),authentication.class);
                             startActivity(intent);
                         }
