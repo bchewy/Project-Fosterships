@@ -65,7 +65,20 @@ public class gamephase extends AppCompatActivity {
         //Get EventID
         Intent mIntent = getIntent();
         EventID = 3518;
-        Round1();
+        EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot s1 : snapshot.getChildren()) {
+                    if (s1.child("Members").child(Android_ID).exists()) {
+                        Round1(String.valueOf(s1.child("TeamName").getValue()));
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
         getRole();
         // checks frquently
         new CountDownTimer(5, 1) {
@@ -74,8 +87,23 @@ public class gamephase extends AppCompatActivity {
             }
 
             public void onFinish() {
-                CheckStatus();
-                RefreshPage();
+                EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        for (DataSnapshot s1 : snapshot.getChildren()) {
+                            if (s1.child("Members").child(Android_ID).exists()) {
+                                CheckStatus(String.valueOf(s1.child("TeamName").getValue()));
+                                RefreshPage(String.valueOf(s1.child("TeamName").getValue()));
+
+
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
                 start();
             }
         }.start();
@@ -120,7 +148,7 @@ public class gamephase extends AppCompatActivity {
     }
     //displays image based on round.
     //to make sure the other 3 members load the actualy current round image
-    public void RefreshPage(){
+    public void RefreshPage(String Tname){
         Android_ID = mPref.getString("AndroidID","default");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
@@ -137,7 +165,7 @@ public class gamephase extends AppCompatActivity {
 
     //method to load first image from firebase based on android IDs role and round
     //
-    public void Round1(){
+    public void Round1(String Tname){
         Android_ID = mPref.getString("AndroidID","default");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(1);
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
@@ -333,7 +361,7 @@ public class gamephase extends AppCompatActivity {
 
 
     // if score is same as round then plus round by 1 and load next image based on the users android id
-    public void CheckStatus(){
+    public void CheckStatus(final String Tname){
         Android_ID = mPref.getString("AndroidID","default");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
