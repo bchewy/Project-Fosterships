@@ -36,7 +36,7 @@ public class authentication extends AppCompatActivity {
     String Android_ID;
     String AuthCode;
     int EventID;
-    String TeamName;
+    String Tname;
     TextView texts;
     TextView Instructions;
     TextView AuthText;
@@ -61,13 +61,15 @@ public class authentication extends AppCompatActivity {
         test = findViewById(R.id.textView5);
         texts = (TextView)findViewById(R.id.textView10);
 
+
         PrepPage();
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Tname = (mPref.getString("TeamName","Default"));
-                if(Tname == ""){texts.setText("??");}
-                else{texts.setText(Tname);}
+                Tname = test.getText().toString();
+                mEditor = mPref.edit();
+                mEditor.putString("TeamName", Tname);
+                mEditor.commit();
                 String authCodeToCheck;
                 String pushKey;
                 authCodeToCheck = authcode.getText().toString();
@@ -75,9 +77,7 @@ public class authentication extends AppCompatActivity {
                 CheckAuthKey(EventRef,authCodeToCheck);
             }
         });
-        String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
-        test.setText(Tname);
-        new CountDownTimer(2, 1) {
+        new CountDownTimer(5, 1) {
             public void onTick(long millisUntilFinished) {
 
             }
@@ -93,15 +93,14 @@ public class authentication extends AppCompatActivity {
 
 
     private void CheckAuthKey(final DatabaseReference reference, final String authCodetoCheck) {
-        final String Tname = (String.valueOf(texts.getText()).replace("You are in ",""));
-        Log.d("name", Tname);
-        reference.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+        final String Teamname = mPref.getString("TeamName", "Default");
+        reference.child(String.valueOf(EventID)).child("Teams").child(Teamname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.child("TeamAuthCode").exists()){
                     if(String.valueOf(snapshot.child("TeamAuthCode").getValue()).equals(authCodetoCheck)){
                         int NumOfAuth =  snapshot.child("NoOfAuths").getValue(Integer.class);
-                        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("NoOfAuths").setValue(NumOfAuth+1);
+                        EventRef.child(String.valueOf(EventID)).child("Teams").child(Teamname).child("NoOfAuths").setValue(NumOfAuth+1);
                         CheckTeamAuthNO();
                         authcode.setVisibility(View.INVISIBLE);
                         btnStart.setVisibility(View.INVISIBLE);
@@ -128,10 +127,9 @@ public class authentication extends AppCompatActivity {
                     if (s1.child("Members").child(Android_ID).exists()) {
                         String fruit = String.valueOf(s1.child("TeamName").getValue()).replace("Team ","");
                         int drawableId = getResources().getIdentifier(fruit, "drawable", getPackageName());
-                        //texts.setText("You are in Team " + fruit);
+                        texts.setText("You are in Team " + fruit);
                         img.setImageResource(drawableId);
-                        texts.setText(fruit);
-
+                        test.setText("Team " + fruit);
 
                         //test.setText(String.valueOf(s1.child("Members").child(Android_ID).child("Role").getValue()));
 
@@ -160,17 +158,14 @@ public class authentication extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        String Tname = String.valueOf(texts.getText());//(String.valueOf(texts.getText()).replace("You are in ",""));
-        test.setText(Tname);
-        mEditor = mPref.edit();
-        mEditor.putString("TeamName", "Team Banana");
-        mEditor.commit();
+
+
         //test.setText(mPref.getString("TeamName","Default"));
     }
     public void CheckTeamAuthNO(){
-        final String Tname = (mPref.getString("TeamName","Default"));
 
-        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+        String Teamname = mPref.getString("TeamName", "Default");
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Teamname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot.child("NoOfAuths").exists()){
