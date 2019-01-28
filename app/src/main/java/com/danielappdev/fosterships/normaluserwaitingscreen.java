@@ -8,6 +8,7 @@ import android.provider.Settings;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -78,6 +79,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                     public void onDataChange(DataSnapshot snapshot) {
                         TextView tvnextfact1 = findViewById(R.id.tvfact);
                         if(String.valueOf(snapshot.child("Status").getValue()).equals("Ready")){
+                            Log.d("???","worksss");
                             Intent intent = new Intent(getApplicationContext(),authentication.class);
                             startActivity(intent);
                         }
