@@ -114,7 +114,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
     }
 
 
-    /*ublic void GetPlayers(){
+    /*public void GetPlayers(){
         eventID = mPref.getInt("EventID",0);
         defReference.child(String.valueOf(eventID)).child("Players").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
