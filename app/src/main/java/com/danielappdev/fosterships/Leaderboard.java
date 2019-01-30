@@ -69,7 +69,7 @@ public class Leaderboard extends AppCompatActivity {
         mLeaderboard.setLayoutManager(new LinearLayoutManager(this));
 
         mFirebase = FirebaseDatabase.getInstance();
-        mRef = FirebaseDatabase.getInstance().getReference("Events").child(EventID).child("Teams");
+        mRef = FirebaseDatabase.getInstance().getReference("Events").child("3518").child("Teams");
         sort = mRef.orderByChild("Score");
     }
 
