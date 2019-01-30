@@ -67,7 +67,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
 
 
 
-        new CountDownTimer(2, 1) {
+        new CountDownTimer(6, 1) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -81,6 +81,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                         TextView tvnextfact1 = findViewById(R.id.tvfact);
                         if(String.valueOf(snapshot.child("gameStatus").getValue()).equals("Ready")){
                             Log.d("???","worksss");
+                            cancel();
                             Intent intent = new Intent(getApplicationContext(),authentication.class);
                             startActivity(intent);
                         }
@@ -93,6 +94,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
+                start();
                 
             }
         }.start();
