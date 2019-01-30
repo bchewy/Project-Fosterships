@@ -32,6 +32,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
     SharedPreferences mPref;
     SharedPreferences.Editor mEditor;
     int eventID;
+    CountDownTimer Timerz = null;
     ArrayList<String> PlayerList = new ArrayList<String>();
     ArrayList<String> NameList = new ArrayList<String>();
     ArrayList<Team> teamList = new ArrayList<Team>();
@@ -68,14 +69,14 @@ public class normaluserwaitingscreen extends AppCompatActivity {
 
 
 
-         CountDownTimer Timerz = new CountDownTimer(10, 1) {
+          Timerz = new CountDownTimer(10, 1) {
 
             public void onTick(long millisUntilFinished) {
 
             }
 
             public void onFinish() {
-                cancel();
+                Timerz.cancel();
                 Log.d("Count", "1");
                 eventID = mPref.getInt("EventID",0);
                 defReference.child(String.valueOf(eventID)).addListenerForSingleValueEvent(new ValueEventListener(){
@@ -166,6 +167,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                         break;
                     }
                 }
+                Timerz.start();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -204,7 +206,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
             NewTeam.setTeamname(Names.get(i));
             for(int x = 0; x < NewTeam.getSize(); x++){
                 HashMap<String, Object> NewPlayer = new HashMap<>();
-                NewPlayer.put("Role",TeamList.size());
+                NewPlayer.put("Role",x+1);
                 defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).child("Members").child(String.valueOf(NewTeam.getMembers().get(x))).updateChildren(NewPlayer);
                 //defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).child("Members").child(String.valueOf(NewTeam.getMembers().get(x))).updateChildren(NewPlayer);
 
