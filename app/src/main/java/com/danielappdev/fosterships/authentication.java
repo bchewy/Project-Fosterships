@@ -68,10 +68,7 @@ public class authentication extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Tname = test.getText().toString();
-                mEditor = mPref.edit();
-                mEditor.putString("TeamName", Tname);
-                mEditor.commit();
+
                 String authCodeToCheck;
                 String pushKey;
                 authCodeToCheck = authcode.getText().toString();
@@ -79,15 +76,19 @@ public class authentication extends AppCompatActivity {
                 CheckAuthKey(EventRef,authCodeToCheck);
             }
         });
-        Timerz = new CountDownTimer(10, 1) {
+        Timerz = new CountDownTimer(20, 5) {
             public void onTick(long millisUntilFinished) {
 
             }
 
             public void onFinish() {
                 Timerz.cancel();
+                Tname = test.getText().toString();
+                mEditor = mPref.edit();
+                mEditor.putString("TeamName", Tname);
+                mEditor.commit();
                 CheckTeamAuthNO();
-
+                Log.d("works", "onFinish: ");
 
             }
         }.start();
@@ -168,12 +169,15 @@ public class authentication extends AppCompatActivity {
     }
     public void CheckTeamAuthNO(){
 
-        String Teamname = mPref.getString("TeamName", "Default");
+        final String Teamname = mPref.getString("TeamName", "Default");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Teamname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                Log.d("RanONE", Teamname);
                 if(snapshot.child("NoOfAuths").exists()){
                     //test.setText("works");
+                    Log.d("RanTWO", String.valueOf(snapshot.child("NoOfAuths").getValue(Long.class)));
+                    Log.d("RanTHREE", String.valueOf(EventID));
                     if(snapshot.child("NoOfAuths").getValue(Integer.class).equals(3)){
 
                        Intent intent = new Intent(getApplicationContext(), gamephase.class);
@@ -183,6 +187,7 @@ public class authentication extends AppCompatActivity {
                 }
                 Timerz.start();
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
