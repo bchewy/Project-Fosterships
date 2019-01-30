@@ -169,6 +169,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
     //method to load first image from firebase based on android IDs role and round
     public void Round1(String Tname){
         Android_ID = mPref.getString("AndroidID","default");
+        EventID = mPref.getInt("EventID",0);
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(1);
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
@@ -235,10 +236,6 @@ Toast.makeText(getActivity(), "This is my Toast message!",
        });
    }
 */
-
-
-
-
 
 
     public void LoadImageFromFirebase() {
