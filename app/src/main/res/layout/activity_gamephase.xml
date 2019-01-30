@@ -37,7 +37,7 @@
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline32"
-        app:srcCompat="@drawable/turtleonecolumnone" />
+         />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline32"
@@ -88,4 +88,5 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="98dp"
         tools:layout_editor_absoluteY="15dp" />
+
 </android.support.constraint.ConstraintLayout>

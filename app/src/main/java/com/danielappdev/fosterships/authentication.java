@@ -76,7 +76,7 @@ public class authentication extends AppCompatActivity {
                 CheckAuthKey(EventRef,authCodeToCheck);
             }
         });
-        Timerz = new CountDownTimer(20, 5) {
+        Timerz = new CountDownTimer(20, 1) {
             public void onTick(long millisUntilFinished) {
 
             }
@@ -179,19 +179,19 @@ public class authentication extends AppCompatActivity {
                     Log.d("RanTWO", String.valueOf(snapshot.child("NoOfAuths").getValue(Long.class)));
                     Log.d("RanTHREE", String.valueOf(EventID));
                     if(snapshot.child("NoOfAuths").getValue(Integer.class).equals(3)){
-
+                        Timerz.cancel();
                        Intent intent = new Intent(getApplicationContext(), gamephase.class);
                        startActivity(intent);
                     }
 
                 }
-                Timerz.start();
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
+        Timerz.start();
     }
 }
