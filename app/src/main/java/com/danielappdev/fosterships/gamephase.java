@@ -168,7 +168,7 @@ public class gamephase extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return
+        return ("Team banana");
     }
 
     public void RefreshPage(String Tname){
