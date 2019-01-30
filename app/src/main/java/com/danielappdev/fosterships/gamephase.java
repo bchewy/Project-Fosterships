@@ -45,11 +45,13 @@ public class gamephase extends AppCompatActivity {
     Integer EventID;
     String Android_ID;
     TextView TxtViewname;
+    TextView T_Round;
     Button btnTryGuess;
     ImageView imageView;
     DatabaseReference EventRef;
     String Tname;
     Integer Round;
+    Integer Round2;
     boolean isImageFitToScreen;
     Integer runOnce = 0;
     Integer makeshiftRound;
@@ -64,6 +66,8 @@ public class gamephase extends AppCompatActivity {
         imageView = findViewById(R.id.imageViewgm2);
         answerBox = findViewById(R.id.answerBox);
         TxtViewname  = findViewById(R.id.txtTeamname);
+        T_Round = findViewById(R.id.TV_Round);
+        Log.d("name", getTeam());
         Android_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         //just checking to see if method correctly gets round
         //getRound(Tname);
@@ -109,6 +113,7 @@ public class gamephase extends AppCompatActivity {
                 });
                 */
               //  CheckStatus(getTeam());
+
                RefreshPage(getTeam());
                 start();
             }
@@ -122,7 +127,7 @@ public class gamephase extends AppCompatActivity {
 
                 final String Answer = String.valueOf(answerBox.getText());
                 //DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
-                CheckAnswer(Answer, getRound(Tname));
+                CheckAnswer(Answer, getRound2());
 
             }
         });
@@ -148,6 +153,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
     Toast.LENGTH_LONG).show();
 
 */
+
 
     public String getTeam()
     {
@@ -181,7 +187,6 @@ Toast.makeText(getActivity(), "This is my Toast message!",
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
                 LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
 
             }
@@ -211,26 +216,68 @@ Toast.makeText(getActivity(), "This is my Toast message!",
     }
 
 
-   public int getRound(String Tname) {
+/*
+    public Integer getRound()
+    {
+        Round = Integer.parseInt(T_Round.toString());
+        mEditor = mPref.edit();
+        mEditor.putInt("Round", Round);
+        mEditor.commit();
+        Round= mPref.getInt("Round", Round);
+        return Round;
+    }
+*/
+
+
+
+    void getRound(String Tname) {
         Android_ID = mPref.getString("AndroidID","default");
         EventID = mPref.getInt("EventID",0);
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
-       Log.d("Round", "reached");
+      // Log.d("Round", "reached");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                    Round = dataSnapshot.child("Round").getValue(Integer.class);
+                   T_Round.setText(Round);
                     Log.d("Round", Round.toString());
-                }
 
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-       return Round;
    }
+
+
+   public Integer getRound2()
+   {
+       return (Round2= Integer.parseInt(T_Round.toString()));
+   }
+
+/*
+   public void SetTVRound(String Tname)
+   {
+       Android_ID = mPref.getString("AndroidID","default");
+       EventID = mPref.getInt("EventID",0);
+       DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
+       // Log.d("Round", "reached");
+       EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               if(dataSnapshot.exists()){
+                   T_Round.setText(Round);
+                //   Log.d("Round", Round.toString());
+               }
+
+           }
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+           }
+       });
+   }
+*/
+
 
 
 
@@ -249,7 +296,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
     public void LoadImageFromFirebase(Integer role, Integer round) {
         String temprole = role.toString();
         Log.d("pic", String.valueOf(round));
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child((String.valueOf(((round-1)*4)+role)+".jpg").replace("0",""));
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child(round.toString()+"/").child((String.valueOf(role.toString())));
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
@@ -277,7 +324,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
                     }
                 }
                 if (!correct) {
-                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+getHints(getRound(getTeam())));
+                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+getHints(getRound2()));
                 } else {
                     //ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
                 }

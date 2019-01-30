@@ -81,4 +81,11 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="36dp"
         tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/TV_Round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="15dp" />
 </android.support.constraint.ConstraintLayout>
