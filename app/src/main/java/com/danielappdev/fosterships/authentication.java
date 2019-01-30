@@ -172,8 +172,8 @@ public class authentication extends AppCompatActivity {
                     //test.setText("works");
                     if(snapshot.child("NoOfAuths").getValue(Integer.class).equals(3)){
 
-                        Intent intent = new Intent(getApplicationContext(), gamephase2.class);
-                        startActivity(intent);
+                       Intent intent = new Intent(getApplicationContext(), gamephase.class);
+                       startActivity(intent);
                     }
 
                 }

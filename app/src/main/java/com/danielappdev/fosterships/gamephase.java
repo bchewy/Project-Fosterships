@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -42,7 +43,7 @@ public class gamephase extends AppCompatActivity {
     DatabaseReference defReferenceTeams = database.getReference("Teams");
     EditText answerBox;
     Integer EventID;
-    String Android_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+    String Android_ID;
     TextView TxtViewname;
     Button btnTryGuess;
     ImageView imageView;
@@ -52,6 +53,7 @@ public class gamephase extends AppCompatActivity {
     boolean isImageFitToScreen;
     Integer runOnce = 0;
     Integer makeshiftRound;
+    String Hints;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +64,14 @@ public class gamephase extends AppCompatActivity {
         imageView = findViewById(R.id.imageViewgm2);
         answerBox = findViewById(R.id.answerBox);
         TxtViewname  = findViewById(R.id.txtTeamname);
-
+        Android_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        //just checking to see if method correctly gets round
+        //getRound(Tname);
         //Prep merge
         btnTryGuess = findViewById(R.id.btnGuess);
-        //Get EventID
+        getRound(getTeam());
+
         Intent mIntent = getIntent();
-        //EventID = 3518;
         EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -89,15 +93,13 @@ public class gamephase extends AppCompatActivity {
             }
 
             public void onFinish() {
-                EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+                /*EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         for (DataSnapshot s1 : snapshot.getChildren()) {
                             if (s1.child("Members").child(Android_ID).exists()) {
                                 CheckStatus(String.valueOf(s1.child("TeamName").getValue()));
                                 RefreshPage(String.valueOf(s1.child("TeamName").getValue()));
-
-
                             }
                         }
                     }
@@ -105,12 +107,12 @@ public class gamephase extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
+                */
+              //  CheckStatus(getTeam());
+               RefreshPage(getTeam());
                 start();
             }
         }.start();
-
-
 
 
 
@@ -120,11 +122,7 @@ public class gamephase extends AppCompatActivity {
 
                 final String Answer = String.valueOf(answerBox.getText());
                 //DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
-                CheckAnswer(Answer, getRound());
-
-
-
-
+                CheckAnswer(Answer, getRound(Tname));
 
             }
         });
@@ -145,39 +143,46 @@ public class gamephase extends AppCompatActivity {
             }
         });
     }
-    //displays image based on round.
-    //to make sure the other 3 members load the actual current round image
+/*
+Toast.makeText(getActivity(), "This is my Toast message!",
+    Toast.LENGTH_LONG).show();
 
+*/
 
-    public String getTeam() {
-        Android_ID = mPref.getString("AndroidID","default");
+    public String getTeam()
+    {
+        Tname = mPref.getString("TeamName", "Default");
+        return Tname;
+    }
+
+    public String getHints(final Integer Round)
+    {
         EventID = mPref.getInt("EventID",0);
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
-        EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot s1 : snapshot.getChildren()) {
-                    if (s1.child("Members").child(Android_ID).exists()) {
-
-                        Tname = TxtViewname.toString();
-                        Log.d("Tname", Tname);
-                    }
+        EventRef.child(String.valueOf(EventID)).child("pictures").child("gamephase"+Round.toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    Hints =dataSnapshot.child("hints").getValue().toString();
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return
+
+        return Hints;
     }
+
+
+
 
     public void RefreshPage(String Tname){
         Android_ID = mPref.getString("AndroidID","default");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
 
+                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
 
             }
             @Override
@@ -186,8 +191,8 @@ public class gamephase extends AppCompatActivity {
         });
     }
 
+    //initializes round to one then loads image from firebase based on role. 
     //method to load first image from firebase based on android IDs role and round
-    //
     public void Round1(String Tname){
         Android_ID = mPref.getString("AndroidID","default");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(1);
@@ -205,68 +210,27 @@ public class gamephase extends AppCompatActivity {
 
     }
 
-  /*  mEditor = mPreferences.edit();
-    String T = "Team banana";
-        mEditor.putString("AndroidID",android_id);
-        mEditor.putString("TeamName",T);
-        mEditor.commit();*/
-/*
 
-    public int getRole() {
+   public int getRound(String Tname) {
         Android_ID = mPref.getString("AndroidID","default");
         EventID = mPref.getInt("EventID",0);
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
-        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).addListenerForSingleValueEvent(new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    Log.d("exist", "exist ");
-
-                    Integer role2 = dataSnapshot.child("Role").getValue(Integer.class);
-                    Log.d("role", role2.toString());
-                }
-                //int makeshiftrole = dataSnapshot.child("role").getValue(Integer.class);
-                mEditor = mPref.edit();
-                //mEditor.putInt("Role",makeshiftrole);
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-        //Log.d("role", (role = mPref.getInt("Role",0)).toString());
-       // return role = mPref.getInt("Role",0);
-
-    }
-*/
-
-
-
-
-
-   public int getRound() {
-        Android_ID = mPref.getString("AndroidID","default");
-        EventID = mPref.getInt("EventID",0);
-        DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
+       Log.d("Round", "reached");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    //Log.d("exist", "exist ");
-
+                   Round = dataSnapshot.child("Round").getValue(Integer.class);
+                    Log.d("Round", Round.toString());
                 }
-                int makeshiftRound = dataSnapshot.child("Round").getValue(Integer.class);
-                mEditor = mPref.edit();
 
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        //Log.d("role", (role = mPref.getInt("Role",0)).toString());
-       return  makeshiftRound;
+
+       return Round;
    }
-
-
-
 
 
 
@@ -293,7 +257,6 @@ public class gamephase extends AppCompatActivity {
     }
 
 
-
     // EventRef = database.getReference(String.valueOf("Events"));
 //method to check if answer is equal to "gamephase + round" answer
     public void CheckAnswer(final String answer, final Integer Round) {
@@ -305,19 +268,18 @@ public class gamephase extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                    // int eventID = (ds.child("eventID").getValue(Integer.class));
                     //string round
-                    String FirebaseAnswer = ds.child("phase1Answer").getValue(String.class);
+                    String FirebaseAnswer = ds.child("gamephase"+Round.toString()).child("answers").getValue(String.class);
                     if  (FirebaseAnswer.equals(answer)) {
                         //increment score.
                        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Score").setValue(snapshot.child("Score").getValue(Integer.class)+1);
-
                         correct = true;
                         break;
                     }
                 }
                 if (!correct) {
-                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? A hint pops up on your leader's screen every few minutes!");
+                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+getHints(getRound(getTeam())));
                 } else {
-                    ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
+                    //ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
                 }
             }
 
@@ -388,18 +350,23 @@ public class gamephase extends AppCompatActivity {
     }
 
 
+
     // if score is same as round then plus round by 1 and load next image based on the users android id
     public void CheckStatus(final String Tname){
+        EventID = mPref.getInt("EventID",0);
         Android_ID = mPref.getString("AndroidID","default");
-        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+        EventRef.child(String.valueOf(EventID)).child("Teams").child("Team banana").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Score").getValue(Integer.class))){
-                    EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
+                if (snapshot.exists()){
+
+                if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Round").getValue(Integer.class))) {
+                    EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(snapshot.child("Round").getValue(Integer.class) + 1);
                     //ventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
                     //LoadImageFromFirebase();
 
-                    LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
+                  LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
+                }
                 }
 
             }
