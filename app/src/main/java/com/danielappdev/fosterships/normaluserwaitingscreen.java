@@ -35,6 +35,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
     ArrayList<String> PlayerList = new ArrayList<String>();
     ArrayList<String> NameList = new ArrayList<String>();
     ArrayList<Team> teamList = new ArrayList<Team>();
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
     //TextView tv_timer = findViewById(R.id.tv_timer);
@@ -67,13 +68,15 @@ public class normaluserwaitingscreen extends AppCompatActivity {
 
 
 
-        new CountDownTimer(6, 1) {
+         CountDownTimer Timerz = new CountDownTimer(10, 1) {
 
             public void onTick(long millisUntilFinished) {
 
             }
 
             public void onFinish() {
+                cancel();
+                Log.d("Count", "1");
                 eventID = mPref.getInt("EventID",0);
                 defReference.child(String.valueOf(eventID)).addListenerForSingleValueEvent(new ValueEventListener(){
                     @Override
@@ -86,7 +89,9 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                             startActivity(intent);
                         }
                         else{
+                            cancel();
                             checkAndroid_ID();
+
                         }
 
                     }
@@ -94,8 +99,8 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-                start();
-                
+
+
             }
         }.start();
     }
@@ -123,9 +128,8 @@ public class normaluserwaitingscreen extends AppCompatActivity {
     public void SplitTeams(ArrayList<String> List,ArrayList<Team> TeamList ){
         Collections.shuffle(List);
         Team NewTeam = new Team();
-        Log.d("SplitTeams: ", String.valueOf(List.size()));
+
         for (int i = 0; i < List.size(); i++){
-            Log.d("SplitTeams: ", String.valueOf(List.get(i)));
             if(i == 0){ NewTeam.addMembers(List.get(i));NewTeam.AddSize();}
             if (i == 1){NewTeam.addMembers(List.get(i));NewTeam.AddSize();}
             if (i == 2){NewTeam.addMembers(List.get(i));NewTeam.AddSize();}
@@ -141,6 +145,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
 
         else{
             List.clear();
+            Log.d("SplitTeams ", String.valueOf(TeamList.size()));
             GetTeamName(TeamList);
         }
     }
@@ -156,6 +161,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                         if(s1.getValue(String.class).equals(Android_ID)){
                             defReference.child(String.valueOf(eventID)).child("gameStatus").setValue("Sorting");
                             GetPlayers();
+
                         }
                         break;
                     }
@@ -167,6 +173,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
         });
     }
     public void GetTeamName(final ArrayList<Team> TeamList){
+        Log.d("GetTeamNameS ", String.valueOf(TeamList.size()));
         eventID = mPref.getInt("EventID",0);
         defReference.child(String.valueOf(eventID)).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
@@ -177,6 +184,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
 
                     }
                 }
+                Log.d("GetTeamNameE ", String.valueOf(TeamList.size()));
                 initialiseTeam(TeamList,NameList);
 
             }
@@ -196,7 +204,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
             NewTeam.setTeamname(Names.get(i));
             for(int x = 0; x < NewTeam.getSize(); x++){
                 HashMap<String, Object> NewPlayer = new HashMap<>();
-                NewPlayer.put("Role",x+1);
+                NewPlayer.put("Role",TeamList.size());
                 defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).child("Members").child(String.valueOf(NewTeam.getMembers().get(x))).updateChildren(NewPlayer);
                 //defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).child("Members").child(String.valueOf(NewTeam.getMembers().get(x))).updateChildren(NewPlayer);
 
