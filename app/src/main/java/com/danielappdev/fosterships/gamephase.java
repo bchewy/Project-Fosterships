@@ -42,6 +42,7 @@ public class gamephase extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReferenceTeams = database.getReference("Teams");
     EditText answerBox;
+    TextView CheatBox;
     Integer EventID;
     String Android_ID;
     TextView TxtViewname;
@@ -57,11 +58,13 @@ public class gamephase extends AppCompatActivity {
     Integer makeshiftRound;
     String Hints;
     Integer rx; //don't delete XD
+    CountDownTimer Timerz = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventID = mPref.getInt("EventID",0);
         mPref = PreferenceManager.getDefaultSharedPreferences(this);
         EventRef = database.getReference(String.valueOf("Events"));
         setContentView(R.layout.activity_gamephase);
@@ -76,14 +79,16 @@ public class gamephase extends AppCompatActivity {
 
         Round1(getTeam());
 
-        new CountDownTimer(5, 1) {
+        Timerz = new CountDownTimer(10, 1) {
             public void onTick(long millisUntilFinished) {
             }
 
             public void onFinish() {
+                cancel();
+                Log.d("count", "onFinish: ");
                 CheckStatus(getTeam());
                 RefreshPage(getTeam());
-                start();
+
             }
         }.start();
 
@@ -153,24 +158,34 @@ Toast.makeText(getActivity(), "This is my Toast message!",
     public void RefreshPage(String Tname){
         Android_ID = mPref.getString("AndroidID","default");
         EventID = mPref.getInt("EventID",0);
+        final int Rd = Integer.parseInt(String.valueOf(T_Round.getText()));
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("Role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
+                if (Rd != snapshot.child("Round").getValue(Integer.class)) {
 
+                    LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("Role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
+                    CheatBox.setText(String.valueOf(snapshot.child("Round").getValue(Integer.class)));
+                }
+                //Timerz.start();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+
         });
+
     }
 
     //initializes round to one then loads image from firebase based on role. 
     //method to load first image from firebase based on android IDs role and round
     public void Round1(String Tname){
         Android_ID = mPref.getString("AndroidID","default");
+        EventID = mPref.getInt("EventID",0);
+        T_Round.setText("1");
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(1);
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+
             @Override
 
             public void onDataChange(DataSnapshot snapshot) {
