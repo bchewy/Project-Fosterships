@@ -44,6 +44,7 @@ public class authentication extends AppCompatActivity {
     TextView test;
     ImageView img;
     Team CurTeam = new Team();
+    CountDownTimer Timerz = null;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,15 +79,16 @@ public class authentication extends AppCompatActivity {
                 CheckAuthKey(EventRef,authCodeToCheck);
             }
         });
-        new CountDownTimer(5, 1) {
+        Timerz = new CountDownTimer(10, 1) {
             public void onTick(long millisUntilFinished) {
 
             }
 
             public void onFinish() {
+                Timerz.cancel();
                 CheckTeamAuthNO();
 
-                start();
+
             }
         }.start();
 
@@ -179,7 +181,7 @@ public class authentication extends AppCompatActivity {
                     }
 
                 }
-
+                Timerz.start();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
