@@ -56,6 +56,8 @@ public class gamephase extends AppCompatActivity {
     Integer runOnce = 0;
     Integer makeshiftRound;
     String Hints;
+    Integer rx; //don't delete XD
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class gamephase extends AppCompatActivity {
         //getRound(Tname);
         //Prep merge
         btnTryGuess = findViewById(R.id.btnGuess);
-        getRound(getTeam());
+        //getRound(getTeam());
 
         Intent mIntent = getIntent();
         EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
@@ -127,7 +129,9 @@ public class gamephase extends AppCompatActivity {
 
                 final String Answer = String.valueOf(answerBox.getText());
                 //DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
-                CheckAnswer(Answer, getRound2());
+                getRoundFB(getTeam());
+                Integer gx = getRound();
+                CheckAnswer(Answer,gx );
 
             }
         });
@@ -230,7 +234,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
 
 
 
-    void getRound(String Tname) {
+    public void getRoundFB(String Tname) {
         Android_ID = mPref.getString("AndroidID","default");
         EventID = mPref.getInt("EventID",0);
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
@@ -238,9 +242,10 @@ Toast.makeText(getActivity(), "This is my Toast message!",
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                   Round = dataSnapshot.child("Round").getValue(Integer.class);
-                   T_Round.setText(Round);
-                    Log.d("Round", Round.toString());
+                   rx = dataSnapshot.child("Round").getValue(Integer.class);
+                   //T_Round.setText(Round);
+                    Log.d("Round", rx.toString());
+                    setRound(rx);
 
                 }
             }
@@ -250,10 +255,15 @@ Toast.makeText(getActivity(), "This is my Toast message!",
         });
    }
 
-
+   public void setRound(final Integer rounnd){
+        Round=rounnd;
+   }
+   public Integer getRound(){
+        return Round;
+   }
    public Integer getRound2()
    {
-       return (Round2= Integer.parseInt(T_Round.toString()));
+       return Round;
    }
 
 /*
