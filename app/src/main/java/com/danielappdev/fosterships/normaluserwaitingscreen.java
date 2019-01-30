@@ -33,7 +33,8 @@ public class normaluserwaitingscreen extends AppCompatActivity {
     SharedPreferences.Editor mEditor;
     int eventID;
     ArrayList<String> PlayerList = new ArrayList<String>();
-    ArrayList<Team> TeamList = new ArrayList<Team>();
+    ArrayList<String> NameList = new ArrayList<String>();
+    ArrayList<Team> teamList = new ArrayList<Team>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference defReference = database.getReference("Events"); //Initial root reference
     //TextView tv_timer = findViewById(R.id.tv_timer);
@@ -114,7 +115,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
     }
 
 
-    /*public void GetPlayers(){
+    public void GetPlayers(){
         eventID = mPref.getInt("EventID",0);
         defReference.child(String.valueOf(eventID)).child("Players").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
@@ -123,7 +124,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                    PlayerList.add(String.valueOf(s1.getValue()));
                 }
                 Collections.shuffle(PlayerList);
-                SplitTeams(PlayerList);
+                SplitTeams(PlayerList,teamList);
 
 
             }
@@ -133,27 +134,86 @@ public class normaluserwaitingscreen extends AppCompatActivity {
         });
 
     }
-    public void SplitTeams(ArrayList<String> List){
+    public void SplitTeams(ArrayList<String> List,ArrayList<Team> TeamList ){
         Team NewTeam = new Team();
         for (int i = 0; i < List.size(); i++){
-            if(i == 0){ NewTeam.setLeaderID(List.get(i));NewTeam.AddSize();}
-            if (i == 1){NewTeam.setPlayer2ID(List.get(i));NewTeam.AddSize();}
-            if (i == 2){NewTeam.setPlayer3ID(List.get(i));NewTeam.AddSize();}
-            if (i == 3){NewTeam.setPlayer4ID(List.get(i));NewTeam.AddSize();break;}
+            if(i == 0){ NewTeam.addMembers(List.get(i));NewTeam.AddSize();}
+            if (i == 1){NewTeam.addMembers(List.get(i));NewTeam.AddSize();}
+            if (i == 2){NewTeam.addMembers(List.get(i));NewTeam.AddSize();}
+            if (i == 3){NewTeam.addMembers(List.get(i));NewTeam.AddSize();break;}
         }
         TeamList.add(NewTeam);
         if (NewTeam.getSize() == 4){
             for (int i = 1; i <= 4; i++){
                 List.remove(0);
             }
-            SplitTeams(List);
+            SplitTeams(List,TeamList);
+        }
+        else if(NewTeam.getSize() == 0){
+            GetTeamName(TeamList);
         }
         else{
             List.clear();
         }
     }
 
-    public void SetTeam(){
+    public void checkAndroid_ID(){
+        final String Android_ID = mPref.getString("AndroidID","Default");
+        eventID = mPref.getInt("EventID",0);
+        defReference.child(String.valueOf(eventID)).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot.child("Status").getValue(String.class).equals("Not sorted")){
+                    for (DataSnapshot s1 : snapshot.child("Players").getChildren()) {
+                        if(s1.getValue(String.class).equals(Android_ID)){
+                            defReference.child(String.valueOf(eventID)).child("Status").setValue("Sorting");
+                            GetPlayers();
+                        }
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    public void GetTeamName(ArrayList<Team> TeamList){
+        NameList.add("apple");
+        NameList.add("derp");
+        initialiseTeam(TeamList,NameList);
 
-    }*/
+    }
+
+    public void initialiseTeam(ArrayList<Team> TeamList,ArrayList<String> Names){
+        eventID = mPref.getInt("EventID",0);
+        for (int i = 0; i < TeamList.size(); i++){
+            Team NewTeam = TeamList.get(i);
+            NewTeam.setTeamname("Team "+ Names.get(i));
+            for(int x = 1; x == NewTeam.getSize(); x++){
+                HashMap<String, Object> NewPlayer = new HashMap<>();
+                NewPlayer.put("Role",x);
+                defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).child("Members").child(NewTeam.getMembers().get(i)).updateChildren(NewPlayer);
+            }
+            NewTeam.GenerateCode();
+            HashMap<String, Object> Round = new HashMap<>();
+            HashMap<String, Object> Score = new HashMap<>();
+            HashMap<String, Object> TeamName = new HashMap<>();
+            HashMap<String, Object> TeamAuthCode = new HashMap<>();
+            HashMap<String, Object> NoOfAuths = new HashMap<>();
+            Round.put("Round",i);
+            Score.put("Score",0);
+            NoOfAuths.put("NoOfAuths",0);
+            TeamAuthCode.put("TeamAuthCode",NewTeam.getAuthCode());
+            TeamName.put("TeamName",NewTeam.getTeamname());
+            defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).updateChildren(Round);
+            defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).updateChildren(Score);
+            defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).updateChildren(TeamName);
+            defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).updateChildren(NoOfAuths);
+            defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).updateChildren(TeamAuthCode);
+        }
+        defReference.child(String.valueOf(eventID)).child("Status").setValue("Ready");
+
+    }
+
 }

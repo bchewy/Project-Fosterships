@@ -29,14 +29,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Team {
     private String TeamID;
-    private String LeaderID;
-    private String Player2ID;
-    private String Player3ID;
-    private String Player4ID;
+    private ArrayList<String> Members;
     private String AuthCode;
     private String Teamname;
     int size;
@@ -45,7 +43,7 @@ public class Team {
         size =0;
     }
 
-    public String GenerateCode(){
+    public void GenerateCode(){
         char[] chars1 = "ABCDEF012GHIJKL345MNOPQR678STUVWXYZ9".toCharArray();
         StringBuilder sb1 = new StringBuilder();
         Random random1 = new Random();
@@ -55,19 +53,13 @@ public class Team {
             sb1.append(c1);
         }
         String random_string = sb1.toString();
-        return random_string;
+        AuthCode = random_string;
     }
 
-    public String getLeaderID() {
-        return LeaderID;
-    }
+
 
     public String getTeamID() {
         return TeamID;
-    }
-
-    public void setAuthCode(String authCode) {
-        AuthCode = authCode;
     }
 
     public void setTeamname(String teamname) {
@@ -82,20 +74,12 @@ public class Team {
         return AuthCode;
     }
 
-    public void setLeaderID(String leaderID) {
-        LeaderID = leaderID;
+    public void addMembers(String ID) {
+        Members.add(ID);
     }
 
-    public void setPlayer2ID(String player2ID) {
-        Player2ID = player2ID;
-    }
-
-    public void setPlayer3ID(String player3ID) {
-        Player3ID = player3ID;
-    }
-
-    public void setPlayer4ID(String player4ID) {
-        Player4ID = player4ID;
+    public ArrayList<String> getMembers() {
+        return Members;
     }
 
     public void AddSize() {
