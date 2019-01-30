@@ -34,7 +34,7 @@ import java.util.Random;
 
 public class Team {
     private String TeamID;
-    private ArrayList<String> Members;
+    private ArrayList<String> Members = new ArrayList<String>();
     private String AuthCode;
     private String Teamname;
     int size;

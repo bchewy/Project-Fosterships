@@ -79,10 +79,13 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
                         TextView tvnextfact1 = findViewById(R.id.tvfact);
-                        if(String.valueOf(snapshot.child("Status").getValue()).equals("Ready")){
+                        if(String.valueOf(snapshot.child("gameStatus").getValue()).equals("Ready")){
                             Log.d("???","worksss");
                             Intent intent = new Intent(getApplicationContext(),authentication.class);
                             startActivity(intent);
+                        }
+                        else{
+                            checkAndroid_ID();
                         }
 
                     }
@@ -90,26 +93,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-                /*String[] Roles = {"Player"};
-                Random r = new Random();
-                String playerrole = Roles[r.nextInt(Roles.length)];
-
-                if (playerrole == "Player"){
-                    mEditor = mPref.edit();
-
-
-                    String android_id = Settings.Secure.getString(getContentResolver(),
-                            Settings.Secure.ANDROID_ID);
-                    mEditor.putString("AndroidID",android_id);
-                    mEditor.commit();
-                    eventID = mPref.getInt("EventID",0);
-                    HashMap<String, Object> Member = new HashMap<>();
-                    Member.put("Player1",android_id);
-                    defReference.child(String.valueOf(eventID)).child("Teams").child("Team Banana").child("Members").updateChildren(Member);
-                }
-
-                Intent intent = new Intent(getApplicationContext(),authentication.class);
-                startActivity(intent);*/
+                
             }
         }.start();
     }
@@ -123,7 +107,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
                 for (DataSnapshot s1 : snapshot.getChildren()) {
                    PlayerList.add(String.valueOf(s1.getValue()));
                 }
-                Collections.shuffle(PlayerList);
+
                 SplitTeams(PlayerList,teamList);
 
 
@@ -135,8 +119,11 @@ public class normaluserwaitingscreen extends AppCompatActivity {
 
     }
     public void SplitTeams(ArrayList<String> List,ArrayList<Team> TeamList ){
+        Collections.shuffle(List);
         Team NewTeam = new Team();
+        Log.d("SplitTeams: ", String.valueOf(List.size()));
         for (int i = 0; i < List.size(); i++){
+            Log.d("SplitTeams: ", String.valueOf(List.get(i)));
             if(i == 0){ NewTeam.addMembers(List.get(i));NewTeam.AddSize();}
             if (i == 1){NewTeam.addMembers(List.get(i));NewTeam.AddSize();}
             if (i == 2){NewTeam.addMembers(List.get(i));NewTeam.AddSize();}
@@ -149,11 +136,10 @@ public class normaluserwaitingscreen extends AppCompatActivity {
             }
             SplitTeams(List,TeamList);
         }
-        else if(NewTeam.getSize() == 0){
-            GetTeamName(TeamList);
-        }
+
         else{
             List.clear();
+            GetTeamName(TeamList);
         }
     }
 
@@ -163,10 +149,10 @@ public class normaluserwaitingscreen extends AppCompatActivity {
         defReference.child(String.valueOf(eventID)).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                if(snapshot.child("Status").getValue(String.class).equals("Not sorted")){
+                if(snapshot.child("gameStatus").getValue(String.class).equals("Not sorted")){
                     for (DataSnapshot s1 : snapshot.child("Players").getChildren()) {
                         if(s1.getValue(String.class).equals(Android_ID)){
-                            defReference.child(String.valueOf(eventID)).child("Status").setValue("Sorting");
+                            defReference.child(String.valueOf(eventID)).child("gameStatus").setValue("Sorting");
                             GetPlayers();
                         }
                         break;
@@ -178,10 +164,26 @@ public class normaluserwaitingscreen extends AppCompatActivity {
             }
         });
     }
-    public void GetTeamName(ArrayList<Team> TeamList){
-        NameList.add("apple");
-        NameList.add("derp");
-        initialiseTeam(TeamList,NameList);
+    public void GetTeamName(final ArrayList<Team> TeamList){
+        eventID = mPref.getInt("EventID",0);
+        defReference.child(String.valueOf(eventID)).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                {
+                    for (DataSnapshot s1 : snapshot.child("Teams").getChildren()) {
+                        NameList.add(s1.child("TeamName").getValue(String.class));
+
+                    }
+                }
+                initialiseTeam(TeamList,NameList);
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+
 
     }
 
@@ -189,11 +191,13 @@ public class normaluserwaitingscreen extends AppCompatActivity {
         eventID = mPref.getInt("EventID",0);
         for (int i = 0; i < TeamList.size(); i++){
             Team NewTeam = TeamList.get(i);
-            NewTeam.setTeamname("Team "+ Names.get(i));
-            for(int x = 1; x == NewTeam.getSize(); x++){
+            NewTeam.setTeamname(Names.get(i));
+            for(int x = 0; x < NewTeam.getSize(); x++){
                 HashMap<String, Object> NewPlayer = new HashMap<>();
-                NewPlayer.put("Role",x);
-                defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).child("Members").child(NewTeam.getMembers().get(i)).updateChildren(NewPlayer);
+                NewPlayer.put("Role",x+1);
+                defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).child("Members").child(String.valueOf(NewTeam.getMembers().get(x))).updateChildren(NewPlayer);
+                //defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).child("Members").child(String.valueOf(NewTeam.getMembers().get(x))).updateChildren(NewPlayer);
+
             }
             NewTeam.GenerateCode();
             HashMap<String, Object> Round = new HashMap<>();
@@ -201,7 +205,7 @@ public class normaluserwaitingscreen extends AppCompatActivity {
             HashMap<String, Object> TeamName = new HashMap<>();
             HashMap<String, Object> TeamAuthCode = new HashMap<>();
             HashMap<String, Object> NoOfAuths = new HashMap<>();
-            Round.put("Round",i);
+            Round.put("Round",1);
             Score.put("Score",0);
             NoOfAuths.put("NoOfAuths",0);
             TeamAuthCode.put("TeamAuthCode",NewTeam.getAuthCode());
@@ -212,7 +216,8 @@ public class normaluserwaitingscreen extends AppCompatActivity {
             defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).updateChildren(NoOfAuths);
             defReference.child(String.valueOf(eventID)).child("Teams").child(NewTeam.getTeamname()).updateChildren(TeamAuthCode);
         }
-        defReference.child(String.valueOf(eventID)).child("Status").setValue("Ready");
+        defReference.child(String.valueOf(eventID)).child("gameStatus").setValue("Ready");
+
 
     }
 
