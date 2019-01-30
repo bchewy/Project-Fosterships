@@ -188,10 +188,11 @@ Toast.makeText(getActivity(), "This is my Toast message!",
 
     public void RefreshPage(String Tname){
         Android_ID = mPref.getString("AndroidID","default");
+        EventID = mPref.getInt("EventID",0);
         EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
+                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("Role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
 
             }
             @Override
@@ -209,7 +210,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
             @Override
 
             public void onDataChange(DataSnapshot snapshot) {
-                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
+                LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("Role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
 
             }
             @Override
@@ -261,10 +262,6 @@ Toast.makeText(getActivity(), "This is my Toast message!",
    public Integer getRound(){
         return Round;
    }
-   public Integer getRound2()
-   {
-       return Round;
-   }
 
 /*
    public void SetTVRound(String Tname)
@@ -304,9 +301,10 @@ Toast.makeText(getActivity(), "This is my Toast message!",
 
 
     public void LoadImageFromFirebase(Integer role, Integer round) {
-        String temprole = role.toString();
-        Log.d("pic", String.valueOf(round));
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child(round.toString()+"/").child((String.valueOf(role.toString())));
+//        String temprole = role.toString();
+       // Log.d("pic", String.valueOf(round));
+        role = 1;
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child(round.toString()+"/").child((role.toString())+".jpg");
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
                 .load(storageReference)
@@ -334,7 +332,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
                     }
                 }
                 if (!correct) {
-                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+getHints(getRound2()));
+                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+getHints(getRound()));
                 } else {
                     //ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
                 }
@@ -412,17 +410,17 @@ Toast.makeText(getActivity(), "This is my Toast message!",
     public void CheckStatus(final String Tname){
         EventID = mPref.getInt("EventID",0);
         Android_ID = mPref.getString("AndroidID","default");
-        EventRef.child(String.valueOf(EventID)).child("Teams").child("Team banana").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
+        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()){
 
-                if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Round").getValue(Integer.class))) {
+                if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Role").getValue(Integer.class))) {
                     EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(snapshot.child("Round").getValue(Integer.class) + 1);
                     //ventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
                     //LoadImageFromFirebase();
 
-                  LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
+                  LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("Role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
                 }
                 }
 
