@@ -73,17 +73,17 @@ public class selectmenu extends AppCompatActivity {
         btnAdminPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AdminPage.class);
+                Intent intent = new Intent(getApplicationContext(), Leaderboard.class);
                 startActivity(intent);
             }
         });
-        btnAdminPage.setOnClickListener(new View.OnClickListener() {
+        /*btnAdminPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AdminPage.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
 
 

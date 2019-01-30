@@ -34,6 +34,7 @@
         <activity android:name=".gamephaseAdmin" android:screenOrientation="portrait" />
         <activity android:name=".Fromauthwaitingscreen" android:screenOrientation="portrait" />
         <activity android:name=".TeamLeaderAuthentication" android:screenOrientation="portrait"/>
+        <activity android:name=".Leaderboard" android:screenOrientation="portrait"/>
 
     </application>
 
