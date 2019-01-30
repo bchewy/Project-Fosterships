@@ -67,13 +67,16 @@ public class gamephase extends AppCompatActivity {
         answerBox = findViewById(R.id.answerBox);
         TxtViewname  = findViewById(R.id.txtTeamname);
         T_Round = findViewById(R.id.TV_Round);
-        Log.d("name", getTeam());
+        //.d("name", getTeam());
         Android_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         //just checking to see if method correctly gets round
         //getRound(Tname);
         //Prep merge
         btnTryGuess = findViewById(R.id.btnGuess);
-        getRound(getTeam());
+        //getRound(getTeam());
+        //getRound(getTeam());
+        //Log.d("Round", getRound2().toString());
+        //Log.d("round", getRound2().toString());
 
         Intent mIntent = getIntent();
         EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
@@ -114,7 +117,7 @@ public class gamephase extends AppCompatActivity {
                 */
               //  CheckStatus(getTeam());
 
-               RefreshPage(getTeam());
+               //RefreshPage(getTeam());
                 start();
             }
         }.start();
@@ -127,7 +130,8 @@ public class gamephase extends AppCompatActivity {
 
                 final String Answer = String.valueOf(answerBox.getText());
                 //DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
-                CheckAnswer(Answer, getRound2());
+                 //CheckAnswer(Answer, Integer.parseInt(getRound(getTeam()));
+
 
             }
         });
@@ -230,7 +234,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
 
 
 
-    void getRound(String Tname) {
+    public void getRound(String Tname) {
         Android_ID = mPref.getString("AndroidID","default");
         EventID = mPref.getInt("EventID",0);
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
@@ -239,21 +243,21 @@ Toast.makeText(getActivity(), "This is my Toast message!",
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                    Round = dataSnapshot.child("Round").getValue(Integer.class);
-                   T_Round.setText(Round);
-                    Log.d("Round", Round.toString());
-
+                  // T_Round.setText(Round);
+                    //Log.d("Round", Round.toString());
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
    }
 
 
    public Integer getRound2()
    {
-       return (Round2= Integer.parseInt(T_Round.toString()));
+       return Round;
    }
 
 /*
@@ -324,7 +328,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
                     }
                 }
                 if (!correct) {
-                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+getHints(getRound2()));
+                 //   ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+getHints(getRound2()));
                 } else {
                     //ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
                 }

@@ -103,7 +103,7 @@ public class authentication extends AppCompatActivity {
                 if(snapshot.child("TeamAuthCode").exists()){
                     if(String.valueOf(snapshot.child("TeamAuthCode").getValue()).equals(authCodetoCheck)){
                         int NumOfAuth =  snapshot.child("NoOfAuths").getValue(Integer.class);
-                        EventRef.child(String.valueOf(EventID)).child("Teams").child(Teamname).child("NoOfAuths").setValue(NumOfAuth+1);
+                        //EventRef.child(String.valueOf(EventID)).child("Teams").child(Teamname).child("NoOfAuths").setValue(NumOfAuth+1);
                         CheckTeamAuthNO();
                         authcode.setVisibility(View.INVISIBLE);
                         btnStart.setVisibility(View.INVISIBLE);
