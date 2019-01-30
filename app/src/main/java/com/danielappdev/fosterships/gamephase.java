@@ -71,57 +71,21 @@ public class gamephase extends AppCompatActivity {
         T_Round = findViewById(R.id.TV_Round);
         Log.d("name", getTeam());
         Android_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        //just checking to see if method correctly gets round
-        //getRound(Tname);
-        //Prep merge
         btnTryGuess = findViewById(R.id.btnGuess);
-        //getRound(getTeam());
-
         Intent mIntent = getIntent();
-        EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot s1 : snapshot.getChildren()) {
-                    if (s1.child("Members").child(Android_ID).exists()) {
-                        Round1(String.valueOf(s1.child("TeamName").getValue()));
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
 
-        //getRole();
-        // checks frequently
+        Round1(getTeam());
+
         new CountDownTimer(5, 1) {
             public void onTick(long millisUntilFinished) {
             }
 
             public void onFinish() {
-                /*EventRef.child(String.valueOf(EventID)).child("Teams").addListenerForSingleValueEvent(new ValueEventListener() {//Single data load
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        for (DataSnapshot s1 : snapshot.getChildren()) {
-                            if (s1.child("Members").child(Android_ID).exists()) {
-                                CheckStatus(String.valueOf(s1.child("TeamName").getValue()));
-                                RefreshPage(String.valueOf(s1.child("TeamName").getValue()));
-                            }
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-                */
-              //  CheckStatus(getTeam());
-
-               RefreshPage(getTeam());
+                CheckStatus(getTeam());
+                RefreshPage(getTeam());
                 start();
             }
         }.start();
-
-
 
         btnTryGuess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,19 +185,6 @@ Toast.makeText(getActivity(), "This is my Toast message!",
     }
 
 
-/*
-    public Integer getRound()
-    {
-        Round = Integer.parseInt(T_Round.toString());
-        mEditor = mPref.edit();
-        mEditor.putInt("Round", Round);
-        mEditor.commit();
-        Round= mPref.getInt("Round", Round);
-        return Round;
-    }
-*/
-
-
 
     public void getRoundFB(String Tname) {
         Android_ID = mPref.getString("AndroidID","default");
@@ -303,7 +254,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
     public void LoadImageFromFirebase(Integer role, Integer round) {
 //        String temprole = role.toString();
        // Log.d("pic", String.valueOf(round));
-        role = 1;
+        //role = 1;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child(round.toString()+"/").child((role.toString())+".jpg");
         ImageView imageView = findViewById(R.id.imageViewgm2);
         Glide.with(getApplicationContext())
@@ -361,51 +312,6 @@ Toast.makeText(getActivity(), "This is my Toast message!",
 
 
 
-    public void fullScreen() {
-
-        // BEGIN_INCLUDE (get_current_ui_flags)
-        // The UI options currently enabled are represented by a bitfield.
-        // getSystemUiVisibility() gives us that bitfield.
-        int uiOptions = getWindow().getDecorView().getSystemUiVisibility();
-        int newUiOptions = uiOptions;
-        // END_INCLUDE (get_current_ui_flags)
-        // BEGIN_INCLUDE (toggle_ui_flags)
-        boolean isImmersiveModeEnabled =
-                ((uiOptions | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) == uiOptions);
-        if (isImmersiveModeEnabled) {
-            Log.i("tagimg", "Turning immersive mode mode off. ");
-        } else {
-            Log.i("tagimg", "Turning immersive mode mode on.");
-        }
-
-        // Navigation bar hiding:  Backwards compatible to ICS.
-        if (Build.VERSION.SDK_INT >= 14) {
-            newUiOptions ^= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        }
-
-        // Status bar hiding: Backwards compatible to Jellybean
-        if (Build.VERSION.SDK_INT >= 16) {
-            newUiOptions ^= View.SYSTEM_UI_FLAG_FULLSCREEN;
-        }
-
-        // Immersive mode: Backward compatible to KitKat.
-        // Note that this flag doesn't do anything by itself, it only augments the behavior
-        // of HIDE_NAVIGATION and FLAG_FULLSCREEN.  For the purposes of this sample
-        // all three flags are being toggled together.
-        // Note that there are two immersive mode UI flags, one of which is referred to as "sticky".
-        // Sticky immersive mode differs in that it makes the navigation and status bars
-        // semi-transparent, and the UI flag does not get cleared when the user interacts with
-        // the screen.
-        if (Build.VERSION.SDK_INT >= 18) {
-            newUiOptions ^= View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-        }
-
-        getWindow().getDecorView().setSystemUiVisibility(newUiOptions);
-        //END_INCLUDE (set_ui_flags)
-    }
-
-
-
     // if score is same as round then plus round by 1 and load next image based on the users android id
     public void CheckStatus(final String Tname){
         EventID = mPref.getInt("EventID",0);
@@ -415,12 +321,9 @@ Toast.makeText(getActivity(), "This is my Toast message!",
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()){
 
-                if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Role").getValue(Integer.class))) {
+                if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Score").getValue(Integer.class))) {
                     EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(snapshot.child("Round").getValue(Integer.class) + 1);
-                    //ventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Members").child(Android_ID).child("Round").setValue(snapshot.child("Round").getValue(Integer.class)+1);
-                    //LoadImageFromFirebase();
-
-                  LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("Role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
+                    LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("Role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
                 }
                 }
 
