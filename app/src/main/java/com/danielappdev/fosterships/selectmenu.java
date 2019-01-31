@@ -110,6 +110,7 @@ public class selectmenu extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot snapshot) { //snapshot is the root reference
+                //ID
                 int test = 0;
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     int eventID = (ds.child("eventID").getValue(Integer.class));
