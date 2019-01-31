@@ -64,8 +64,10 @@ public class gamephase extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventID = mPref.getInt("EventID",0);
+
         mPref = PreferenceManager.getDefaultSharedPreferences(this);
+        EventID = mPref.getInt("EventID",0);
+        Tname = mPref.getString("TeamName", "Default");
         EventRef = database.getReference(String.valueOf("Events"));
         setContentView(R.layout.activity_gamephase);
         imageView = findViewById(R.id.imageViewgm2);
@@ -98,8 +100,8 @@ public class gamephase extends AppCompatActivity {
 
                 final String Answer = String.valueOf(answerBox.getText());
                 //DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
-                getRoundFB(getTeam());
-                Integer gx = getRound();
+                Integer gx = Integer.parseInt(String.valueOf(T_Round.getText()));
+                Log.d(String.valueOf(gx), "onClick: ");
                 CheckAnswer(Answer,gx );
 
             }
@@ -165,9 +167,9 @@ Toast.makeText(getActivity(), "This is my Toast message!",
                 if (Rd != snapshot.child("Round").getValue(Integer.class)) {
 
                     LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("Role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class));
-                    CheatBox.setText(String.valueOf(snapshot.child("Round").getValue(Integer.class)));
+                    T_Round.setText(String.valueOf(snapshot.child("Round").getValue(Integer.class)));
                 }
-                //Timerz.start();
+                Timerz.start();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -282,24 +284,27 @@ Toast.makeText(getActivity(), "This is my Toast message!",
 //method to check if answer is equal to "gamephase + round" answer
     public void CheckAnswer(final String answer, final Integer Round) {
 
-        EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).addListenerForSingleValueEvent(new ValueEventListener() {
+        EventRef.child(String.valueOf(EventID)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 Boolean correct = false;
-                for (DataSnapshot ds : snapshot.getChildren()) {
+
                    // int eventID = (ds.child("eventID").getValue(Integer.class));
                     //string round
-                    String FirebaseAnswer = ds.child("gamephase"+Round.toString()).child("answers").getValue(String.class);
+                    String FirebaseAnswer = snapshot.child("pictures").child("gamephase"+Round.toString()).child("answers").getValue(String.class);
                     if  (FirebaseAnswer.equals(answer)) {
                         //increment score.
-                       EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Score").setValue(snapshot.child("Score").getValue(Integer.class)+1);
+                       EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Score").setValue(snapshot.child("Teams").child(Tname).child("Score").getValue(Integer.class)+1);
                         correct = true;
-                        break;
+
                     }
-                }
+
                 if (!correct) {
                     ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+getHints(getRound()));
                 } else {
+                        //CheckStatus(Tname);
+                       // RefreshPage(Tname);
+                        //Timerz.start();
                     //ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
                 }
             }
