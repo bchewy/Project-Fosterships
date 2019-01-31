@@ -27,7 +27,7 @@ import java.util.HashMap;
 public class selectmenu extends AppCompatActivity {
 
     Button btnJoin;
-    Button btnBook;
+    //Button btnBook;
     Button btnAdminPage;
     EditText inviteCode;
     TextView textview2;
@@ -35,18 +35,17 @@ public class selectmenu extends AppCompatActivity {
     SharedPreferences mPref;
     SharedPreferences.Editor mEditor;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference defReference = database.getReference("Events");
+    DatabaseReference defReference  = database.getReference("Events");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selectmenu);
-        //Log.d("selectmenu", "runs on selectmenu");
+        setContentView(R.layout.activity_selectmenu);        //Log.d("selectmenu", "runs on selectmenu");
         mPref = PreferenceManager.getDefaultSharedPreferences(this);
         inviteCode = findViewById(R.id.txtInviteCode);
         btnJoin = findViewById(R.id.btnJoinSelect);
-        btnBook = findViewById(R.id.btnBook);
-        btnAdminPage = findViewById(R.id.btnAdminPage);
+       // btnBook = findViewById(R.id.btnBook);
+        //btnAdminPage = findViewById(R.id.btnAdminPage);
 
         textview2 = findViewById(R.id.textView2);
 
@@ -63,20 +62,20 @@ public class selectmenu extends AppCompatActivity {
 
             }
         });
-        btnBook.setOnClickListener(new View.OnClickListener() {
+       /* btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), BookingActivity.class);
                 startActivity(intent);
             }
-        });
-        btnAdminPage.setOnClickListener(new View.OnClickListener() {
+        });*/
+       /* btnAdminPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Leaderboard.class);
                 startActivity(intent);
             }
-        });
+        });*/
         /*btnAdminPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -126,7 +126,6 @@ public class gamephase extends AppCompatActivity {
 /*
 Toast.makeText(getActivity(), "This is my Toast message!",
     Toast.LENGTH_LONG).show();
-
 */
 
 
@@ -136,7 +135,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
         return Tname;
     }
 
-    public String getHints(final Integer Round)
+    public void getHints(final Integer Round)
     {
         EventID = mPref.getInt("EventID",0);
         DatabaseReference EventRef = database.getReference(String.valueOf("Events"));
@@ -144,6 +143,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     Hints =dataSnapshot.child("hints").getValue().toString();
+                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+ Hints);
                 }
             }
             @Override
@@ -151,7 +151,7 @@ Toast.makeText(getActivity(), "This is my Toast message!",
             }
         });
 
-        return Hints;
+
     }
 
 
@@ -256,8 +256,6 @@ Toast.makeText(getActivity(), "This is my Toast message!",
 
 
 
-
-
     public void LoadImageFromFirebase() {
         Log.d("old", "?");
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("picture/").child("event_pics/").child("1/").child("1.jpg");//hardcoded "picture.png"
@@ -300,12 +298,13 @@ Toast.makeText(getActivity(), "This is my Toast message!",
                     }
 
                 if (!correct) {
-                    ShowDialog("Wrong answer.. try again!", "Please try again... want a hint? "+getHints(getRound()));
+                    getHints(Integer.parseInt(String.valueOf(T_Round.getText())));
                 } else {
                         //CheckStatus(Tname);
                        // RefreshPage(Tname);
                         //Timerz.start();
                     //ShowDialog("Correct!", "Now you're waiting for your teammates to also input the answer! - To move on to the next phase!");
+                    answerBox.setText("");
                 }
             }
 
@@ -344,6 +343,10 @@ Toast.makeText(getActivity(), "This is my Toast message!",
                 if(snapshot.child("Round").getValue(Integer.class).equals(snapshot.child("Score").getValue(Integer.class))) {
                     EventRef.child(String.valueOf(EventID)).child("Teams").child(Tname).child("Round").setValue(snapshot.child("Round").getValue(Integer.class) + 1);
                     LoadImageFromFirebase(snapshot.child("Members").child(Android_ID).child("Role").getValue(Integer.class), snapshot.child("Round").getValue(Integer.class)+1);
+                }
+                else if (snapshot.child("Round").getValue(Integer.class).equals(4)){
+                    Intent intent = new Intent(getApplicationContext(), Leaderboard.class);
+                    startActivity(intent);
                 }
                 }
 

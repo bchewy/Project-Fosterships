@@ -48,14 +48,14 @@ public class Leaderboard extends AppCompatActivity {
     FirebaseDatabase mFirebase;
     DatabaseReference mRef;
     Query sort;
-    String EventID;
+    int EventID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
         mPref = PreferenceManager.getDefaultSharedPreferences(this);
-        EventID = mPref.getString("EventID","Default");
+        EventID = mPref.getInt("EventID",0);
         //Actionbar
         //ActionBar actionBar = getSupportActionBar();
         //setTitle
@@ -69,7 +69,7 @@ public class Leaderboard extends AppCompatActivity {
         mLeaderboard.setLayoutManager(new LinearLayoutManager(this));
 
         mFirebase = FirebaseDatabase.getInstance();
-        mRef = FirebaseDatabase.getInstance().getReference("Events").child("3518").child("Teams");
+        mRef = FirebaseDatabase.getInstance().getReference("Events").child(String.valueOf(EventID)).child("Teams");
         sort = mRef.orderByChild("Score");
     }
 
